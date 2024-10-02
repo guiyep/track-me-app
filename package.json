@@ -1,0 +1,32 @@
+{
+  "name": "track-me-app",
+  "version": "0.1.0",
+  "description": "TBD",
+  "author": "guiyep",
+  "license": "MIT",
+  "repository": "guiyep/track-me-app",
+  "engines": {
+    "node": ">=18",
+    "npm": ">=6"
+  },
+  "scripts": {},
+  "devDependencies": {},
+  "dependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn test && lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "yarn run prettier",
+      "yarn run eslint"
+    ]
+  },
+  "private": true,
+  "workspaces": [
+    "packages/cloud",
+    "packages/fe",
+    "packages/shared"
+  ]
+}
