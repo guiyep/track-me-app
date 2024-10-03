@@ -9,8 +9,28 @@
     "node": ">=18",
     "npm": ">=6"
   },
-  "scripts": {},
-  "devDependencies": {},
+  "scripts": {
+    "test": "jest",
+    "prettier": "prettier --write ./packages",
+    "eslint": "eslint . --fix"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/js": "^9.11.1",
+    "@types/jest": "29.5.3",
+    "@types/node": "22.7.4",
+    "babel-jest": "29.7.0",
+    "eslint": "9.11.1",
+    "eslint-config-prettier": "9.1.0",
+    "husky": "9.1.6",
+    "lint-staged": "15.2.10",
+    "prettier": "3.3.3",
+    "ts-jest": "29.1.1",
+    "ts-node": "10.9.1",
+    "tslib": "2.6.1",
+    "typescript": "5.1.6",
+    "typescript-eslint": "^8.8.0"
+  },
   "dependencies": {},
   "husky": {
     "hooks": {
