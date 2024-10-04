@@ -12,7 +12,8 @@
   "scripts": {
     "test": "jest",
     "prettier": "prettier --write ./packages",
-    "eslint": "eslint . --fix"
+    "eslint": "eslint . --fix",
+    "lint-s": "lint-staged"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.1.0",
@@ -38,7 +39,7 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx}": [
+    "*.{js,jsx,ts,tsx}": [
       "yarn run prettier",
       "yarn run eslint"
     ]
