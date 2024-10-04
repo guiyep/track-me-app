@@ -3,6 +3,18 @@ import tseslint from 'typescript-eslint';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import importPlugin from 'eslint-plugin-import';
 
+const rulesConfigOverrides = {
+  rules: {
+    'eol-last': ['error', 'always'],
+    'import/prefer-default-export': 'off',
+    'import/no-unresolved': 'off',
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'no-plusplus': 'off',
+    'no-use-before-define': 'off',
+    'prefer-destructuring': 'off',
+  },
+};
+
 export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
@@ -29,15 +41,3 @@ export default tseslint.config(
   },
   rulesConfigOverrides,
 );
-
-const rulesConfigOverrides = {
-  rules: {
-    'eol-last': ['error', 'always'],
-    'import/prefer-default-export': 'off',
-    'import/no-unresolved': 'off',
-    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
-    'no-plusplus': 'off',
-    'no-use-before-define': 'off',
-    'prefer-destructuring': 'off',
-  },
-};
