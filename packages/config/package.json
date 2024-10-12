@@ -1,7 +1,9 @@
 {
-  "name": "@track-me-app/linting",
+  "name": "@track-me-app/config",
   "version": "0.1.0",
   "description": "TBD",
+  "main": "index.mjs",
+  "type": "module",
   "author": "guiyep",
   "license": "MIT",
   "repository": "guiyep/track-me-app",
@@ -23,7 +25,6 @@
     "eslint": "9.11.1",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import": "^2.31.0",
-    "pinst": "^3.0.0",
     "prettier": "3.3.3",
     "ts-node": "10.9.1",
     "tslib": "2.6.1",

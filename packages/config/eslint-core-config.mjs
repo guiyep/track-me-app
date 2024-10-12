@@ -2,9 +2,9 @@ import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import importPlugin from 'eslint-plugin-import';
-import { overrides } from './overrides';
+import { generalRules } from './overrides/general-rules.mjs';
 
-export const eslintNodeConfig = tseslint.config(
+export const defaultEslintCoreConfig = tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
@@ -28,5 +28,5 @@ export const eslintNodeConfig = tseslint.config(
     files: ['**/*.{js,jsx,cjs,mjs}', '*.{js,jsx,cjs,mjs}'],
     extends: [tseslint.configs.disableTypeChecked],
   },
-  overrides,
+  generalRules,
 );

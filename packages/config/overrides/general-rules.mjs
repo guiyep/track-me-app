@@ -1,4 +1,4 @@
-export const overrides = {
+export const generalRules = {
   rules: {
     'eol-last': ['error', 'always'],
     'import/prefer-default-export': 'off',
