@@ -1,14 +1,14 @@
-import eslint from '@eslint/js';
+import eslintPkg from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import eslintConfigPrettier from 'eslint-config-prettier';
-import importPlugin from 'eslint-plugin-import';
+// import importPlugin from 'eslint-plugin-import';
 import { generalRules } from './overrides/general-rules.mjs';
 
-export const defaultEslintCoreConfig = tseslint.config(
-  eslint.configs.recommended,
+const defaultEslintCoreConfig = tseslint.config(
+  eslintPkg.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
-  importPlugin.flatConfigs.recommended,
+  // importPlugin.flatConfigs.recommended,
   eslintConfigPrettier,
   {
     languageOptions: {
@@ -18,7 +18,6 @@ export const defaultEslintCoreConfig = tseslint.config(
       },
       parserOptions: {
         projectService: true,
-        tsconfigRootDir: import.meta.dirname,
       },
       ecmaVersion: 'latest',
       sourceType: 'module',
@@ -30,3 +29,7 @@ export const defaultEslintCoreConfig = tseslint.config(
   },
   generalRules,
 );
+
+export const eslint = () => {
+  return defaultEslintCoreConfig;
+};

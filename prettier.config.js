@@ -1,3 +1,3 @@
-import { defaultPrettierConfig } from '@track-me-app/config';
+import { prettier } from '@track-me-app/config';
 
-export default defaultPrettierConfig;
+export default prettier();

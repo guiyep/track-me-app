@@ -1,3 +1,3 @@
-import { defaultEslintCoreConfig } from '@track-me-app/config';
+import { eslint } from '@track-me-app/config';
 
-export default defaultEslintCoreConfig;
+export default eslint();

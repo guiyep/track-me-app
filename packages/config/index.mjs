@@ -1,2 +1,2 @@
-export { defaultEslintCoreConfig } from './eslint-core-config.mjs';
-export { defaultPrettierConfig } from './prettier.mjs';
+export { eslint } from './eslint.mjs';
+export { prettier } from './prettier.mjs';
