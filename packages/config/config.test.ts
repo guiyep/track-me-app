@@ -1,5 +1,5 @@
-import { eslint } from './eslint.mjs';
-import { prettier } from './prettier.mjs';
+import { eslint } from './eslint.js';
+import { prettier } from './prettier.js';
 
 describe('Configs', () => {
   test('eslint', () => {

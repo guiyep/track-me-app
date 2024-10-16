@@ -2,7 +2,7 @@ import eslintPkg from '@eslint/js';
 import { config, configs } from 'typescript-eslint';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import importPlugin from 'eslint-plugin-import';
-import { generalRules, importRules } from './overrides.mjs';
+import { generalRules, importRules } from './overrides.js';
 
 const defaultEslintCoreConfig = config(
   eslintPkg.configs.recommended,
