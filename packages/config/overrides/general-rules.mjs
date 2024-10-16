@@ -4,6 +4,7 @@ export const generalRules = {
     'no-plusplus': 'off',
     'no-use-before-define': 'off',
     'prefer-destructuring': 'off',
+    'no-console': 'error',
   },
 };
 

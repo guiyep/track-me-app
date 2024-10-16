@@ -17224,6 +17224,7 @@ If your function does not access \`this\`, you can annotate it with \`this: void
       "no-empty-function": "off",
     },
   },
+  {},
   {
     "rules": {
       "@babel/object-curly-spacing": "off",
@@ -17497,14 +17498,42 @@ If your function does not access \`this\`, you can annotate it with \`this: void
     ],
   },
   {
+    "settings": {
+      "import/parsers": {
+        "@typescript-eslint/parser": [
+          ".ts",
+          ".tsx",
+        ],
+      },
+      "import/resolver": {
+        "typescript": {
+          "alwaysTryTypes": true,
+        },
+      },
+    },
+  },
+  {
     "rules": {
       "eol-last": [
         "error",
         "always",
       ],
+      "no-console": "error",
       "no-plusplus": "off",
       "no-use-before-define": "off",
       "prefer-destructuring": "off",
+    },
+  },
+  {
+    "rules": {
+      "import/no-extraneous-dependencies": [
+        "error",
+        {
+          "devDependencies": true,
+        },
+      ],
+      "import/no-unresolved": "off",
+      "import/prefer-default-export": "off",
     },
   },
 ]

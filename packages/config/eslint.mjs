@@ -1,14 +1,14 @@
 import eslintPkg from '@eslint/js';
-import tseslint from 'typescript-eslint';
+import { config, configs } from 'typescript-eslint';
 import eslintConfigPrettier from 'eslint-config-prettier';
-// import importPlugin from 'eslint-plugin-import';
-import { generalRules } from './overrides/general-rules.mjs';
+import importPlugin from 'eslint-plugin-import';
+import { generalRules, importRules } from './overrides/general-rules.mjs';
 
-const defaultEslintCoreConfig = tseslint.config(
+const defaultEslintCoreConfig = config(
   eslintPkg.configs.recommended,
-  ...tseslint.configs.strictTypeChecked,
-  ...tseslint.configs.stylisticTypeChecked,
-  // importPlugin.flatConfigs.recommended,
+  ...configs.strictTypeChecked,
+  ...configs.stylisticTypeChecked,
+  importPlugin?.flatConfigs?.recommended || {},
   eslintConfigPrettier,
   {
     languageOptions: {
@@ -25,9 +25,22 @@ const defaultEslintCoreConfig = tseslint.config(
   },
   {
     files: ['**/*.{js,jsx,cjs,mjs}', '*.{js,jsx,cjs,mjs}'],
-    extends: [tseslint.configs.disableTypeChecked],
+    extends: [configs.disableTypeChecked],
+  },
+  {
+    settings: {
+      'import/parsers': {
+        '@typescript-eslint/parser': ['.ts', '.tsx'],
+      },
+      'import/resolver': {
+        typescript: {
+          alwaysTryTypes: true,
+        },
+      },
+    },
   },
   generalRules,
+  importRules,
 );
 
 export const eslint = () => {
