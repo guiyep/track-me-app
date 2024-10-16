@@ -72,7 +72,7 @@ exports[`Configs eslint 1`] = `
       "parser": {
         "meta": {
           "name": "typescript-eslint/parser",
-          "version": "8.8.1",
+          "version": "8.9.0",
         },
         "parseForESLint": [Function],
       },
@@ -823,7 +823,7 @@ exports[`Configs eslint 1`] = `
         },
         "meta": {
           "name": "@typescript-eslint/eslint-plugin",
-          "version": "8.8.1",
+          "version": "8.9.0",
         },
         "rules": {
           "adjacent-overload-signatures": {
@@ -7158,6 +7158,7 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
               },
               "messages": {
                 "notLiteral": "Explicit enum value must only be a literal value (string or number).",
+                "notLiteralOrBitwiseExpression": "Explicit enum value must only be a literal value (string or number) or a bitwise expression.",
               },
               "schema": [
                 {
@@ -8689,7 +8690,7 @@ If your function does not access \`this\`, you can annotate it with \`this: void
       "parser": {
         "meta": {
           "name": "typescript-eslint/parser",
-          "version": "8.8.1",
+          "version": "8.9.0",
         },
         "parseForESLint": [Function],
       },
@@ -9440,7 +9441,7 @@ If your function does not access \`this\`, you can annotate it with \`this: void
         },
         "meta": {
           "name": "@typescript-eslint/eslint-plugin",
-          "version": "8.8.1",
+          "version": "8.9.0",
         },
         "rules": {
           "adjacent-overload-signatures": {
@@ -15775,6 +15776,7 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
               },
               "messages": {
                 "notLiteral": "Explicit enum value must only be a literal value (string or number).",
+                "notLiteralOrBitwiseExpression": "Explicit enum value must only be a literal value (string or number) or a bitwise expression.",
               },
               "schema": [
                 {
