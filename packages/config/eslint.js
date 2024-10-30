@@ -43,6 +43,6 @@ const defaultEslintCoreConfig = config(
   importRules,
 );
 
-export const eslint = () => {
-  return defaultEslintCoreConfig;
+export const eslint = (overrides = []) => {
+  return [...defaultEslintCoreConfig, ...(overrides || [])];
 };
