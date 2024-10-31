@@ -12,6 +12,6 @@ export const importRules = {
   rules: {
     'import/prefer-default-export': 'off',
     'import/no-unresolved': 'off',
-    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'import/no-extraneous-dependencies': 'off',
   },
 };

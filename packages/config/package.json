@@ -19,6 +19,7 @@
     "prepare": "husky"
   },
   "devDependencies": {
+    "@track-me-app/shared": "0.1.0",
     "@eslint/eslintrc": "^3.1.0",
     "@eslint/js": "^9.11.1",
     "@types/node": "22.7.4",
@@ -31,7 +32,10 @@
     "ts-node": "10.9.1",
     "tslib": "2.6.1",
     "typescript": "5.1.6",
-    "typescript-eslint": "^8.8.0"
+    "typescript-eslint": "^8.8.0",
+    "@types/jest": "29.5.3",
+    "babel-jest": "29.7.0",
+    "ts-jest": "29.1.1"
   },
   "dependencies": {}
 }

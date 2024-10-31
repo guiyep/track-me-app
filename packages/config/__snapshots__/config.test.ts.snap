@@ -17528,12 +17528,7 @@ If your function does not access \`this\`, you can annotate it with \`this: void
   },
   {
     "rules": {
-      "import/no-extraneous-dependencies": [
-        "error",
-        {
-          "devDependencies": true,
-        },
-      ],
+      "import/no-extraneous-dependencies": "off",
       "import/no-unresolved": "off",
       "import/prefer-default-export": "off",
     },
