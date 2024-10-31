@@ -12,10 +12,7 @@
   },
   "devDependencies": {
     "jest": "^29.6.1",
-    "jest-environment-jsdom": "^29.6.1",
-    "ts-jest": "^29.1.1",
     "@types/jest": "^29.5.3",
-    "babel-jest": "^27.4.2",
     "@types/node": "22.5.4",
     "aws-cdk": "2.159.1",
     "ts-node": "10.9.1",

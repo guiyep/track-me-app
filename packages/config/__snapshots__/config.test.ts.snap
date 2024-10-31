@@ -72,7 +72,7 @@ exports[`Configs eslint 1`] = `
       "parser": {
         "meta": {
           "name": "typescript-eslint/parser",
-          "version": "8.9.0",
+          "version": "8.12.2",
         },
         "parseForESLint": [Function],
       },
@@ -823,7 +823,7 @@ exports[`Configs eslint 1`] = `
         },
         "meta": {
           "name": "@typescript-eslint/eslint-plugin",
-          "version": "8.9.0",
+          "version": "8.12.2",
         },
         "rules": {
           "adjacent-overload-signatures": {
@@ -1036,6 +1036,7 @@ exports[`Configs eslint 1`] = `
               },
               "schema": [
                 {
+                  "description": "Which literal class member syntax to prefer.",
                   "enum": [
                     "fields",
                     "getters",
@@ -1072,18 +1073,18 @@ exports[`Configs eslint 1`] = `
                   "properties": {
                     "enforceForClassFields": {
                       "default": true,
-                      "description": "Enforces that functions used as instance field initializers utilize \`this\`",
+                      "description": "Enforces that functions used as instance field initializers utilize \`this\`.",
                       "type": "boolean",
                     },
                     "exceptMethods": {
-                      "description": "Allows specified method names to be ignored with this rule",
+                      "description": "Allows specified method names to be ignored with this rule.",
                       "items": {
                         "type": "string",
                       },
                       "type": "array",
                     },
                     "ignoreClassesThatImplementAnInterface": {
-                      "description": "Ignore classes that specifically implement some interface",
+                      "description": "Makes the rule ignore class members that are defined within a class that \`implements\` a type",
                       "oneOf": [
                         {
                           "description": "Ignore all classes that implement an interface",
@@ -1127,6 +1128,7 @@ exports[`Configs eslint 1`] = `
               },
               "schema": [
                 {
+                  "description": "Which constructor call syntax to prefer.",
                   "enum": [
                     "type-annotation",
                     "constructor",
@@ -1155,6 +1157,7 @@ exports[`Configs eslint 1`] = `
               },
               "schema": [
                 {
+                  "description": "Which indexed object syntax to prefer.",
                   "enum": [
                     "record",
                     "index-signature",
@@ -1293,6 +1296,7 @@ exports[`Configs eslint 1`] = `
               },
               "schema": [
                 {
+                  "description": "Which type definition syntax to prefer.",
                   "enum": [
                     "interface",
                     "type",
@@ -1586,6 +1590,7 @@ exports[`Configs eslint 1`] = `
                   "properties": {
                     "accessibility": {
                       "$ref": "#/items/0/$defs/accessibilityLevel",
+                      "description": "Which accessibility modifier is required to exist or not exist.",
                     },
                     "ignoredMethodNames": {
                       "description": "Specific method names that may be ignored.",
@@ -1596,6 +1601,7 @@ exports[`Configs eslint 1`] = `
                     },
                     "overrides": {
                       "additionalProperties": false,
+                      "description": "Changes to required accessibility modifiers for specific kinds of class members.",
                       "properties": {
                         "accessors": {
                           "$ref": "#/items/0/$defs/accessibilityLevel",
@@ -4285,7 +4291,7 @@ You must still type the parameters of the function.",
             ],
             "meta": {
               "docs": {
-                "description": "Require \`.toString()\` to only be called on objects which provide useful information when stringified",
+                "description": "Require \`.toString()\` and \`.toLocaleString()\` to only be called on objects which provide useful information when stringified",
                 "recommended": "recommended",
                 "requiresTypeChecking": true,
                 "url": "https://typescript-eslint.io/rules/no-base-to-string",
@@ -5173,9 +5179,11 @@ You must still type the parameters of the function.",
                       "description": "Whether \`void\` can be used as a valid value for generic type parameters.",
                       "oneOf": [
                         {
+                          "description": "Whether \`void\` can be used as a valid value for all generic type parameters.",
                           "type": "boolean",
                         },
                         {
+                          "description": "Allowlist of types that may accept \`void\` as a generic type parameter.",
                           "items": {
                             "type": "string",
                           },
@@ -5397,6 +5405,7 @@ You must still type the parameters of the function.",
                   "additionalProperties": false,
                   "properties": {
                     "checksConditionals": {
+                      "description": "Whether to warn when a Promise is provided to conditional statements.",
                       "type": "boolean",
                     },
                     "checksSpreads": {
@@ -5404,12 +5413,15 @@ You must still type the parameters of the function.",
                       "type": "boolean",
                     },
                     "checksVoidReturn": {
+                      "description": "Whether to warn when a Promise is returned from a function typed as returning \`void\`.",
                       "oneOf": [
                         {
+                          "description": "Whether to disable checking all asynchronous functions.",
                           "type": "boolean",
                         },
                         {
                           "additionalProperties": false,
+                          "description": "Which forms of functions may have checking disabled.",
                           "properties": {
                             "arguments": {
                               "description": "Disables checking an asynchronous function passed as argument where the parameter type expects a function that returns \`void\`.",
@@ -5704,7 +5716,7 @@ You must still type the parameters of the function.",
                               "type": "array",
                             },
                             "allowTypeImports": {
-                              "description": "Disallow value imports, but allow type-only imports.",
+                              "description": "Whether to allow type-only imports for a path.",
                               "type": "boolean",
                             },
                             "importNames": {
@@ -5753,7 +5765,7 @@ You must still type the parameters of the function.",
                                       "type": "array",
                                     },
                                     "allowTypeImports": {
-                                      "description": "Disallow value imports, but allow type-only imports.",
+                                      "description": "Whether to allow type-only imports for a path.",
                                       "type": "boolean",
                                     },
                                     "importNames": {
@@ -5805,7 +5817,7 @@ You must still type the parameters of the function.",
                                       "uniqueItems": true,
                                     },
                                     "allowTypeImports": {
-                                      "description": "Disallow value imports, but allow type-only imports.",
+                                      "description": "Whether to allow type-only imports for a path.",
                                       "type": "boolean",
                                     },
                                     "caseSensitive": {
@@ -5879,26 +5891,26 @@ You must still type the parameters of the function.",
                     "banConfig": {
                       "oneOf": [
                         {
-                          "description": "Bans the type with the default message",
+                          "description": "Bans the type with the default message.",
                           "enum": [
                             true,
                           ],
                           "type": "boolean",
                         },
                         {
-                          "description": "Bans the type with a custom message",
+                          "description": "Bans the type with a custom message.",
                           "type": "string",
                         },
                         {
                           "additionalProperties": false,
-                          "description": "Bans a type",
+                          "description": "Bans a type.",
                           "properties": {
                             "fixWith": {
                               "description": "Type to autofix replace with. Note that autofixers can be applied automatically - so you need to be careful with this option.",
                               "type": "string",
                             },
                             "message": {
-                              "description": "Custom error message",
+                              "description": "Custom error message.",
                               "type": "string",
                             },
                             "suggest": {
@@ -5920,6 +5932,7 @@ You must still type the parameters of the function.",
                       "additionalProperties": {
                         "$ref": "#/items/0/$defs/banConfig",
                       },
+                      "description": "An object whose keys are the types you want to ban, and the values are error messages.",
                       "type": "object",
                     },
                   },
@@ -6191,7 +6204,6 @@ You must still type the parameters of the function.",
                 "neverOptionalChain": "Unnecessary optional chain on a non-nullish value.",
                 "noOverlapBooleanExpression": "Unnecessary conditional, the types have no overlap.",
                 "noStrictNullCheck": "This rule requires the \`strictNullChecks\` compiler option to be turned on to function correctly.",
-                "replaceWithTrue": "Replace always true expression with \`true\`.",
                 "typeGuardAlreadyIsType": "Unnecessary conditional, expression already has the type being checked by the {{typeGuardOrAssertionFunction}}.",
               },
               "schema": [
@@ -6348,7 +6360,9 @@ You must still type the parameters of the function.",
                 "requiresTypeChecking": true,
                 "url": "https://typescript-eslint.io/rules/no-unnecessary-type-parameters",
               },
+              "hasSuggestions": true,
               "messages": {
+                "replaceUsagesWithConstraint": "Replace all usages of type parameter with its constraint.",
                 "sole": "Type parameter {{name}} is {{uses}} in the {{descriptor}} signature.",
               },
               "schema": [],
@@ -6705,6 +6719,7 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
                       "additionalProperties": false,
                       "properties": {
                         "allowNamedExports": {
+                          "description": "Whether to ignore named exports.",
                           "type": "boolean",
                         },
                         "classes": {
@@ -7041,9 +7056,11 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
                 {
                   "properties": {
                     "enforceForDeclarationWithTypeAnnotation": {
+                      "description": "Whether to enforce destructuring on variable declarations with type annotations.",
                       "type": "boolean",
                     },
                     "enforceForRenamedProperties": {
+                      "description": "Whether to enforce destructuring that use a different variable name than the property name.",
                       "type": "boolean",
                     },
                   },
@@ -7218,9 +7235,9 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
               "hasSuggestions": true,
               "messages": {
                 "noStrictNullCheck": "This rule requires the \`strictNullChecks\` compiler option to be turned on to function correctly.",
-                "preferNullishOverOr": "Prefer using nullish coalescing operator (\`??\`) instead of a logical or (\`||\`), as it is a safer operator.",
-                "preferNullishOverTernary": "Prefer using nullish coalescing operator (\`??\`) instead of a ternary expression, as it is simpler to read.",
-                "suggestNullish": "Fix to nullish coalescing operator (\`??\`).",
+                "preferNullishOverOr": "Prefer using nullish coalescing operator (\`??{{ equals }}\`) instead of a logical {{ description }} (\`||{{ equals }}\`), as it is a safer operator.",
+                "preferNullishOverTernary": "Prefer using nullish coalescing operator (\`??{{ equals }}\`) instead of a ternary expression, as it is simpler to read.",
+                "suggestNullish": "Fix to nullish coalescing operator (\`??{{ equals }}\`).",
               },
               "schema": [
                 {
@@ -7242,23 +7259,29 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
                       "description": "Whether to ignore all (\`true\`) or some (an object with properties) primitive types.",
                       "oneOf": [
                         {
+                          "description": "Which primitives types may be ignored.",
                           "properties": {
                             "bigint": {
+                              "description": "Ignore bigint primitive types.",
                               "type": "boolean",
                             },
                             "boolean": {
+                              "description": "Ignore boolean primitive types.",
                               "type": "boolean",
                             },
                             "number": {
+                              "description": "Ignore number primitive types.",
                               "type": "boolean",
                             },
                             "string": {
+                              "description": "Ignore string primitive types.",
                               "type": "boolean",
                             },
                           },
                           "type": "object",
                         },
                         {
+                          "description": "Ignore all primitive types.",
                           "enum": [
                             true,
                           ],
@@ -8160,15 +8183,15 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
                   "additionalProperties": false,
                   "properties": {
                     "caseSensitive": {
-                      "description": "Whether to sort using case sensitive sorting.",
+                      "description": "Whether to sort using case sensitive string comparisons.",
                       "type": "boolean",
                     },
                     "checkIntersections": {
-                      "description": "Whether to check intersection types.",
+                      "description": "Whether to check intersection types (\`&\`).",
                       "type": "boolean",
                     },
                     "checkUnions": {
-                      "description": "Whether to check union types.",
+                      "description": "Whether to check union types (\`|\`).",
                       "type": "boolean",
                     },
                     "groupOrder": {
@@ -8252,7 +8275,7 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
                   "additionalProperties": false,
                   "properties": {
                     "allowAny": {
-                      "description": "Whether to allow \`any\` in a boolean context.",
+                      "description": "Whether to allow \`any\`s in a boolean context.",
                       "type": "boolean",
                     },
                     "allowNullableBoolean": {
@@ -8268,7 +8291,7 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
                       "type": "boolean",
                     },
                     "allowNullableObject": {
-                      "description": "Whether to allow nullable \`object\`s in a boolean context.",
+                      "description": "Whether to allow nullable \`object\`s, \`symbol\`s, and functions in a boolean context.",
                       "type": "boolean",
                     },
                     "allowNullableString": {
@@ -8276,14 +8299,15 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
                       "type": "boolean",
                     },
                     "allowNumber": {
-                      "description": "Whether to allow \`number\` in a boolean context.",
+                      "description": "Whether to allow \`number\`s in a boolean context.",
                       "type": "boolean",
                     },
                     "allowRuleToRunWithoutStrictNullChecksIKnowWhatIAmDoing": {
+                      "description": "Unless this is set to \`true\`, the rule will error on every file whose \`tsconfig.json\` does _not_ have the \`strictNullChecks\` compiler option (or \`strict\`) set to \`true\`.",
                       "type": "boolean",
                     },
                     "allowString": {
-                      "description": "Whether to allow \`string\` in a boolean context.",
+                      "description": "Whether to allow \`string\`s in a boolean context.",
                       "type": "boolean",
                     },
                   },
@@ -8298,6 +8322,7 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
             "defaultOptions": [
               {
                 "allowDefaultCaseForExhaustiveSwitch": true,
+                "considerDefaultExhaustiveForUnions": false,
                 "requireDefaultForNonUnion": false,
               },
             ],
@@ -8319,6 +8344,10 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
                   "properties": {
                     "allowDefaultCaseForExhaustiveSwitch": {
                       "description": "If 'true', allow 'default' cases on switch statements with exhaustive cases.",
+                      "type": "boolean",
+                    },
+                    "considerDefaultExhaustiveForUnions": {
+                      "description": "If 'true', the 'default' clause is used to determine whether the switch statement is exhaustive for union type",
                       "type": "boolean",
                     },
                     "requireDefaultForNonUnion": {
@@ -8690,7 +8719,7 @@ If your function does not access \`this\`, you can annotate it with \`this: void
       "parser": {
         "meta": {
           "name": "typescript-eslint/parser",
-          "version": "8.9.0",
+          "version": "8.12.2",
         },
         "parseForESLint": [Function],
       },
@@ -9441,7 +9470,7 @@ If your function does not access \`this\`, you can annotate it with \`this: void
         },
         "meta": {
           "name": "@typescript-eslint/eslint-plugin",
-          "version": "8.9.0",
+          "version": "8.12.2",
         },
         "rules": {
           "adjacent-overload-signatures": {
@@ -9654,6 +9683,7 @@ If your function does not access \`this\`, you can annotate it with \`this: void
               },
               "schema": [
                 {
+                  "description": "Which literal class member syntax to prefer.",
                   "enum": [
                     "fields",
                     "getters",
@@ -9690,18 +9720,18 @@ If your function does not access \`this\`, you can annotate it with \`this: void
                   "properties": {
                     "enforceForClassFields": {
                       "default": true,
-                      "description": "Enforces that functions used as instance field initializers utilize \`this\`",
+                      "description": "Enforces that functions used as instance field initializers utilize \`this\`.",
                       "type": "boolean",
                     },
                     "exceptMethods": {
-                      "description": "Allows specified method names to be ignored with this rule",
+                      "description": "Allows specified method names to be ignored with this rule.",
                       "items": {
                         "type": "string",
                       },
                       "type": "array",
                     },
                     "ignoreClassesThatImplementAnInterface": {
-                      "description": "Ignore classes that specifically implement some interface",
+                      "description": "Makes the rule ignore class members that are defined within a class that \`implements\` a type",
                       "oneOf": [
                         {
                           "description": "Ignore all classes that implement an interface",
@@ -9745,6 +9775,7 @@ If your function does not access \`this\`, you can annotate it with \`this: void
               },
               "schema": [
                 {
+                  "description": "Which constructor call syntax to prefer.",
                   "enum": [
                     "type-annotation",
                     "constructor",
@@ -9773,6 +9804,7 @@ If your function does not access \`this\`, you can annotate it with \`this: void
               },
               "schema": [
                 {
+                  "description": "Which indexed object syntax to prefer.",
                   "enum": [
                     "record",
                     "index-signature",
@@ -9911,6 +9943,7 @@ If your function does not access \`this\`, you can annotate it with \`this: void
               },
               "schema": [
                 {
+                  "description": "Which type definition syntax to prefer.",
                   "enum": [
                     "interface",
                     "type",
@@ -10204,6 +10237,7 @@ If your function does not access \`this\`, you can annotate it with \`this: void
                   "properties": {
                     "accessibility": {
                       "$ref": "#/items/0/$defs/accessibilityLevel",
+                      "description": "Which accessibility modifier is required to exist or not exist.",
                     },
                     "ignoredMethodNames": {
                       "description": "Specific method names that may be ignored.",
@@ -10214,6 +10248,7 @@ If your function does not access \`this\`, you can annotate it with \`this: void
                     },
                     "overrides": {
                       "additionalProperties": false,
+                      "description": "Changes to required accessibility modifiers for specific kinds of class members.",
                       "properties": {
                         "accessors": {
                           "$ref": "#/items/0/$defs/accessibilityLevel",
@@ -12903,7 +12938,7 @@ You must still type the parameters of the function.",
             ],
             "meta": {
               "docs": {
-                "description": "Require \`.toString()\` to only be called on objects which provide useful information when stringified",
+                "description": "Require \`.toString()\` and \`.toLocaleString()\` to only be called on objects which provide useful information when stringified",
                 "recommended": "recommended",
                 "requiresTypeChecking": true,
                 "url": "https://typescript-eslint.io/rules/no-base-to-string",
@@ -13791,9 +13826,11 @@ You must still type the parameters of the function.",
                       "description": "Whether \`void\` can be used as a valid value for generic type parameters.",
                       "oneOf": [
                         {
+                          "description": "Whether \`void\` can be used as a valid value for all generic type parameters.",
                           "type": "boolean",
                         },
                         {
+                          "description": "Allowlist of types that may accept \`void\` as a generic type parameter.",
                           "items": {
                             "type": "string",
                           },
@@ -14015,6 +14052,7 @@ You must still type the parameters of the function.",
                   "additionalProperties": false,
                   "properties": {
                     "checksConditionals": {
+                      "description": "Whether to warn when a Promise is provided to conditional statements.",
                       "type": "boolean",
                     },
                     "checksSpreads": {
@@ -14022,12 +14060,15 @@ You must still type the parameters of the function.",
                       "type": "boolean",
                     },
                     "checksVoidReturn": {
+                      "description": "Whether to warn when a Promise is returned from a function typed as returning \`void\`.",
                       "oneOf": [
                         {
+                          "description": "Whether to disable checking all asynchronous functions.",
                           "type": "boolean",
                         },
                         {
                           "additionalProperties": false,
+                          "description": "Which forms of functions may have checking disabled.",
                           "properties": {
                             "arguments": {
                               "description": "Disables checking an asynchronous function passed as argument where the parameter type expects a function that returns \`void\`.",
@@ -14322,7 +14363,7 @@ You must still type the parameters of the function.",
                               "type": "array",
                             },
                             "allowTypeImports": {
-                              "description": "Disallow value imports, but allow type-only imports.",
+                              "description": "Whether to allow type-only imports for a path.",
                               "type": "boolean",
                             },
                             "importNames": {
@@ -14371,7 +14412,7 @@ You must still type the parameters of the function.",
                                       "type": "array",
                                     },
                                     "allowTypeImports": {
-                                      "description": "Disallow value imports, but allow type-only imports.",
+                                      "description": "Whether to allow type-only imports for a path.",
                                       "type": "boolean",
                                     },
                                     "importNames": {
@@ -14423,7 +14464,7 @@ You must still type the parameters of the function.",
                                       "uniqueItems": true,
                                     },
                                     "allowTypeImports": {
-                                      "description": "Disallow value imports, but allow type-only imports.",
+                                      "description": "Whether to allow type-only imports for a path.",
                                       "type": "boolean",
                                     },
                                     "caseSensitive": {
@@ -14497,26 +14538,26 @@ You must still type the parameters of the function.",
                     "banConfig": {
                       "oneOf": [
                         {
-                          "description": "Bans the type with the default message",
+                          "description": "Bans the type with the default message.",
                           "enum": [
                             true,
                           ],
                           "type": "boolean",
                         },
                         {
-                          "description": "Bans the type with a custom message",
+                          "description": "Bans the type with a custom message.",
                           "type": "string",
                         },
                         {
                           "additionalProperties": false,
-                          "description": "Bans a type",
+                          "description": "Bans a type.",
                           "properties": {
                             "fixWith": {
                               "description": "Type to autofix replace with. Note that autofixers can be applied automatically - so you need to be careful with this option.",
                               "type": "string",
                             },
                             "message": {
-                              "description": "Custom error message",
+                              "description": "Custom error message.",
                               "type": "string",
                             },
                             "suggest": {
@@ -14538,6 +14579,7 @@ You must still type the parameters of the function.",
                       "additionalProperties": {
                         "$ref": "#/items/0/$defs/banConfig",
                       },
+                      "description": "An object whose keys are the types you want to ban, and the values are error messages.",
                       "type": "object",
                     },
                   },
@@ -14809,7 +14851,6 @@ You must still type the parameters of the function.",
                 "neverOptionalChain": "Unnecessary optional chain on a non-nullish value.",
                 "noOverlapBooleanExpression": "Unnecessary conditional, the types have no overlap.",
                 "noStrictNullCheck": "This rule requires the \`strictNullChecks\` compiler option to be turned on to function correctly.",
-                "replaceWithTrue": "Replace always true expression with \`true\`.",
                 "typeGuardAlreadyIsType": "Unnecessary conditional, expression already has the type being checked by the {{typeGuardOrAssertionFunction}}.",
               },
               "schema": [
@@ -14966,7 +15007,9 @@ You must still type the parameters of the function.",
                 "requiresTypeChecking": true,
                 "url": "https://typescript-eslint.io/rules/no-unnecessary-type-parameters",
               },
+              "hasSuggestions": true,
               "messages": {
+                "replaceUsagesWithConstraint": "Replace all usages of type parameter with its constraint.",
                 "sole": "Type parameter {{name}} is {{uses}} in the {{descriptor}} signature.",
               },
               "schema": [],
@@ -15323,6 +15366,7 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
                       "additionalProperties": false,
                       "properties": {
                         "allowNamedExports": {
+                          "description": "Whether to ignore named exports.",
                           "type": "boolean",
                         },
                         "classes": {
@@ -15659,9 +15703,11 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
                 {
                   "properties": {
                     "enforceForDeclarationWithTypeAnnotation": {
+                      "description": "Whether to enforce destructuring on variable declarations with type annotations.",
                       "type": "boolean",
                     },
                     "enforceForRenamedProperties": {
+                      "description": "Whether to enforce destructuring that use a different variable name than the property name.",
                       "type": "boolean",
                     },
                   },
@@ -15836,9 +15882,9 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
               "hasSuggestions": true,
               "messages": {
                 "noStrictNullCheck": "This rule requires the \`strictNullChecks\` compiler option to be turned on to function correctly.",
-                "preferNullishOverOr": "Prefer using nullish coalescing operator (\`??\`) instead of a logical or (\`||\`), as it is a safer operator.",
-                "preferNullishOverTernary": "Prefer using nullish coalescing operator (\`??\`) instead of a ternary expression, as it is simpler to read.",
-                "suggestNullish": "Fix to nullish coalescing operator (\`??\`).",
+                "preferNullishOverOr": "Prefer using nullish coalescing operator (\`??{{ equals }}\`) instead of a logical {{ description }} (\`||{{ equals }}\`), as it is a safer operator.",
+                "preferNullishOverTernary": "Prefer using nullish coalescing operator (\`??{{ equals }}\`) instead of a ternary expression, as it is simpler to read.",
+                "suggestNullish": "Fix to nullish coalescing operator (\`??{{ equals }}\`).",
               },
               "schema": [
                 {
@@ -15860,23 +15906,29 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
                       "description": "Whether to ignore all (\`true\`) or some (an object with properties) primitive types.",
                       "oneOf": [
                         {
+                          "description": "Which primitives types may be ignored.",
                           "properties": {
                             "bigint": {
+                              "description": "Ignore bigint primitive types.",
                               "type": "boolean",
                             },
                             "boolean": {
+                              "description": "Ignore boolean primitive types.",
                               "type": "boolean",
                             },
                             "number": {
+                              "description": "Ignore number primitive types.",
                               "type": "boolean",
                             },
                             "string": {
+                              "description": "Ignore string primitive types.",
                               "type": "boolean",
                             },
                           },
                           "type": "object",
                         },
                         {
+                          "description": "Ignore all primitive types.",
                           "enum": [
                             true,
                           ],
@@ -16778,15 +16830,15 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
                   "additionalProperties": false,
                   "properties": {
                     "caseSensitive": {
-                      "description": "Whether to sort using case sensitive sorting.",
+                      "description": "Whether to sort using case sensitive string comparisons.",
                       "type": "boolean",
                     },
                     "checkIntersections": {
-                      "description": "Whether to check intersection types.",
+                      "description": "Whether to check intersection types (\`&\`).",
                       "type": "boolean",
                     },
                     "checkUnions": {
-                      "description": "Whether to check union types.",
+                      "description": "Whether to check union types (\`|\`).",
                       "type": "boolean",
                     },
                     "groupOrder": {
@@ -16870,7 +16922,7 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
                   "additionalProperties": false,
                   "properties": {
                     "allowAny": {
-                      "description": "Whether to allow \`any\` in a boolean context.",
+                      "description": "Whether to allow \`any\`s in a boolean context.",
                       "type": "boolean",
                     },
                     "allowNullableBoolean": {
@@ -16886,7 +16938,7 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
                       "type": "boolean",
                     },
                     "allowNullableObject": {
-                      "description": "Whether to allow nullable \`object\`s in a boolean context.",
+                      "description": "Whether to allow nullable \`object\`s, \`symbol\`s, and functions in a boolean context.",
                       "type": "boolean",
                     },
                     "allowNullableString": {
@@ -16894,14 +16946,15 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
                       "type": "boolean",
                     },
                     "allowNumber": {
-                      "description": "Whether to allow \`number\` in a boolean context.",
+                      "description": "Whether to allow \`number\`s in a boolean context.",
                       "type": "boolean",
                     },
                     "allowRuleToRunWithoutStrictNullChecksIKnowWhatIAmDoing": {
+                      "description": "Unless this is set to \`true\`, the rule will error on every file whose \`tsconfig.json\` does _not_ have the \`strictNullChecks\` compiler option (or \`strict\`) set to \`true\`.",
                       "type": "boolean",
                     },
                     "allowString": {
-                      "description": "Whether to allow \`string\` in a boolean context.",
+                      "description": "Whether to allow \`string\`s in a boolean context.",
                       "type": "boolean",
                     },
                   },
@@ -16916,6 +16969,7 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
             "defaultOptions": [
               {
                 "allowDefaultCaseForExhaustiveSwitch": true,
+                "considerDefaultExhaustiveForUnions": false,
                 "requireDefaultForNonUnion": false,
               },
             ],
@@ -16937,6 +16991,10 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
                   "properties": {
                     "allowDefaultCaseForExhaustiveSwitch": {
                       "description": "If 'true', allow 'default' cases on switch statements with exhaustive cases.",
+                      "type": "boolean",
+                    },
+                    "considerDefaultExhaustiveForUnions": {
+                      "description": "If 'true', the 'default' clause is used to determine whether the switch statement is exhaustive for union type",
                       "type": "boolean",
                     },
                     "requireDefaultForNonUnion": {
