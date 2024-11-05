@@ -37,6 +37,7 @@
   },
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "packages/stack-constructs/*"
   ]
 }

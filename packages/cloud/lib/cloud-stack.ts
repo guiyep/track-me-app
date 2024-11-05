@@ -1,16 +1,11 @@
-// import * as cdk from 'aws-cdk-lib';
-// import { Construct } from 'constructs';
-// // import * as sqs from 'aws-cdk-lib/aws-sqs';
+import * as cdk from 'aws-cdk-lib';
+import { Construct } from 'constructs';
+import { GpsQueue } from '@track-me-app/gps-queue';
 
-// export class CloudStack extends cdk.Stack {
-//   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
-//     super(scope, id, props);
+export class CloudStack extends cdk.Stack {
+  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
 
-//     // The code that defines your stack goes here
-
-//     // example resource
-//     // const queue = new sqs.Queue(this, 'CloudQueue', {
-//     //   visibilityTimeout: cdk.Duration.seconds(300)
-//     // });
-//   }
-// }
+    new GpsQueue(scope, id);
+  }
+}

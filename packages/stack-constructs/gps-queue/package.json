@@ -1,15 +1,8 @@
 {
-  "name": "@track-me-app/cloud",
+  "name": "@track-me-app/gps-queue",
   "version": "0.1.0",
-  "bin": {
-    "cloud": "bin/cloud.js"
-  },
-  "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
-    "test": "jest",
-    "cdk": "cdk"
-  },
+  "type": "module",
+  "main": "src/index.ts",
   "devDependencies": {
     "jest": "^29.6.1",
     "@types/jest": "^29.5.3",
@@ -19,7 +12,6 @@
     "typescript": "5.1.6"
   },
   "dependencies": {
-    "@track-me-app/gps-queue": "0.1.0",
     "aws-cdk-lib": "2.159.1",
     "constructs": "^10.0.0",
     "source-map-support": "^0.5.21"
