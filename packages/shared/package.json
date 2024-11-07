@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "TBD",
   "author": "guiyep",
+  "main": "src/index.ts",
   "license": "MIT",
   "type": "module",
   "repository": "guiyep/track-me-app",

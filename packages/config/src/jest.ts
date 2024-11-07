@@ -1,5 +1,5 @@
 import type { Config } from '@jest/types';
-import { warn } from '@track-me-app/shared/logger';
+import { logger } from '@track-me-app/shared';
 
 // Sync object
 const config: Config.InitialOptions = {
@@ -15,7 +15,7 @@ const config: Config.InitialOptions = {
 export const jest = (
   overrides?: Config.InitialOptions,
 ): Config.InitialOptions => {
-  warn({ message: '-------- Running JEST with gpolit Config --------' });
+  logger.warn({ message: '-------- Running JEST with gpolit Config --------' });
 
   const mergedConfig = {
     ...config,

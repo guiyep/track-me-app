@@ -3,7 +3,7 @@ import { config, configs } from 'typescript-eslint';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import importPlugin from 'eslint-plugin-import';
 import { generalRules, importRules } from './overrides.js';
-import { warn } from '@track-me-app/shared/logger/legacy.js';
+import { warn } from '@track-me-app/shared/src/logger/legacy.js';
 
 const defaultEslintCoreConfig = config(
   eslintPkg.configs.recommended,

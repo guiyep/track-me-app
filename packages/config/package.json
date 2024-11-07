@@ -2,7 +2,7 @@
   "name": "@track-me-app/config",
   "version": "0.1.0",
   "description": "TBD",
-  "main": "index.js",
+  "main": "src/index.ts",
   "type": "module",
   "author": "guiyep",
   "license": "MIT",
