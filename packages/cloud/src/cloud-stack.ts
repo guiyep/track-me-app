@@ -6,6 +6,6 @@ export class CloudStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    new GpsQueue(scope, id);
+    new GpsQueue(this, id);
   }
 }

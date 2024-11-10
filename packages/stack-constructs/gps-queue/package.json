@@ -1,7 +1,6 @@
 {
   "name": "@track-me-app/gps-queue",
   "version": "0.1.0",
-  "type": "module",
   "main": "src/index.ts",
   "devDependencies": {
     "jest": "^29.6.1",
