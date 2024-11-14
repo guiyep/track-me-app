@@ -15,7 +15,11 @@
     "prettier": "prettier --write ./packages",
     "eslint": "eslint . --fix",
     "lint-s": "lint-staged",
-    "prepare": "husky"
+    "prepare": "husky",
+    "localstack-start": "zsh ./scripts/localstack-start.sh",
+    "localstack-update": "zsh ./scripts/localstack-update.sh",
+    "localstack-destroy": "zsh ./scripts/localstack-destroy.sh",
+    "localstack-restart": "yarn run clouddestroy; yarn run cloudstart"
   },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.25.7",
