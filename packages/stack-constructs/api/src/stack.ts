@@ -18,11 +18,10 @@ export class Api extends Construct {
     const api = new NodejsFunction(this, NAMES.Lambda, {
       functionName: NAMES.Lambda,
       runtime: Runtime.NODEJS_LATEST,
-      entry: path.join(__dirname, '../src/lambda/index.ts'), // Path to TypeScript file
-      handler: 'handler', // The exported function name
+      entry: path.join(__dirname, '../src/lambda/index.ts'),
+      handler: 'handler',
     });
 
-    // defines an API Gateway REST API resource backed by our "hello" function.
     new LambdaRestApi(this, NAMES.ApiGateway, {
       handler: api,
     });
