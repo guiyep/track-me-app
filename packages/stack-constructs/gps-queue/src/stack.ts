@@ -11,6 +11,7 @@ export class GpsQueue extends Construct {
 
     this.queue = new sqs.Queue(this, NAMES.Sqs, {
       visibilityTimeout: cdk.Duration.seconds(CONFIGURATIONS.VisibilityTimeout),
+      queueName: NAMES.Sqs,
     });
   }
 }

@@ -12,10 +12,12 @@ export interface ApiProps {
 }
 
 export class Api extends Construct {
+  public lambdaApi: NodejsFunction;
+
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
-    const api = new NodejsFunction(this, NAMES.Lambda, {
+    this.lambdaApi = new NodejsFunction(this, NAMES.Lambda, {
       functionName: NAMES.Lambda,
       runtime: Runtime.NODEJS_LATEST,
       entry: path.join(__dirname, '../src/lambda/index.ts'),
@@ -23,7 +25,8 @@ export class Api extends Construct {
     });
 
     new LambdaRestApi(this, NAMES.ApiGateway, {
-      handler: api,
+      handler: this.lambdaApi,
+      restApiName: NAMES.ApiGateway,
     });
   }
 }
