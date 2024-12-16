@@ -1,5 +1,5 @@
 import type { Config } from '@jest/types';
-import { logger } from '@track-me-app/shared';
+import { logger } from '@track-me-app/logger';
 
 // Sync object
 const config: Config.InitialOptions = {

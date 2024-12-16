@@ -19,7 +19,7 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "@track-me-app/shared": "0.1.0",
+    "@track-me-app/logger": "0.1.0",
     "@eslint/eslintrc": "^3.1.0",
     "@eslint/js": "^9.11.1",
     "@types/node": "22.7.4",

@@ -1,0 +1,15 @@
+{
+  "name": "@track-me-app/be-entities",
+  "version": "0.1.0",
+  "main": "src/index.ts",
+  "devDependencies": {
+    "jest": "^29.6.1",
+    "@types/jest": "^29.5.3",
+    "typescript": "5.1.6"
+  },
+  "dependencies": {
+    "@track-me-app/entities": "0.1.0",
+    "@track-me-app/logger": "0.1.0",
+    "zod": "3.24.1"
+  }
+}

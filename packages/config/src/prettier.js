@@ -1,4 +1,4 @@
-import { warn } from '@track-me-app/shared/src/logger/legacy.js';
+import { warn } from '@track-me-app/logger/src/logger/legacy.js';
 
 const defaultPrettierConfig = {
   printWidth: 80,

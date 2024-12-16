@@ -1,26 +1,21 @@
 {
-  "name": "@track-me-app/shared",
+  "name": "@track-me-app/entities",
   "version": "0.1.0",
   "description": "TBD",
-  "author": "guiyep",
   "main": "src/index.ts",
-  "license": "MIT",
   "type": "module",
+  "author": "guiyep",
+  "license": "MIT",
   "repository": "guiyep/track-me-app",
   "engines": {
     "node": ">=18",
     "npm": ">=6"
   },
-  "scripts": {
-    "test": "jest --env=jsdom"
-  },
+  "scripts": {},
   "devDependencies": {
     "jest": "^29.6.1",
     "@types/jest": "^29.5.3",
     "typescript": "5.1.6"
   },
-  "files": [
-    "dist"
-  ],
   "dependencies": {}
 }

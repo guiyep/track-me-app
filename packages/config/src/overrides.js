@@ -8,6 +8,12 @@ export const generalRules = {
   },
 };
 
+export const tsRules = {
+  rules: {
+    '@typescript-eslint/consistent-type-definitions': 'off',
+  },
+};
+
 export const importRules = {
   rules: {
     'import/prefer-default-export': 'off',

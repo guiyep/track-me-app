@@ -17829,6 +17829,11 @@ If your function does not access \`this\`, you can annotate it with \`this: void
       "import/prefer-default-export": "off",
     },
   },
+  {
+    "rules": {
+      "@typescript-eslint/consistent-type-definitions": "off",
+    },
+  },
 ]
 `;
 

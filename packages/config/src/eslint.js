@@ -2,8 +2,8 @@ import eslintPkg from '@eslint/js';
 import { config, configs } from 'typescript-eslint';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import importPlugin from 'eslint-plugin-import';
-import { generalRules, importRules } from './overrides.js';
-import { warn } from '@track-me-app/shared/src/logger/legacy.js';
+import { generalRules, importRules, tsRules } from './overrides.js';
+import { warn } from '@track-me-app/logger/src/logger/legacy.js';
 
 const defaultEslintCoreConfig = config(
   eslintPkg.configs.recommended,
@@ -42,6 +42,7 @@ const defaultEslintCoreConfig = config(
   },
   generalRules,
   importRules,
+  tsRules,
 );
 
 export const eslint = (overrides = []) => {
