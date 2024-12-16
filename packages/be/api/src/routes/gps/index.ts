@@ -1,20 +1,10 @@
-import { Router, Request, Response, NextFunction } from 'express';
+import { Router, Request, Response } from 'express';
 import { GpsLocation } from '@track-me-app/be-entities';
 import { GpsLocationEntity } from '@track-me-app/entities';
+import { validate } from '@track-me-app/express';
 import { logger } from '@track-me-app/logger';
 
 const router = Router();
-
-const validate = (req: Request, res: Response, next: NextFunction) => {
-  try {
-    logger.log({ message: 'Request params' }, req.params);
-    logger.log({ message: 'Request body' }, req.body);
-    GpsLocation.validate({ ...req.params, ...req.body });
-    next();
-  } catch (e) {
-    res.status(400).json({ message: e });
-  }
-};
 
 type GpsLocationParams = {
   email: string;
@@ -29,7 +19,7 @@ type GpsLocationBody = {
 
 router.post(
   '/gps/:email/:sessionId',
-  validate,
+  validate(GpsLocation.validate),
   async (
     req: Request<GpsLocationParams, object, GpsLocationBody>,
     res: Response,
