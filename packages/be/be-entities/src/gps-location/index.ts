@@ -27,17 +27,22 @@ export const save = async (
 ): Promise<GpsLocationEntity> => {
   const client = new DynamoDBClient();
 
+  entity.setLastUpdated();
+
+  logger.log({ message: 'Saving GpsLocation with entity' }, entity);
+
   const params = {
     TableName: tableName,
-    Item: marshall(entity),
+    Item: marshall(entity, { convertClassInstanceToMap: true }),
   };
+
+  const command = new PutItemCommand(params);
 
   logger.log(
     { message: 'Saving GpsLocation with PutItemCommand using params' },
-    params,
+    command,
   );
 
-  const command = new PutItemCommand(params);
   await client.send(command);
 
   logger.log({ message: 'PutItemCommand executed successfully' });

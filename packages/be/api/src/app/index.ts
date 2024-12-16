@@ -3,6 +3,8 @@ import routes from '../routes';
 
 const app = express();
 
+app.use(express.json());
+
 routes.forEach((route) => {
   app.use(route);
 });

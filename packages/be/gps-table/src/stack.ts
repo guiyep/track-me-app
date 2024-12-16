@@ -14,7 +14,8 @@ schema {
     sessionId: string,
     lat: number,
     long:number,
-    timestamp: number,
+    created: number, (timestamp)
+    lastUpdated: number (timestamp)
   }
 }
  */

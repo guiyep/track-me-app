@@ -7,7 +7,8 @@ export type GpsLocationDataArgs = {
 };
 
 export type GpsLocationData = GpsLocationDataArgs & {
-  timestamp: number;
+  created: number;
+  lastUpdated?: number;
 };
 
 export class GpsLocationEntity {
@@ -24,8 +25,12 @@ export class GpsLocationEntity {
   private hydrateData(data: GpsLocationDataArgs): GpsLocationData {
     const dataWithTimestamp: GpsLocationData = {
       ...data,
-      timestamp: Date.now(),
+      created: Date.now(),
     };
     return dataWithTimestamp;
+  }
+
+  setLastUpdated(): void {
+    this.data.lastUpdated = Date.now();
   }
 }
