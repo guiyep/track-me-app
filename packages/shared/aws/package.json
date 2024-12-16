@@ -1,0 +1,14 @@
+{
+  "name": "@track-me-app/aws",
+  "version": "0.1.0",
+  "main": "src/index.ts",
+  "type": "module",
+  "devDependencies": {
+    "jest": "^29.6.1",
+    "@types/jest": "^29.5.3",
+    "typescript": "5.1.6"
+  },
+  "dependencies": {
+    "@track-me-app/aws": "0.1.0"
+  }
+}

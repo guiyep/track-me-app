@@ -14,8 +14,10 @@ export class CloudStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    new GpsQueue(this, STACK_IDS.GpsQueueStack);
     const api = new Api(this, STACK_IDS.MainApiStack);
+    new GpsQueue(this, STACK_IDS.GpsQueueStack, {
+      readAndWrite: [api.lambdaApi],
+    });
     new GpsTable(this, STACK_IDS.GpsTable, { readAndWrite: [api.lambdaApi] });
   }
 }

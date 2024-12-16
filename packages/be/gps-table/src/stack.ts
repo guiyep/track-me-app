@@ -1,7 +1,7 @@
 import { Construct } from 'constructs';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import { NAMES } from './config';
-import { IGrantable } from 'aws-cdk-lib/aws-iam';
+import type { AccessProps } from '@track-me-app/aws';
 
 /*
 schema {
@@ -19,12 +19,6 @@ schema {
   }
 }
  */
-
-interface AccessProps {
-  read?: IGrantable[];
-  write?: IGrantable[];
-  readAndWrite?: IGrantable[];
-}
 
 export class GpsTable extends Construct {
   private readonly table: dynamodb.TableV2;
