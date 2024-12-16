@@ -1,11 +1,9 @@
 import { SQSClient, SendMessageCommand } from '@aws-sdk/client-sqs';
 import { marshallSqsAttributes } from '@track-me-app/aws';
+import { getConstants } from '@track-me-app/be-consts';
 import { logger } from '@track-me-app/logger';
 
-const QUEUE_URL =
-  'http://sqs.us-east-1.localhost.localstack.cloud:4566/000000000000/GpsQueue';
-
-const GPS_LOCATION_COMMAND = 'GPS_LOCATION_ADDED';
+const Consts = getConstants();
 
 export const sendQueueMessage = async ({
   email,
@@ -22,8 +20,8 @@ export const sendQueueMessage = async ({
   });
 
   const command = new SendMessageCommand({
-    QueueUrl: QUEUE_URL,
-    MessageBody: GPS_LOCATION_COMMAND,
+    QueueUrl: Consts.GpsLocationsQueue.QUEUE_URL,
+    MessageBody: Consts.GpsLocationsQueue.GPS_LOCATION_ADDED_COMMAND,
     MessageAttributes: attributes,
   });
 

@@ -12,6 +12,7 @@
     "typescript": "5.1.6"
   },
   "dependencies": {
+    "@track-me-app/be-consts": "0.1.0",
     "aws-cdk-lib": "2.159.1",
     "constructs": "^10.0.0",
     "source-map-support": "^0.5.21"

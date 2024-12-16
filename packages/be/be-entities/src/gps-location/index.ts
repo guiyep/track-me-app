@@ -1,10 +1,11 @@
 import { GpsLocationEntity } from '@track-me-app/entities';
 import { marshall } from '@aws-sdk/util-dynamodb';
 import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
+import { getConstants } from '@track-me-app/be-consts';
 import { logger } from '@track-me-app/logger';
 import * as z from 'zod';
 
-const TABLE_NAME = 'GpsLocations';
+const Consts = getConstants();
 
 export const validate = (data: unknown): void => {
   const schema = z.object({
@@ -32,7 +33,7 @@ export const save = async (
   logger.log({ message: 'Saving GpsLocation with entity' }, entity);
 
   const params = {
-    TableName: TABLE_NAME,
+    TableName: Consts.GpsTable.TABLE_NAME,
     Item: marshall(entity, { convertClassInstanceToMap: true }),
   };
 
