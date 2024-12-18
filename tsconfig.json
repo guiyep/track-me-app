@@ -24,6 +24,6 @@
     "strictPropertyInitialization": false,
     "lib": ["dom", "esnext"]
   },
-  "include": ["./packages/**/*", "./packages/**/**/*", "./**/*", "./"],
+  // "include": ["packages/**/*", "packages/**/**/*", "packages/**/**/**", "**/*", "*"],
   "exclude": ["node_modules", "**/node_modules"]
 }

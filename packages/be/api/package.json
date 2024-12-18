@@ -16,6 +16,7 @@
     "@track-me-app/logger": "0.1.0",
     "@track-me-app/be-entities": "0.1.0",
     "@track-me-app/express": "0.1.0",
+    "@paralleldrive/cuid2": "1.0.0",
     "aws-cdk-lib": "2.159.1",
     "aws-lambda": "^1.0.7",
     "constructs": "^10.0.0",
