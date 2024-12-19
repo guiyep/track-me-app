@@ -10,6 +10,10 @@ const config: Config.InitialOptions = {
   },
   testPathIgnorePatterns: ['/node_modules/', '/dist/'],
   moduleDirectories: ['node_modules', '<rootDir>/node_modules', '.'],
+  testEnvironment: 'node',
+  globals: {
+    jest: true,
+  },
 };
 
 export const jest = (
