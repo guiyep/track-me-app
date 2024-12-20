@@ -72,7 +72,7 @@ exports[`Configs eslint 1`] = `
       "parser": {
         "meta": {
           "name": "typescript-eslint/parser",
-          "version": "8.13.0",
+          "version": "8.18.1",
         },
         "parseForESLint": [Function],
       },
@@ -168,6 +168,7 @@ exports[`Configs eslint 1`] = `
               "@typescript-eslint/no-unsafe-function-type": "error",
               "@typescript-eslint/no-unsafe-member-access": "error",
               "@typescript-eslint/no-unsafe-return": "error",
+              "@typescript-eslint/no-unsafe-type-assertion": "error",
               "@typescript-eslint/no-unsafe-unary-minus": "error",
               "@typescript-eslint/no-unused-expressions": "error",
               "@typescript-eslint/no-unused-vars": "error",
@@ -197,6 +198,7 @@ exports[`Configs eslint 1`] = `
               "@typescript-eslint/prefer-return-this-type": "error",
               "@typescript-eslint/prefer-string-starts-ends-with": "error",
               "@typescript-eslint/promise-function-async": "error",
+              "@typescript-eslint/related-getter-setter-pairs": "error",
               "@typescript-eslint/require-array-sort-compare": "error",
               "@typescript-eslint/require-await": "error",
               "@typescript-eslint/restrict-plus-operands": "error",
@@ -282,6 +284,7 @@ exports[`Configs eslint 1`] = `
               "@typescript-eslint/no-unsafe-enum-comparison": "off",
               "@typescript-eslint/no-unsafe-member-access": "off",
               "@typescript-eslint/no-unsafe-return": "off",
+              "@typescript-eslint/no-unsafe-type-assertion": "off",
               "@typescript-eslint/no-unsafe-unary-minus": "off",
               "@typescript-eslint/non-nullable-type-assertion-style": "off",
               "@typescript-eslint/only-throw-error": "off",
@@ -298,6 +301,7 @@ exports[`Configs eslint 1`] = `
               "@typescript-eslint/prefer-return-this-type": "off",
               "@typescript-eslint/prefer-string-starts-ends-with": "off",
               "@typescript-eslint/promise-function-async": "off",
+              "@typescript-eslint/related-getter-setter-pairs": "off",
               "@typescript-eslint/require-array-sort-compare": "off",
               "@typescript-eslint/require-await": "off",
               "@typescript-eslint/restrict-plus-operands": "off",
@@ -639,6 +643,7 @@ exports[`Configs eslint 1`] = `
               "@typescript-eslint/prefer-promise-reject-errors": "error",
               "@typescript-eslint/prefer-reduce-type-parameter": "error",
               "@typescript-eslint/prefer-return-this-type": "error",
+              "@typescript-eslint/related-getter-setter-pairs": "error",
               "@typescript-eslint/require-await": "error",
               "@typescript-eslint/restrict-plus-operands": [
                 "error",
@@ -716,6 +721,7 @@ exports[`Configs eslint 1`] = `
               "@typescript-eslint/prefer-promise-reject-errors": "error",
               "@typescript-eslint/prefer-reduce-type-parameter": "error",
               "@typescript-eslint/prefer-return-this-type": "error",
+              "@typescript-eslint/related-getter-setter-pairs": "error",
               "@typescript-eslint/require-await": "error",
               "@typescript-eslint/restrict-plus-operands": [
                 "error",
@@ -824,7 +830,7 @@ exports[`Configs eslint 1`] = `
         },
         "meta": {
           "name": "@typescript-eslint/eslint-plugin",
-          "version": "8.13.0",
+          "version": "8.18.1",
         },
         "rules": {
           "adjacent-overload-signatures": {
@@ -907,8 +913,9 @@ exports[`Configs eslint 1`] = `
               "hasSuggestions": true,
               "messages": {
                 "await": "Unexpected \`await\` of a non-Promise (non-"Thenable") value.",
+                "awaitUsingOfNonAsyncDisposable": "Unexpected \`await using\` of a value that is not async disposable.",
                 "convertToOrdinaryFor": "Convert to an ordinary \`for...of\` loop.",
-                "forAwaitOfNonThenable": "Unexpected \`for await...of\` of a value that is not async iterable.",
+                "forAwaitOfNonAsyncIterable": "Unexpected \`for await...of\` of a value that is not async iterable.",
                 "removeAwait": "Remove unnecessary \`await\`.",
               },
               "schema": [],
@@ -1177,6 +1184,11 @@ exports[`Configs eslint 1`] = `
               },
             ],
             "meta": {
+              "defaultOptions": [
+                {
+                  "treatUndefinedAsUnspecified": false,
+                },
+              ],
               "docs": {
                 "description": "Require \`return\` statements to either always or never specify values",
                 "extendsBaseRule": true,
@@ -1422,6 +1434,15 @@ exports[`Configs eslint 1`] = `
               },
             ],
             "meta": {
+              "defaultOptions": [
+                {
+                  "allowIndexSignaturePropertyAccess": false,
+                  "allowKeywords": true,
+                  "allowPattern": "",
+                  "allowPrivateClassPropertyAccess": false,
+                  "allowProtectedClassPropertyAccess": false,
+                },
+              ],
               "docs": {
                 "description": "Enforce dot notation whenever possible",
                 "extendsBaseRule": true,
@@ -4298,6 +4319,7 @@ You must still type the parameters of the function.",
                 "url": "https://typescript-eslint.io/rules/no-base-to-string",
               },
               "messages": {
+                "baseArrayJoin": "Using \`join()\` for {{name}} {{certainty}} use Object's default stringification format ('[object Object]') when stringified.",
                 "baseToString": "'{{name}}' {{certainty}} use Object's default stringification format ('[object Object]') when stringified.",
               },
               "schema": [
@@ -4347,6 +4369,7 @@ You must still type the parameters of the function.",
               {
                 "ignoreArrowShorthand": false,
                 "ignoreVoidOperator": false,
+                "ignoreVoidReturningFunctions": false,
               },
             ],
             "meta": {
@@ -4378,6 +4401,10 @@ You must still type the parameters of the function.",
                     },
                     "ignoreVoidOperator": {
                       "description": "Whether to ignore returns that start with the \`void\` operator.",
+                      "type": "boolean",
+                    },
+                    "ignoreVoidReturningFunctions": {
+                      "description": "Whether to ignore returns from functions with explicit \`void\` return types and functions with contextual \`void\` return types.",
                       "type": "boolean",
                     },
                   },
@@ -4503,6 +4530,11 @@ You must still type the parameters of the function.",
               },
             ],
             "meta": {
+              "defaultOptions": [
+                {
+                  "allow": [],
+                },
+              ],
               "docs": {
                 "description": "Disallow empty functions",
                 "extendsBaseRule": true,
@@ -5122,6 +5154,11 @@ You must still type the parameters of the function.",
               },
             ],
             "meta": {
+              "defaultOptions": [
+                {
+                  "capIsConstructor": true,
+                },
+              ],
               "docs": {
                 "description": "Disallow \`this\` keywords outside of classes or class-like objects",
                 "extendsBaseRule": true,
@@ -6199,7 +6236,7 @@ You must still type the parameters of the function.",
                 "alwaysNullish": "Unnecessary conditional, left-hand side of \`??\` operator is always \`null\` or \`undefined\`.",
                 "alwaysTruthy": "Unnecessary conditional, value is always truthy.",
                 "alwaysTruthyFunc": "This callback should return a conditional, but return is always truthy.",
-                "literalBooleanExpression": "Unnecessary conditional, both sides of the expression are literal values.",
+                "comparisonBetweenLiteralTypes": "Unnecessary conditional, comparison is always {{trueOrFalse}}, since \`{{left}} {{operator}} {{right}}\` is {{trueOrFalse}}.",
                 "never": "Unnecessary conditional, value is \`never\`.",
                 "neverNullish": "Unnecessary conditional, expected left-hand side of \`??\` operator to be possibly null or undefined.",
                 "neverOptionalChain": "Unnecessary optional chain on a non-nullish value.",
@@ -6529,6 +6566,24 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
               "type": "problem",
             },
           },
+          "no-unsafe-type-assertion": {
+            "create": [Function],
+            "defaultOptions": [],
+            "meta": {
+              "docs": {
+                "description": "Disallow type assertions that narrow a type",
+                "requiresTypeChecking": true,
+                "url": "https://typescript-eslint.io/rules/no-unsafe-type-assertion",
+              },
+              "messages": {
+                "unsafeOfAnyTypeAssertion": "Unsafe assertion from {{type}} detected: consider using type guards or a safer assertion.",
+                "unsafeToAnyTypeAssertion": "Unsafe assertion to {{type}} detected: consider using a more specific type to ensure safety.",
+                "unsafeTypeAssertion": "Unsafe type assertion: type '{{type}}' is more narrow than the original type.",
+              },
+              "schema": [],
+              "type": "problem",
+            },
+          },
           "no-unsafe-unary-minus": {
             "create": [Function],
             "defaultOptions": [],
@@ -6556,6 +6611,13 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
               },
             ],
             "meta": {
+              "defaultOptions": [
+                {
+                  "allowShortCircuit": false,
+                  "allowTaggedTemplates": false,
+                  "allowTernary": false,
+                },
+              ],
               "docs": {
                 "description": "Disallow unused expressions",
                 "extendsBaseRule": true,
@@ -6851,7 +6913,7 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
             "defaultOptions": [],
             "meta": {
               "docs": {
-                "description": "Enforce non-null assertions over explicit type casts",
+                "description": "Enforce non-null assertions over explicit type assertions",
                 "recommended": "stylistic",
                 "requiresTypeChecking": true,
                 "url": "https://typescript-eslint.io/rules/non-nullable-type-assertion-style",
@@ -7493,6 +7555,8 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
             "defaultOptions": [
               {
                 "allowEmptyReject": false,
+                "allowThrowingAny": false,
+                "allowThrowingUnknown": false,
               },
             ],
             "meta": {
@@ -7512,6 +7576,14 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
                   "properties": {
                     "allowEmptyReject": {
                       "description": "Whether to allow calls to \`Promise.reject()\` with no arguments.",
+                      "type": "boolean",
+                    },
+                    "allowThrowingAny": {
+                      "description": "Whether to always allow throwing values typed as \`any\`.",
+                      "type": "boolean",
+                    },
+                    "allowThrowingUnknown": {
+                      "description": "Whether to always allow throwing values typed as \`unknown\`.",
                       "type": "boolean",
                     },
                   },
@@ -7711,14 +7783,14 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
             "defaultOptions": [],
             "meta": {
               "docs": {
-                "description": "Enforce using type parameter when calling \`Array#reduce\` instead of casting",
+                "description": "Enforce using type parameter when calling \`Array#reduce\` instead of using a type assertion",
                 "recommended": "strict",
                 "requiresTypeChecking": true,
                 "url": "https://typescript-eslint.io/rules/prefer-reduce-type-parameter",
               },
               "fixable": "code",
               "messages": {
-                "preferTypeParameter": "Unnecessary cast: Array#reduce accepts a type parameter for the default value.",
+                "preferTypeParameter": "Unnecessary assertion: Array#reduce accepts a type parameter for the default value.",
               },
               "schema": [],
               "type": "problem",
@@ -7876,6 +7948,23 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
                 },
               ],
               "type": "suggestion",
+            },
+          },
+          "related-getter-setter-pairs": {
+            "create": [Function],
+            "defaultOptions": [],
+            "meta": {
+              "docs": {
+                "description": "Enforce that \`get()\` types should be assignable to their equivalent \`set()\` type",
+                "recommended": "strict",
+                "requiresTypeChecking": true,
+                "url": "https://typescript-eslint.io/rules/related-getter-setter-pairs",
+              },
+              "messages": {
+                "mismatch": "\`get()\` type should be assignable to its equivalent \`set()\` type.",
+              },
+              "schema": [],
+              "type": "problem",
             },
           },
           "require-array-sort-compare": {
@@ -8364,7 +8453,7 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
               "fixable": "code",
               "hasSuggestions": true,
               "messages": {
-                "conditionErrorAny": "Unexpected any value in conditional. An explicit comparison or type cast is required.",
+                "conditionErrorAny": "Unexpected any value in conditional. An explicit comparison or type conversion is required.",
                 "conditionErrorNullableBoolean": "Unexpected nullable boolean value in conditional. Please handle the nullish case explicitly.",
                 "conditionErrorNullableEnum": "Unexpected nullable enum value in conditional. Please handle the nullish/zero/NaN cases explicitly.",
                 "conditionErrorNullableNumber": "Unexpected nullable number value in conditional. Please handle the nullish/zero/NaN cases explicitly.",
@@ -8375,7 +8464,7 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
                 "conditionErrorObject": "Unexpected object value in conditional. The condition is always true.",
                 "conditionErrorOther": "Unexpected value in conditional. A boolean expression is required.",
                 "conditionErrorString": "Unexpected string value in conditional. An explicit empty string check is required.",
-                "conditionFixCastBoolean": "Explicitly cast value to a boolean (\`Boolean(value)\`)",
+                "conditionFixCastBoolean": "Explicitly convert value to a boolean (\`Boolean(value)\`)",
                 "conditionFixCompareEmptyString": "Change condition to check for empty string (\`value !== ""\`)",
                 "conditionFixCompareFalse": "Change condition to check if false (\`value === false\`)",
                 "conditionFixCompareNaN": "Change condition to check for NaN (\`!Number.isNaN(value)\`)",
@@ -8467,6 +8556,10 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
                     "considerDefaultExhaustiveForUnions": {
                       "description": "If 'true', the 'default' clause is used to determine whether the switch statement is exhaustive for union type",
                       "type": "boolean",
+                    },
+                    "defaultCaseCommentPattern": {
+                      "description": "Regular expression for a comment that can indicate an intentionally omitted default case.",
+                      "type": "string",
                     },
                     "requireDefaultForNonUnion": {
                       "description": "If 'true', require a 'default' clause for switches on non-union types.",
@@ -8792,6 +8885,7 @@ If your function does not access \`this\`, you can annotate it with \`this: void
       "@typescript-eslint/prefer-promise-reject-errors": "error",
       "@typescript-eslint/prefer-reduce-type-parameter": "error",
       "@typescript-eslint/prefer-return-this-type": "error",
+      "@typescript-eslint/related-getter-setter-pairs": "error",
       "@typescript-eslint/require-await": "error",
       "@typescript-eslint/restrict-plus-operands": [
         "error",
@@ -8838,7 +8932,7 @@ If your function does not access \`this\`, you can annotate it with \`this: void
       "parser": {
         "meta": {
           "name": "typescript-eslint/parser",
-          "version": "8.13.0",
+          "version": "8.18.1",
         },
         "parseForESLint": [Function],
       },
@@ -8934,6 +9028,7 @@ If your function does not access \`this\`, you can annotate it with \`this: void
               "@typescript-eslint/no-unsafe-function-type": "error",
               "@typescript-eslint/no-unsafe-member-access": "error",
               "@typescript-eslint/no-unsafe-return": "error",
+              "@typescript-eslint/no-unsafe-type-assertion": "error",
               "@typescript-eslint/no-unsafe-unary-minus": "error",
               "@typescript-eslint/no-unused-expressions": "error",
               "@typescript-eslint/no-unused-vars": "error",
@@ -8963,6 +9058,7 @@ If your function does not access \`this\`, you can annotate it with \`this: void
               "@typescript-eslint/prefer-return-this-type": "error",
               "@typescript-eslint/prefer-string-starts-ends-with": "error",
               "@typescript-eslint/promise-function-async": "error",
+              "@typescript-eslint/related-getter-setter-pairs": "error",
               "@typescript-eslint/require-array-sort-compare": "error",
               "@typescript-eslint/require-await": "error",
               "@typescript-eslint/restrict-plus-operands": "error",
@@ -9048,6 +9144,7 @@ If your function does not access \`this\`, you can annotate it with \`this: void
               "@typescript-eslint/no-unsafe-enum-comparison": "off",
               "@typescript-eslint/no-unsafe-member-access": "off",
               "@typescript-eslint/no-unsafe-return": "off",
+              "@typescript-eslint/no-unsafe-type-assertion": "off",
               "@typescript-eslint/no-unsafe-unary-minus": "off",
               "@typescript-eslint/non-nullable-type-assertion-style": "off",
               "@typescript-eslint/only-throw-error": "off",
@@ -9064,6 +9161,7 @@ If your function does not access \`this\`, you can annotate it with \`this: void
               "@typescript-eslint/prefer-return-this-type": "off",
               "@typescript-eslint/prefer-string-starts-ends-with": "off",
               "@typescript-eslint/promise-function-async": "off",
+              "@typescript-eslint/related-getter-setter-pairs": "off",
               "@typescript-eslint/require-array-sort-compare": "off",
               "@typescript-eslint/require-await": "off",
               "@typescript-eslint/restrict-plus-operands": "off",
@@ -9405,6 +9503,7 @@ If your function does not access \`this\`, you can annotate it with \`this: void
               "@typescript-eslint/prefer-promise-reject-errors": "error",
               "@typescript-eslint/prefer-reduce-type-parameter": "error",
               "@typescript-eslint/prefer-return-this-type": "error",
+              "@typescript-eslint/related-getter-setter-pairs": "error",
               "@typescript-eslint/require-await": "error",
               "@typescript-eslint/restrict-plus-operands": [
                 "error",
@@ -9482,6 +9581,7 @@ If your function does not access \`this\`, you can annotate it with \`this: void
               "@typescript-eslint/prefer-promise-reject-errors": "error",
               "@typescript-eslint/prefer-reduce-type-parameter": "error",
               "@typescript-eslint/prefer-return-this-type": "error",
+              "@typescript-eslint/related-getter-setter-pairs": "error",
               "@typescript-eslint/require-await": "error",
               "@typescript-eslint/restrict-plus-operands": [
                 "error",
@@ -9590,7 +9690,7 @@ If your function does not access \`this\`, you can annotate it with \`this: void
         },
         "meta": {
           "name": "@typescript-eslint/eslint-plugin",
-          "version": "8.13.0",
+          "version": "8.18.1",
         },
         "rules": {
           "adjacent-overload-signatures": {
@@ -9673,8 +9773,9 @@ If your function does not access \`this\`, you can annotate it with \`this: void
               "hasSuggestions": true,
               "messages": {
                 "await": "Unexpected \`await\` of a non-Promise (non-"Thenable") value.",
+                "awaitUsingOfNonAsyncDisposable": "Unexpected \`await using\` of a value that is not async disposable.",
                 "convertToOrdinaryFor": "Convert to an ordinary \`for...of\` loop.",
-                "forAwaitOfNonThenable": "Unexpected \`for await...of\` of a value that is not async iterable.",
+                "forAwaitOfNonAsyncIterable": "Unexpected \`for await...of\` of a value that is not async iterable.",
                 "removeAwait": "Remove unnecessary \`await\`.",
               },
               "schema": [],
@@ -9943,6 +10044,11 @@ If your function does not access \`this\`, you can annotate it with \`this: void
               },
             ],
             "meta": {
+              "defaultOptions": [
+                {
+                  "treatUndefinedAsUnspecified": false,
+                },
+              ],
               "docs": {
                 "description": "Require \`return\` statements to either always or never specify values",
                 "extendsBaseRule": true,
@@ -10188,6 +10294,15 @@ If your function does not access \`this\`, you can annotate it with \`this: void
               },
             ],
             "meta": {
+              "defaultOptions": [
+                {
+                  "allowIndexSignaturePropertyAccess": false,
+                  "allowKeywords": true,
+                  "allowPattern": "",
+                  "allowPrivateClassPropertyAccess": false,
+                  "allowProtectedClassPropertyAccess": false,
+                },
+              ],
               "docs": {
                 "description": "Enforce dot notation whenever possible",
                 "extendsBaseRule": true,
@@ -13064,6 +13179,7 @@ You must still type the parameters of the function.",
                 "url": "https://typescript-eslint.io/rules/no-base-to-string",
               },
               "messages": {
+                "baseArrayJoin": "Using \`join()\` for {{name}} {{certainty}} use Object's default stringification format ('[object Object]') when stringified.",
                 "baseToString": "'{{name}}' {{certainty}} use Object's default stringification format ('[object Object]') when stringified.",
               },
               "schema": [
@@ -13113,6 +13229,7 @@ You must still type the parameters of the function.",
               {
                 "ignoreArrowShorthand": false,
                 "ignoreVoidOperator": false,
+                "ignoreVoidReturningFunctions": false,
               },
             ],
             "meta": {
@@ -13144,6 +13261,10 @@ You must still type the parameters of the function.",
                     },
                     "ignoreVoidOperator": {
                       "description": "Whether to ignore returns that start with the \`void\` operator.",
+                      "type": "boolean",
+                    },
+                    "ignoreVoidReturningFunctions": {
+                      "description": "Whether to ignore returns from functions with explicit \`void\` return types and functions with contextual \`void\` return types.",
                       "type": "boolean",
                     },
                   },
@@ -13269,6 +13390,11 @@ You must still type the parameters of the function.",
               },
             ],
             "meta": {
+              "defaultOptions": [
+                {
+                  "allow": [],
+                },
+              ],
               "docs": {
                 "description": "Disallow empty functions",
                 "extendsBaseRule": true,
@@ -13888,6 +14014,11 @@ You must still type the parameters of the function.",
               },
             ],
             "meta": {
+              "defaultOptions": [
+                {
+                  "capIsConstructor": true,
+                },
+              ],
               "docs": {
                 "description": "Disallow \`this\` keywords outside of classes or class-like objects",
                 "extendsBaseRule": true,
@@ -14965,7 +15096,7 @@ You must still type the parameters of the function.",
                 "alwaysNullish": "Unnecessary conditional, left-hand side of \`??\` operator is always \`null\` or \`undefined\`.",
                 "alwaysTruthy": "Unnecessary conditional, value is always truthy.",
                 "alwaysTruthyFunc": "This callback should return a conditional, but return is always truthy.",
-                "literalBooleanExpression": "Unnecessary conditional, both sides of the expression are literal values.",
+                "comparisonBetweenLiteralTypes": "Unnecessary conditional, comparison is always {{trueOrFalse}}, since \`{{left}} {{operator}} {{right}}\` is {{trueOrFalse}}.",
                 "never": "Unnecessary conditional, value is \`never\`.",
                 "neverNullish": "Unnecessary conditional, expected left-hand side of \`??\` operator to be possibly null or undefined.",
                 "neverOptionalChain": "Unnecessary optional chain on a non-nullish value.",
@@ -15295,6 +15426,24 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
               "type": "problem",
             },
           },
+          "no-unsafe-type-assertion": {
+            "create": [Function],
+            "defaultOptions": [],
+            "meta": {
+              "docs": {
+                "description": "Disallow type assertions that narrow a type",
+                "requiresTypeChecking": true,
+                "url": "https://typescript-eslint.io/rules/no-unsafe-type-assertion",
+              },
+              "messages": {
+                "unsafeOfAnyTypeAssertion": "Unsafe assertion from {{type}} detected: consider using type guards or a safer assertion.",
+                "unsafeToAnyTypeAssertion": "Unsafe assertion to {{type}} detected: consider using a more specific type to ensure safety.",
+                "unsafeTypeAssertion": "Unsafe type assertion: type '{{type}}' is more narrow than the original type.",
+              },
+              "schema": [],
+              "type": "problem",
+            },
+          },
           "no-unsafe-unary-minus": {
             "create": [Function],
             "defaultOptions": [],
@@ -15322,6 +15471,13 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
               },
             ],
             "meta": {
+              "defaultOptions": [
+                {
+                  "allowShortCircuit": false,
+                  "allowTaggedTemplates": false,
+                  "allowTernary": false,
+                },
+              ],
               "docs": {
                 "description": "Disallow unused expressions",
                 "extendsBaseRule": true,
@@ -15617,7 +15773,7 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
             "defaultOptions": [],
             "meta": {
               "docs": {
-                "description": "Enforce non-null assertions over explicit type casts",
+                "description": "Enforce non-null assertions over explicit type assertions",
                 "recommended": "stylistic",
                 "requiresTypeChecking": true,
                 "url": "https://typescript-eslint.io/rules/non-nullable-type-assertion-style",
@@ -16259,6 +16415,8 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
             "defaultOptions": [
               {
                 "allowEmptyReject": false,
+                "allowThrowingAny": false,
+                "allowThrowingUnknown": false,
               },
             ],
             "meta": {
@@ -16278,6 +16436,14 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
                   "properties": {
                     "allowEmptyReject": {
                       "description": "Whether to allow calls to \`Promise.reject()\` with no arguments.",
+                      "type": "boolean",
+                    },
+                    "allowThrowingAny": {
+                      "description": "Whether to always allow throwing values typed as \`any\`.",
+                      "type": "boolean",
+                    },
+                    "allowThrowingUnknown": {
+                      "description": "Whether to always allow throwing values typed as \`unknown\`.",
                       "type": "boolean",
                     },
                   },
@@ -16477,14 +16643,14 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
             "defaultOptions": [],
             "meta": {
               "docs": {
-                "description": "Enforce using type parameter when calling \`Array#reduce\` instead of casting",
+                "description": "Enforce using type parameter when calling \`Array#reduce\` instead of using a type assertion",
                 "recommended": "strict",
                 "requiresTypeChecking": true,
                 "url": "https://typescript-eslint.io/rules/prefer-reduce-type-parameter",
               },
               "fixable": "code",
               "messages": {
-                "preferTypeParameter": "Unnecessary cast: Array#reduce accepts a type parameter for the default value.",
+                "preferTypeParameter": "Unnecessary assertion: Array#reduce accepts a type parameter for the default value.",
               },
               "schema": [],
               "type": "problem",
@@ -16642,6 +16808,23 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
                 },
               ],
               "type": "suggestion",
+            },
+          },
+          "related-getter-setter-pairs": {
+            "create": [Function],
+            "defaultOptions": [],
+            "meta": {
+              "docs": {
+                "description": "Enforce that \`get()\` types should be assignable to their equivalent \`set()\` type",
+                "recommended": "strict",
+                "requiresTypeChecking": true,
+                "url": "https://typescript-eslint.io/rules/related-getter-setter-pairs",
+              },
+              "messages": {
+                "mismatch": "\`get()\` type should be assignable to its equivalent \`set()\` type.",
+              },
+              "schema": [],
+              "type": "problem",
             },
           },
           "require-array-sort-compare": {
@@ -17130,7 +17313,7 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
               "fixable": "code",
               "hasSuggestions": true,
               "messages": {
-                "conditionErrorAny": "Unexpected any value in conditional. An explicit comparison or type cast is required.",
+                "conditionErrorAny": "Unexpected any value in conditional. An explicit comparison or type conversion is required.",
                 "conditionErrorNullableBoolean": "Unexpected nullable boolean value in conditional. Please handle the nullish case explicitly.",
                 "conditionErrorNullableEnum": "Unexpected nullable enum value in conditional. Please handle the nullish/zero/NaN cases explicitly.",
                 "conditionErrorNullableNumber": "Unexpected nullable number value in conditional. Please handle the nullish/zero/NaN cases explicitly.",
@@ -17141,7 +17324,7 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
                 "conditionErrorObject": "Unexpected object value in conditional. The condition is always true.",
                 "conditionErrorOther": "Unexpected value in conditional. A boolean expression is required.",
                 "conditionErrorString": "Unexpected string value in conditional. An explicit empty string check is required.",
-                "conditionFixCastBoolean": "Explicitly cast value to a boolean (\`Boolean(value)\`)",
+                "conditionFixCastBoolean": "Explicitly convert value to a boolean (\`Boolean(value)\`)",
                 "conditionFixCompareEmptyString": "Change condition to check for empty string (\`value !== ""\`)",
                 "conditionFixCompareFalse": "Change condition to check if false (\`value === false\`)",
                 "conditionFixCompareNaN": "Change condition to check for NaN (\`!Number.isNaN(value)\`)",
@@ -17233,6 +17416,10 @@ You can try to fix this by turning on the \`noImplicitThis\` compiler option, or
                     "considerDefaultExhaustiveForUnions": {
                       "description": "If 'true', the 'default' clause is used to determine whether the switch statement is exhaustive for union type",
                       "type": "boolean",
+                    },
+                    "defaultCaseCommentPattern": {
+                      "description": "Regular expression for a comment that can indicate an intentionally omitted default case.",
+                      "type": "string",
                     },
                     "requireDefaultForNonUnion": {
                       "description": "If 'true', require a 'default' clause for switches on non-union types.",
@@ -17762,6 +17949,7 @@ If your function does not access \`this\`, you can annotate it with \`this: void
       "@typescript-eslint/no-unsafe-enum-comparison": "off",
       "@typescript-eslint/no-unsafe-member-access": "off",
       "@typescript-eslint/no-unsafe-return": "off",
+      "@typescript-eslint/no-unsafe-type-assertion": "off",
       "@typescript-eslint/no-unsafe-unary-minus": "off",
       "@typescript-eslint/non-nullable-type-assertion-style": "off",
       "@typescript-eslint/only-throw-error": "off",
@@ -17778,6 +17966,7 @@ If your function does not access \`this\`, you can annotate it with \`this: void
       "@typescript-eslint/prefer-return-this-type": "off",
       "@typescript-eslint/prefer-string-starts-ends-with": "off",
       "@typescript-eslint/promise-function-async": "off",
+      "@typescript-eslint/related-getter-setter-pairs": "off",
       "@typescript-eslint/require-array-sort-compare": "off",
       "@typescript-eslint/require-await": "off",
       "@typescript-eslint/restrict-plus-operands": "off",

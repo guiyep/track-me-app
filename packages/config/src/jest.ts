@@ -9,7 +9,12 @@ const config: Config.InitialOptions = {
     '^.+\\.(js|jsx|mjs)$': 'babel-jest',
   },
   testPathIgnorePatterns: ['/node_modules/', '/dist/'],
-  moduleDirectories: ['node_modules', '<rootDir>/node_modules', '.'],
+  moduleDirectories: [
+    'node_modules',
+    '<rootDir>/node_modules',
+    '.',
+    'packages/*',
+  ],
   testEnvironment: 'node',
   globals: {
     jest: true,

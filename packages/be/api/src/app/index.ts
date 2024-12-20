@@ -1,4 +1,5 @@
-import express, { json } from 'express';
+import * as express from 'express';
+import { json } from 'express';
 import routes from '../routes';
 
 const app = express();
@@ -9,8 +10,13 @@ routes.forEach((route) => {
   app.use(route);
 });
 
-app.get('/', function (_, res) {
-  res.json({ message: 'Hello World test 2' });
+export type VersionResponseBody = {
+  message: string;
+  identifier: number;
+};
+
+app.get('/version', function (_, res) {
+  res.json({ message: 'Api V1', identifier: 1 });
 });
 
 export default app;

@@ -9,6 +9,6 @@
     "typescript": "5.1.6"
   },
   "dependencies": {
-    "@track-me-app/aws": "0.1.0"
+    "aws-cdk-lib": "2.159.1"
   }
 }

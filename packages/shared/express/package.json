@@ -3,10 +3,21 @@
   "version": "0.1.0",
   "main": "src/index.ts",
   "type": "module",
+  "author": "guiyep",
+  "license": "MIT",
+  "repository": "guiyep/track-me-app",
+  "engines": {
+    "node": ">=18",
+    "npm": ">=6"
+  },
   "devDependencies": {
     "jest": "^29.6.1",
     "@types/jest": "^29.5.3",
-    "typescript": "5.1.6"
+    "typescript": "5.1.6",
+    "@types/express": "5.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "express": "4.21.1",
+    "@track-me-app/logger": "0.1.0"
+  }
 }
