@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`POST /gps/:email/:sessionId (add location)  to return 200 when correctly called 1`] = `
+{
+  "data": {
+    "created": 1577836800000,
+    "displayName": "asd",
+    "email": "guiyep@gmail.com",
+    "lastUpdated": 1577836800000,
+    "lat": 2,
+    "long": 2,
+    "sessionId": "222gh",
+  },
+  "partitionKey": "guiyep@gmail.com",
+  "sortKey": "222gh",
+}
+`;

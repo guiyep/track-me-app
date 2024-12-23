@@ -17,6 +17,10 @@ type GpsLocationBody = {
   long: number;
 };
 
+export type GpsLocationPostResponseBody = {
+  data: GpsLocationEntity;
+};
+
 router.post(
   '/gps/:email/:sessionId',
   validate(GpsLocation.validate),

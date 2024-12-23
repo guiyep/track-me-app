@@ -1,14 +1,38 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-unnecessary-type-parameters */
 
+let loggerActive = true;
+
+export const global = {
+  setLoggerStatus: (active: boolean) => {
+    loggerActive = active;
+  },
+};
+
+const logMessage = <T>(
+  type: 'warn' | 'log' | 'error',
+  { message }: { message: string },
+  object?: T,
+) => {
+  if (!loggerActive) {
+    return;
+  }
+
+  if (object == null) {
+    console[type](message);
+  }
+
+  console[type](message, object);
+};
+
 export const warn = <T>({ message }: { message: string }, object?: T) => {
-  console.warn(message, object);
+  logMessage('warn', { message }, object);
 };
 
 export const log = <T>({ message }: { message: string }, object?: T) => {
-  console.log(message, object);
+  logMessage('log', { message }, object);
 };
 
 export const error = <T>({ message }: { message: string }, object?: T) => {
-  console.error(message, object);
+  logMessage('error', { message }, object);
 };

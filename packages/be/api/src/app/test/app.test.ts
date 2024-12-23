@@ -3,7 +3,7 @@ import app from '../index';
 import * as request from 'supertest';
 import type { VersionResponseBody } from '../index';
 
-describe('POST /gps/:email/:sessionId (add location) ', () => {
+describe('GET /version', () => {
   test('to succeed', async () => {
     const response: request.Response = await request(app as App)
       .get('/version')

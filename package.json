@@ -11,7 +11,8 @@
     "npm": ">=6"
   },
   "scripts": {
-    "test": "jest --silent",
+    "test": "jest",
+    "test-silent": "jest --silent",
     "prettier": "prettier --write ./packages",
     "eslint": "eslint . --fix",
     "eslint-inspect": "npx eslint --inspect-config",
