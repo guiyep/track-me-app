@@ -1,1 +1,1 @@
-yarn test-silent && yarn lint-s
+yarn test && yarn lint-s
