@@ -11,9 +11,11 @@
     "@track-me-app/entities": "0.1.0",
     "@track-me-app/logger": "0.1.0",
     "@track-me-app/be-consts": "0.1.0",
+    "@track-me-app/errors": "0.1.0",
     "@aws-sdk/client-sqs": "3.712.0",
     "@aws-sdk/util-dynamodb": "3.712.0",
     "@aws-sdk/client-dynamodb": "3.712.0",
+    "uuid": "11.0.3",
     "zod": "3.24.1"
   }
 }

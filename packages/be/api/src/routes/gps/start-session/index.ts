@@ -1,6 +1,11 @@
-import { Router, Request, Response } from 'express';
-import { logger } from '@track-me-app/logger';
-// import { createId } from '@paralleldrive/cuid2';
+import { Router } from 'express';
+import { GpsSession } from '@track-me-app/be-entities';
+import { expressHandler } from '@track-me-app/express';
+import { getConstants } from '@track-me-app/be-consts';
+import { InvalidOperation } from '@track-me-app/errors';
+import { v4 as uuidv4 } from 'uuid';
+
+const Consts = getConstants();
 
 const router = Router();
 
@@ -9,18 +14,22 @@ type StartSessionParams = {
 };
 
 router.post(
-  '/gps/start-session/:email/',
-  (req: Request<StartSessionParams, object, void>, res: Response) => {
-    logger.log({ message: '/gps/start-session/:email/' }, req);
-    try {
-      //   const { email } = req.params;
+  '/gps-start-session/:email/',
+  expressHandler<StartSessionParams, string>(async ({ email }) => {
+    const item = await GpsSession.get({
+      email,
+      sessionId: Consts.GpsTable.LATEST_SESSION_KEY,
+    });
 
-      res.json({ message: 'Gps location saved', data: {} });
-    } catch (e) {
-      logger.error({ message: 'Error saving GpsLocation' }, e);
-      res.status(500).json({ error: e });
+    if (item?.data.sessionId != null) {
+      throw new InvalidOperation({ message: 'session already started' });
     }
-  },
+
+    const newSessionId = uuidv4();
+    await GpsSession.save({ sessionId: newSessionId, email });
+
+    return newSessionId;
+  }),
 );
 
 export default router;

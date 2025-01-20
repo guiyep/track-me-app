@@ -8,6 +8,14 @@ const Consts = getConstants();
 /*
 schema {
   partitionKey: '[email]',
+  sortKey: 'latestSession',
+  data: {
+    sessionId: string,
+  }
+}
+
+schema {
+  partitionKey: '[email]',
   sortKey: '[sessionId]',
   data: {
     email: string,
@@ -16,6 +24,8 @@ schema {
     sessionId: string,
     lat: number,
     long:number,
+    gpsInfo: {}
+    deviceInfo: {}
     created: number, (timestamp)
     lastUpdated: number (timestamp)
   }

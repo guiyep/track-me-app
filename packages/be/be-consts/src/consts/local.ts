@@ -7,4 +7,5 @@ export const GpsLocationsQueue = {
 
 export const GpsTable = {
   TABLE_NAME: 'GpsLocations',
+  LATEST_SESSION_KEY: 'latestSession',
 };

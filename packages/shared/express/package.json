@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "express": "4.21.1",
-    "@track-me-app/logger": "0.1.0"
+    "@track-me-app/logger": "0.1.0",
+    "@track-me-app/errors": "0.1.0"
   }
 }
