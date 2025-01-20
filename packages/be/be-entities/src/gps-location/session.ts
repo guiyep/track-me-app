@@ -1,4 +1,4 @@
-import { LatestSessionData, LatestSessionEntity } from '@track-me-app/entities';
+import { SessionData, SessionEntity } from '@track-me-app/entities';
 import { marshall } from '@aws-sdk/util-dynamodb';
 import {
   DynamoDBClient,
@@ -7,7 +7,6 @@ import {
 } from '@aws-sdk/client-dynamodb';
 import { getConstants } from '@track-me-app/be-consts';
 import { logger } from '@track-me-app/logger';
-import { InvalidOperation } from '@track-me-app/errors';
 import * as z from 'zod';
 
 const Consts = getConstants();
@@ -26,14 +25,14 @@ export const validate = (data: unknown): void => {
 export const save = async ({
   sessionId,
   email,
-}: LatestSessionData): Promise<LatestSessionData> => {
+}: SessionData): Promise<SessionData> => {
   logger.log({ message: 'Starting session save' }, { sessionId, email });
 
   const client = new DynamoDBClient();
   await client.send(
     new PutItemCommand({
       TableName: Consts.GpsTable.TABLE_NAME,
-      Item: marshall(new LatestSessionEntity({ sessionId, email }), {
+      Item: marshall(new SessionEntity({ sessionId, email }), {
         convertClassInstanceToMap: true,
       }),
     }),
@@ -45,14 +44,11 @@ export const save = async ({
 };
 
 export const get = async ({
-  sessionId,
   email,
-}: LatestSessionData): Promise<LatestSessionEntity | undefined> => {
-  logger.log({ message: 'Getting new session' }, { sessionId, email });
-
-  if (sessionId == null) {
-    throw new InvalidOperation({ message: 'sessionId cannot be null' });
-  }
+}: {
+  email: string;
+}): Promise<SessionEntity | undefined> => {
+  logger.log({ message: 'Getting latest session' }, { email });
 
   const client = new DynamoDBClient();
   const data = await client.send(
@@ -60,7 +56,7 @@ export const get = async ({
       TableName: Consts.GpsTable.TABLE_NAME,
       Key: {
         PK: marshall(email),
-        SK: marshall(sessionId),
+        SK: marshall(Consts.GpsTable.LATEST_SESSION_KEY),
       },
     }),
   );
@@ -71,7 +67,7 @@ export const get = async ({
   );
 
   if (data.Item) {
-    const item = LatestSessionEntity.fromRecord(data.Item);
+    const item = SessionEntity.fromRecord(data.Item);
     return item;
   }
 

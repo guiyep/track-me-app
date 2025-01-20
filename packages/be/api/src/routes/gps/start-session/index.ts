@@ -5,11 +5,8 @@ import {
   validateParams,
   emailValidation,
 } from '@track-me-app/express';
-import { getConstants } from '@track-me-app/be-consts';
 import { InvalidOperation } from '@track-me-app/errors';
 import { v4 as uuidv4 } from 'uuid';
-
-const Consts = getConstants();
 
 const router = Router();
 
@@ -23,7 +20,6 @@ router.post(
   expressHandler<StartSessionParams, string>(async ({ email }) => {
     const item = await GpsSession.get({
       email,
-      sessionId: Consts.GpsTable.LATEST_SESSION_KEY,
     });
 
     if (item?.data.sessionId != null) {
