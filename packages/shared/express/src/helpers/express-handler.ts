@@ -2,9 +2,18 @@ import { Request, Response } from 'express';
 import { logger } from '@track-me-app/logger';
 import { InvalidOperation } from '@track-me-app/errors';
 
+export type ExpressHandlerResponse<T> = {
+  data: T;
+};
+
 export const expressHandler =
-  <T, K = void, V = never>(f: (params: T, body: V) => Promise<K>) =>
-  async (req: Request<T, K, V>, res: Response): Promise<void> => {
+  <Params, ReturnValue = void, Body = never>(
+    f: (params: Params, body: Body) => Promise<ReturnValue>,
+  ) =>
+  async (
+    req: Request<Params, ReturnValue, Body>,
+    res: Response,
+  ): Promise<void> => {
     logger.log(
       { message: `Handling '${req.url}'` },
       { params: req.params, body: req.body },

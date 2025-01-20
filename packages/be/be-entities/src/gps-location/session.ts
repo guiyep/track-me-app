@@ -8,8 +8,20 @@ import {
 import { getConstants } from '@track-me-app/be-consts';
 import { logger } from '@track-me-app/logger';
 import { InvalidOperation } from '@track-me-app/errors';
+import * as z from 'zod';
 
 const Consts = getConstants();
+
+export const validate = (data: unknown): void => {
+  logger.log({ message: 'validating session' }, data);
+
+  const schema = z.object({
+    email: z.string().email(),
+    sessionId: z.string().min(1),
+  });
+
+  schema.parse(data);
+};
 
 export const save = async ({
   sessionId,

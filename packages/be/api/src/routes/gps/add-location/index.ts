@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { GpsLocation, GpsQueue } from '@track-me-app/be-entities';
 import { GpsLocationEntity } from '@track-me-app/entities';
-import { validate, expressHandler } from '@track-me-app/express';
+import { validateAll, expressHandler } from '@track-me-app/express';
 
 const router = Router();
 
@@ -22,7 +22,7 @@ export type GpsLocationPostResponseBody = {
 
 router.post(
   '/gps/:email/:sessionId',
-  validate(GpsLocation.validate),
+  validateAll(GpsLocation.validate),
   expressHandler<GpsLocationParams, object, GpsLocationBody>(
     async ({ email, sessionId }, body) => {
       const gpsLocationEntity = new GpsLocationEntity({

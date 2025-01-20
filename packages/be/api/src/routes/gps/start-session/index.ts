@@ -1,6 +1,10 @@
 import { Router } from 'express';
 import { GpsSession } from '@track-me-app/be-entities';
-import { expressHandler } from '@track-me-app/express';
+import {
+  expressHandler,
+  validateParams,
+  emailValidation,
+} from '@track-me-app/express';
 import { getConstants } from '@track-me-app/be-consts';
 import { InvalidOperation } from '@track-me-app/errors';
 import { v4 as uuidv4 } from 'uuid';
@@ -15,6 +19,7 @@ type StartSessionParams = {
 
 router.post(
   '/gps-start-session/:email/',
+  validateParams(emailValidation),
   expressHandler<StartSessionParams, string>(async ({ email }) => {
     const item = await GpsSession.get({
       email,
