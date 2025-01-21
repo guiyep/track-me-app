@@ -21,7 +21,7 @@ export type GpsLocationPostResponseBody = {
 };
 
 router.post(
-  '/gps/:email/:sessionId',
+  '/gps/add-location/:email/:sessionId',
   validateAll(GpsLocation.validate),
   expressHandler<GpsLocationParams, object, GpsLocationBody>(
     async ({ email, sessionId }, body) => {

@@ -15,7 +15,7 @@ type StartSessionParams = {
 };
 
 router.post(
-  '/gps-start-session/:email/',
+  '/gps/start-session/:email/',
   validateParams(emailValidation),
   expressHandler<StartSessionParams, string>(async ({ email }) => {
     const item = await GpsSession.get({

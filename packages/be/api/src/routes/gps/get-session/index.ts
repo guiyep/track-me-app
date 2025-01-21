@@ -14,7 +14,7 @@ type GetSessionParams = {
 };
 
 router.get(
-  '/gps-session/:email',
+  '/gps/get-session/:email',
   validateParams(emailValidation),
   expressHandler<GetSessionParams, SessionData | undefined>(
     async ({ email }) => {
