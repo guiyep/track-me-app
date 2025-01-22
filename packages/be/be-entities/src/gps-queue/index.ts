@@ -4,6 +4,7 @@ import { getConstants } from '@track-me-app/be-consts';
 import { logger } from '@track-me-app/logger';
 
 const Consts = getConstants();
+const sqsClient = new SQSClient();
 
 export const sendQueueMessage = async ({
   email,
@@ -12,8 +13,6 @@ export const sendQueueMessage = async ({
   email: string;
   sessionId: string;
 }) => {
-  const sqsClient = new SQSClient();
-
   const attributes = marshallSqsAttributes({
     email,
     sessionId,

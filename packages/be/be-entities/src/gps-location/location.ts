@@ -8,6 +8,8 @@ import * as z from 'zod';
 const Consts = getConstants();
 
 export const validate = (data: unknown): void => {
+  logger.log({ message: 'Validating location' }, data);
+
   const schema = z.object({
     email: z.string().email(),
     displayName: z.string().min(1),

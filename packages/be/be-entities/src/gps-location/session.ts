@@ -12,7 +12,7 @@ import * as z from 'zod';
 const Consts = getConstants();
 
 export const validate = (data: unknown): void => {
-  logger.log({ message: 'validating session' }, data);
+  logger.log({ message: 'Validating session' }, data);
 
   const schema = z.object({
     email: z.string().email(),
@@ -26,8 +26,6 @@ export const save = async ({
   sessionId,
   email,
 }: SessionData): Promise<SessionData> => {
-  logger.log({ message: 'Starting session save' }, { sessionId, email });
-
   const client = new DynamoDBClient();
   await client.send(
     new PutItemCommand({
@@ -38,7 +36,7 @@ export const save = async ({
     }),
   );
 
-  logger.log({ message: 'Saved new session' }, { sessionId, email });
+  logger.log({ message: 'PutItemCommand -> done' }, { sessionId, email });
 
   return { sessionId, email };
 };
@@ -48,8 +46,6 @@ export const get = async ({
 }: {
   email: string;
 }): Promise<SessionEntity | undefined> => {
-  logger.log({ message: 'Getting latest session' }, { email });
-
   const client = new DynamoDBClient();
   const data = await client.send(
     new GetItemCommand({
@@ -61,10 +57,7 @@ export const get = async ({
     }),
   );
 
-  logger.log(
-    { message: 'GetItemCommand received' },
-    { item: data.Item, email },
-  );
+  logger.log({ message: 'GetItemCommand -> done' }, { item: data.Item, email });
 
   if (data.Item) {
     const item = SessionEntity.fromRecord(data.Item);
