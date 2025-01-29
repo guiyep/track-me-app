@@ -1,5 +1,4 @@
-import * as express from 'express';
-import { json } from 'express';
+import express, { json } from 'express';
 import routes from '../routes';
 
 const app = express();

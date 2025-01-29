@@ -1,6 +1,6 @@
 import { App } from 'supertest/types';
 import app from '../../../../app/index';
-import * as request from 'supertest';
+import request from 'supertest';
 import { mockClient } from 'aws-sdk-client-mock';
 import { DynamoDBClient, GetItemCommand } from '@aws-sdk/client-dynamodb';
 import { marshall } from '@aws-sdk/util-dynamodb';

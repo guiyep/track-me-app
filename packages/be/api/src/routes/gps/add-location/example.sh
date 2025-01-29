@@ -1,0 +1,1 @@
+curl -k -X POST {url}/gps/add-location/guiyep@gmail.com/212312 -H "Content-Type: application/json" -d '{"displayName": "asd", "lat": 2, "long": 2}'

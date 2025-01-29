@@ -22,7 +22,8 @@
     "inlineSources": true,
     "experimentalDecorators": true,
     "strictPropertyInitialization": false,
-    "lib": ["dom", "esnext"]
+    "lib": ["dom", "esnext"],
+    "esModuleInterop": true
   },
   // "include": ["packages/**/*", "packages/**/**/*", "packages/**/**/**", "**/*", "*"],
   "exclude": ["node_modules", "**/node_modules"]

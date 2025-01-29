@@ -1,6 +1,6 @@
 import { App } from 'supertest/types';
 import app from '../../../../app/index';
-import * as request from 'supertest';
+import request from 'supertest';
 import { mockClient } from 'aws-sdk-client-mock';
 import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
 import { SQSClient, SendMessageCommand } from '@aws-sdk/client-sqs';

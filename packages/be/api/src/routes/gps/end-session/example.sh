@@ -1,0 +1,1 @@
+curl -k -X POST {url}/gps/end-session/guiyep@gmail.com -H "Content-Type: application/json"

@@ -1,6 +1,6 @@
 import { App } from 'supertest/types';
 import app from '../index';
-import * as request from 'supertest';
+import request from 'supertest';
 import type { VersionResponseBody } from '../index';
 
 describe('GET /version', () => {
