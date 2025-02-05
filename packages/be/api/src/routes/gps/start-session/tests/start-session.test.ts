@@ -27,7 +27,7 @@ describe('POST /gps/start-session/:email/ (start session) ', () => {
         TableName: Consts.GpsTable.TABLE_NAME,
       })
       .resolves({
-        Item: marshall({ sessionId: 'a session', email: 'an email' }),
+        Item: marshall({ data: { sessionId: 'a session', email: 'an email' } }),
       });
 
     const response: request.Response = await request(app as App)

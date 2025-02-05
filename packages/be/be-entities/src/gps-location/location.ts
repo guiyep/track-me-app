@@ -32,23 +32,13 @@ export const save = async (
 
   entity.setLastUpdated();
 
-  logger.log({ message: 'Saving GpsLocation with entity' }, entity);
-
   const params = {
     TableName: Consts.GpsTable.TABLE_NAME,
     Item: marshall(entity, { convertClassInstanceToMap: true }),
   };
 
   const command = new PutItemCommand(params);
-
-  logger.log(
-    { message: 'Saving GpsLocation with PutItemCommand using params' },
-    command,
-  );
-
   await client.send(command);
-
-  logger.log({ message: 'PutItemCommand executed successfully' });
 
   return entity;
 };

@@ -12,6 +12,6 @@ exports[`POST /gps/add-location/:email/:sessionId (add location)  to return 200 
     "sessionId": "222gh",
   },
   "partitionKey": "guiyep@gmail.com",
-  "sortKey": "222gh",
+  "sortKey": "sessionId:222gh/created:1577836800000",
 }
 `;

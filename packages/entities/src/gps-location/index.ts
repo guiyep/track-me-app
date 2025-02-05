@@ -19,15 +19,15 @@ export class GpsLocationEntity {
   constructor(data: GpsLocationDataArgs) {
     this.data = this.hydrateData(data);
     this.partitionKey = data.email;
-    this.sortKey = data.sessionId;
+    this.sortKey = `sessionId:${data.sessionId}/created:${this.data.created.toString()}`;
   }
 
   private hydrateData(data: GpsLocationDataArgs): GpsLocationData {
-    const dataWithTimestamp: GpsLocationData = {
+    const timestamp = Date.now();
+    return {
       ...data,
-      created: Date.now(),
+      created: timestamp,
     };
-    return dataWithTimestamp;
   }
 
   setLastUpdated(): void {

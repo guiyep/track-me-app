@@ -6,14 +6,11 @@ import {
   GetItemCommand,
 } from '@aws-sdk/client-dynamodb';
 import { getConstants } from '@track-me-app/be-consts';
-import { logger } from '@track-me-app/logger';
 import * as z from 'zod';
 
 const Consts = getConstants();
 
 export const validate = (data: unknown): void => {
-  logger.log({ message: 'Validating session' }, data);
-
   const schema = z.object({
     email: z.string().email(),
     sessionId: z.string().min(1),
@@ -36,8 +33,6 @@ export const save = async ({
     }),
   );
 
-  logger.log({ message: 'PutItemCommand -> done' }, { sessionId, email });
-
   return { sessionId, email };
 };
 
@@ -47,17 +42,16 @@ export const get = async ({
   email: string;
 }): Promise<SessionEntity | undefined> => {
   const client = new DynamoDBClient();
+
   const data = await client.send(
     new GetItemCommand({
       TableName: Consts.GpsTable.TABLE_NAME,
       Key: {
-        PK: marshall(email),
-        SK: marshall(Consts.GpsTable.LATEST_SESSION_KEY),
+        partitionKey: marshall(email),
+        sortKey: marshall(Consts.GpsTable.LATEST_SESSION_KEY),
       },
     }),
   );
-
-  logger.log({ message: 'GetItemCommand -> done' }, { item: data.Item, email });
 
   if (data.Item) {
     const item = SessionEntity.fromRecord(data.Item);

@@ -34,7 +34,7 @@ describe('GET /gps/get-session/:email/ (start session) ', () => {
         TableName: Consts.GpsTable.TABLE_NAME,
       })
       .resolves({
-        Item: marshall({ sessionId: 'a session', email: 'an email' }),
+        Item: marshall({ data: { sessionId: 'a session', email: 'an email' } }),
       });
 
     const response = await request(app as App)
@@ -43,7 +43,7 @@ describe('GET /gps/get-session/:email/ (start session) ', () => {
 
     expect(response.status).toEqual(200);
     expect(response.body).toEqual({
-      data: { sessionId: 'a session', email: 'an email' },
+      data: 'a session',
     });
   });
 });

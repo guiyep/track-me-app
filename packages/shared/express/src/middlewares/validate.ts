@@ -5,8 +5,8 @@ export const validateAll =
   (f: (data: unknown) => void) =>
   (req: Request, res: Response, next: NextFunction) => {
     try {
-      logger.log({ message: 'Request params' }, req.params);
-      logger.log({ message: 'Request body' }, req.body);
+      logger.log({ message: 'validateAll: Request params' }, req.params);
+      logger.log({ message: 'validateAll: Request body' }, req.body);
       f({ ...req.params, ...req.body });
       next();
     } catch (e) {
@@ -18,7 +18,7 @@ export const validateParams =
   (f: (data: unknown) => void) =>
   (req: Request, res: Response, next: NextFunction) => {
     try {
-      logger.log({ message: 'Request params' }, req.params);
+      logger.log({ message: 'validateParams: Request params' }, req.params);
       f({ ...req.params });
       next();
     } catch (e) {
@@ -30,7 +30,7 @@ export const validateBody =
   (f: (data: unknown) => void) =>
   (req: Request, res: Response, next: NextFunction) => {
     try {
-      logger.log({ message: 'Request body' }, req.body);
+      logger.log({ message: 'validateBody: Request body' }, req.body);
       f({ ...req.body });
       next();
     } catch (e) {

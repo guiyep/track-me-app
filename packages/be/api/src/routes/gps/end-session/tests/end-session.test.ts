@@ -37,7 +37,9 @@ describe('GET /gps/end-session/:email/', () => {
         TableName: Consts.GpsTable.TABLE_NAME,
       })
       .resolves({
-        Item: marshall({ sessionId: 'a-session', email: 'guiyep@gmail.com' }),
+        Item: marshall({
+          data: { sessionId: 'a-session', email: 'guiyep@gmail.com' },
+        }),
       });
 
     dynamoMockClient
