@@ -41,7 +41,7 @@ export const error = <T>({ message }: { message: string }, object?: T) => {
   logMessage('error', { message }, object);
 };
 
-export const func = <T, K>(f: (...args: T[]) => Promise<K> | K) => {
+export const func = <T, K>(f: (...args: T[] | never[]) => Promise<K> | K) => {
   return async (...args: T[]) => {
     log(
       { message: `Logging Function: "${f.name}" start execution` },
