@@ -6,28 +6,21 @@ import { logger } from '@track-me-app/logger';
 const Consts = getConstants();
 const sqsClient = new SQSClient();
 
-export const sendQueueMessage = async ({
-  email,
-  sessionId,
-}: {
-  email: string;
-  sessionId: string;
-}) => {
-  const attributes = marshallSqsAttributes({
-    email,
-    sessionId,
-  });
+export const sendQueueMessage = logger.func(
+  async ({ email, sessionId }: { email: string; sessionId: string }) => {
+    const attributes = marshallSqsAttributes({
+      email,
+      sessionId,
+    });
 
-  const command = new SendMessageCommand({
-    QueueUrl: Consts.GpsLocationsQueue.QUEUE_URL,
-    MessageBody: Consts.GpsLocationsQueue.GPS_LOCATION_ADDED_COMMAND,
-    MessageAttributes: attributes,
-  });
+    const command = new SendMessageCommand({
+      QueueUrl: Consts.GpsLocationsQueue.QUEUE_URL,
+      MessageBody: Consts.GpsLocationsQueue.GPS_LOCATION_ADDED_COMMAND,
+      MessageAttributes: attributes,
+    });
 
-  logger.log({ message: 'Sqs attributes' }, attributes);
-  logger.log({ message: 'Command for sqs build' }, command);
+    const data = await sqsClient.send(command);
 
-  const data = await sqsClient.send(command);
-
-  logger.log({ message: 'Message sent successfully:' }, data.MessageId);
-};
+    logger.log({ message: 'Message sent successfully:' }, data.MessageId);
+  },
+);

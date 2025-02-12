@@ -10,6 +10,7 @@ export const validateAll =
       f({ ...req.params, ...req.body });
       next();
     } catch (e) {
+      logger.error({ message: 'validateAll: failed' }, e);
       res.status(400).json({ message: e });
     }
   };
@@ -22,6 +23,7 @@ export const validateParams =
       f({ ...req.params });
       next();
     } catch (e) {
+      logger.error({ message: 'validateParams: failed' }, e);
       res.status(400).json({ message: e });
     }
   };
@@ -34,6 +36,7 @@ export const validateBody =
       f({ ...req.body });
       next();
     } catch (e) {
+      logger.error({ message: 'validateBody: failed' }, e);
       res.status(400).json({ message: e });
     }
   };

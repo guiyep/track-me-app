@@ -8,8 +8,6 @@ import * as z from 'zod';
 const Consts = getConstants();
 
 export const validate = (data: unknown): void => {
-  logger.log({ message: 'Validating location' }, data);
-
   const schema = z.object({
     email: z.string().email(),
     displayName: z.string().min(1),
@@ -25,20 +23,20 @@ export const validate = (data: unknown): void => {
   schema.parse(data);
 };
 
-export const save = async (
-  entity: GpsLocationEntity,
-): Promise<GpsLocationEntity> => {
-  const client = new DynamoDBClient();
+export const save = logger.func(
+  async (entity: GpsLocationEntity): Promise<GpsLocationEntity> => {
+    const client = new DynamoDBClient();
 
-  entity.setLastUpdated();
+    entity.setLastUpdated();
 
-  const params = {
-    TableName: Consts.GpsTable.TABLE_NAME,
-    Item: marshall(entity, { convertClassInstanceToMap: true }),
-  };
+    const params = {
+      TableName: Consts.GpsTable.TABLE_NAME,
+      Item: marshall(entity, { convertClassInstanceToMap: true }),
+    };
 
-  const command = new PutItemCommand(params);
-  await client.send(command);
+    const command = new PutItemCommand(params);
+    await client.send(command);
 
-  return entity;
-};
+    return entity;
+  },
+);
