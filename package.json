@@ -44,8 +44,8 @@
   "dependencies": {},
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "yarn run prettier",
-      "yarn run eslint"
+      "prettier --write",
+      "eslint --fix"
     ]
   },
   "private": true,
