@@ -5,7 +5,7 @@ import { Api } from '@track-me-app/api';
 import { GpsTable } from '@track-me-app/gps-table';
 import { ReportProcessor } from '@track-me-app/report-processor';
 
-const STACK_IDS = {
+export const STACK_IDS = {
   GpsQueueStack: 'GpsQueueStack',
   MainApiStack: 'MainApiStack',
   GpsTableStack: 'GpsTableStack',

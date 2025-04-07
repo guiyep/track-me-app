@@ -1,0 +1,711 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CloudStack should api be defined properly 1`] = `
+{
+  "Outputs": {
+    "MainApiStackMainApiGatewayEndpoint9CB3E853": {
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "https://",
+            {
+              "Ref": "MainApiStackMainApiGatewayF91BF44C",
+            },
+            ".execute-api.",
+            {
+              "Ref": "AWS::Region",
+            },
+            ".",
+            {
+              "Ref": "AWS::URLSuffix",
+            },
+            "/",
+            {
+              "Ref": "MainApiStackMainApiGatewayDeploymentStageprodA67525DE",
+            },
+            "/",
+          ],
+        ],
+      },
+    },
+  },
+  "Parameters": {
+    "BootstrapVersion": {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": {
+    "GpsQueueStackGpsDLQE90BE003": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "VisibilityTimeout": 300,
+      },
+      "Type": "AWS::SQS::Queue",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "GpsQueueStackGpsQueueC7861C42": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "QueueName": "GpsQueue",
+        "RedrivePolicy": {
+          "deadLetterTargetArn": {
+            "Fn::GetAtt": [
+              "GpsQueueStackGpsDLQE90BE003",
+              "Arn",
+            ],
+          },
+          "maxReceiveCount": 3,
+        },
+        "VisibilityTimeout": 300,
+      },
+      "Type": "AWS::SQS::Queue",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "GpsTableStackGpsLocations75E41656": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "partitionKey",
+            "AttributeType": "S",
+          },
+          {
+            "AttributeName": "sortKey",
+            "AttributeType": "S",
+          },
+        ],
+        "BillingMode": "PAY_PER_REQUEST",
+        "KeySchema": [
+          {
+            "AttributeName": "partitionKey",
+            "KeyType": "HASH",
+          },
+          {
+            "AttributeName": "sortKey",
+            "KeyType": "RANGE",
+          },
+        ],
+        "Replicas": [
+          {
+            "Region": {
+              "Ref": "AWS::Region",
+            },
+          },
+        ],
+        "TableName": "GpsLocations",
+      },
+      "Type": "AWS::DynamoDB::GlobalTable",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "MainApiStackMainApiGatewayANYApiPermissionCloudStackMainApiStackMainApiGateway2ED322B0ANYD3C02722": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "MainApiStackMainApiLambda4A8B4853",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "MainApiStackMainApiGatewayF91BF44C",
+              },
+              "/",
+              {
+                "Ref": "MainApiStackMainApiGatewayDeploymentStageprodA67525DE",
+              },
+              "/*/",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "MainApiStackMainApiGatewayANYApiPermissionTestCloudStackMainApiStackMainApiGateway2ED322B0ANYCEBDB81D": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "MainApiStackMainApiLambda4A8B4853",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "MainApiStackMainApiGatewayF91BF44C",
+              },
+              "/test-invoke-stage/*/",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "MainApiStackMainApiGatewayANYCECA7D84": {
+      "Properties": {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "ANY",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region",
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "MainApiStackMainApiLambda4A8B4853",
+                    "Arn",
+                  ],
+                },
+                "/invocations",
+              ],
+            ],
+          },
+        },
+        "ResourceId": {
+          "Fn::GetAtt": [
+            "MainApiStackMainApiGatewayF91BF44C",
+            "RootResourceId",
+          ],
+        },
+        "RestApiId": {
+          "Ref": "MainApiStackMainApiGatewayF91BF44C",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "MainApiStackMainApiGatewayAccount2843A3C0": {
+      "DeletionPolicy": "Retain",
+      "DependsOn": [
+        "MainApiStackMainApiGatewayF91BF44C",
+      ],
+      "Properties": {
+        "CloudWatchRoleArn": {
+          "Fn::GetAtt": [
+            "MainApiStackMainApiGatewayCloudWatchRole0E81662E",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::ApiGateway::Account",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "MainApiStackMainApiGatewayCloudWatchRole0E81662E": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "apigateway.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "MainApiStackMainApiGatewayDeploymentCB676F040a9b4507e9be4798029b6a5a631bbd55": {
+      "DependsOn": [
+        "MainApiStackMainApiGatewayproxyANYB1DF131C",
+        "MainApiStackMainApiGatewayproxy366500E1",
+        "MainApiStackMainApiGatewayANYCECA7D84",
+      ],
+      "Properties": {
+        "Description": "Automatically created by the RestApi construct",
+        "RestApiId": {
+          "Ref": "MainApiStackMainApiGatewayF91BF44C",
+        },
+      },
+      "Type": "AWS::ApiGateway::Deployment",
+    },
+    "MainApiStackMainApiGatewayDeploymentStageprodA67525DE": {
+      "DependsOn": [
+        "MainApiStackMainApiGatewayAccount2843A3C0",
+      ],
+      "Properties": {
+        "DeploymentId": {
+          "Ref": "MainApiStackMainApiGatewayDeploymentCB676F040a9b4507e9be4798029b6a5a631bbd55",
+        },
+        "RestApiId": {
+          "Ref": "MainApiStackMainApiGatewayF91BF44C",
+        },
+        "StageName": "prod",
+      },
+      "Type": "AWS::ApiGateway::Stage",
+    },
+    "MainApiStackMainApiGatewayF91BF44C": {
+      "Properties": {
+        "Name": "MainApiGateway",
+      },
+      "Type": "AWS::ApiGateway::RestApi",
+    },
+    "MainApiStackMainApiGatewayproxy366500E1": {
+      "Properties": {
+        "ParentId": {
+          "Fn::GetAtt": [
+            "MainApiStackMainApiGatewayF91BF44C",
+            "RootResourceId",
+          ],
+        },
+        "PathPart": "{proxy+}",
+        "RestApiId": {
+          "Ref": "MainApiStackMainApiGatewayF91BF44C",
+        },
+      },
+      "Type": "AWS::ApiGateway::Resource",
+    },
+    "MainApiStackMainApiGatewayproxyANYApiPermissionCloudStackMainApiStackMainApiGateway2ED322B0ANYproxyDB7F5AA8": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "MainApiStackMainApiLambda4A8B4853",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "MainApiStackMainApiGatewayF91BF44C",
+              },
+              "/",
+              {
+                "Ref": "MainApiStackMainApiGatewayDeploymentStageprodA67525DE",
+              },
+              "/*/*",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "MainApiStackMainApiGatewayproxyANYApiPermissionTestCloudStackMainApiStackMainApiGateway2ED322B0ANYproxyF7C1645D": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "MainApiStackMainApiLambda4A8B4853",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "MainApiStackMainApiGatewayF91BF44C",
+              },
+              "/test-invoke-stage/*/*",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "MainApiStackMainApiGatewayproxyANYB1DF131C": {
+      "Properties": {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "ANY",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region",
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "MainApiStackMainApiLambda4A8B4853",
+                    "Arn",
+                  ],
+                },
+                "/invocations",
+              ],
+            ],
+          },
+        },
+        "ResourceId": {
+          "Ref": "MainApiStackMainApiGatewayproxy366500E1",
+        },
+        "RestApiId": {
+          "Ref": "MainApiStackMainApiGatewayF91BF44C",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "MainApiStackMainApiLambda4A8B4853": {
+      "DependsOn": [
+        "MainApiStackMainApiLambdaServiceRoleDefaultPolicyFE9EF2CB",
+        "MainApiStackMainApiLambdaServiceRole56B3538B",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "ba3c45b1e2b6f83b36e1ced24da6c03f4a7c45a01c1789162d196e2f73e0eeaa.zip",
+        },
+        "FunctionName": "MainApiLambda",
+        "Handler": "index.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "MainApiStackMainApiLambdaServiceRole56B3538B",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "MainApiStackMainApiLambdaServiceRole56B3538B": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "MainApiStackMainApiLambdaServiceRoleDefaultPolicyFE9EF2CB": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "sqs:ReceiveMessage",
+                "sqs:ChangeMessageVisibility",
+                "sqs:GetQueueUrl",
+                "sqs:DeleteMessage",
+                "sqs:GetQueueAttributes",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "GpsQueueStackGpsQueueC7861C42",
+                  "Arn",
+                ],
+              },
+            },
+            {
+              "Action": [
+                "sqs:SendMessage",
+                "sqs:GetQueueAttributes",
+                "sqs:GetQueueUrl",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "GpsQueueStackGpsQueueC7861C42",
+                  "Arn",
+                ],
+              },
+            },
+            {
+              "Action": [
+                "dynamodb:BatchGetItem",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator",
+                "dynamodb:Query",
+                "dynamodb:GetItem",
+                "dynamodb:Scan",
+                "dynamodb:ConditionCheckItem",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PutItem",
+                "dynamodb:UpdateItem",
+                "dynamodb:DeleteItem",
+                "dynamodb:DescribeTable",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "GpsTableStackGpsLocations75E41656",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "MainApiStackMainApiLambdaServiceRoleDefaultPolicyFE9EF2CB",
+        "Roles": [
+          {
+            "Ref": "MainApiStackMainApiLambdaServiceRole56B3538B",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "ReportProcessorStackReportProcessorLambda92720B8A": {
+      "DependsOn": [
+        "ReportProcessorStackReportProcessorLambdaServiceRoleDefaultPolicy2B97C212",
+        "ReportProcessorStackReportProcessorLambdaServiceRole3C6C297C",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "e00ef89bae7a1af34a6d1475e4eb565866f75a8f07b6786bbcfbcbdf27170b6b.zip",
+        },
+        "FunctionName": "ReportProcessorLambda",
+        "Handler": "index.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "ReportProcessorStackReportProcessorLambdaServiceRole3C6C297C",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "ReportProcessorStackReportProcessorLambdaServiceRole3C6C297C": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "ReportProcessorStackReportProcessorLambdaServiceRoleDefaultPolicy2B97C212": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "sqs:ReceiveMessage",
+                "sqs:ChangeMessageVisibility",
+                "sqs:GetQueueUrl",
+                "sqs:DeleteMessage",
+                "sqs:GetQueueAttributes",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "GpsQueueStackGpsQueueC7861C42",
+                  "Arn",
+                ],
+              },
+            },
+            {
+              "Action": [
+                "sqs:SendMessage",
+                "sqs:GetQueueAttributes",
+                "sqs:GetQueueUrl",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "GpsQueueStackGpsQueueC7861C42",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "ReportProcessorStackReportProcessorLambdaServiceRoleDefaultPolicy2B97C212",
+        "Roles": [
+          {
+            "Ref": "ReportProcessorStackReportProcessorLambdaServiceRole3C6C297C",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "ReportProcessorStackReportProcessorLambdaSqsEventSourceCloudStackGpsQueueStackGpsQueue53C1F2864A807D30": {
+      "Properties": {
+        "BatchSize": 5,
+        "EventSourceArn": {
+          "Fn::GetAtt": [
+            "GpsQueueStackGpsQueueC7861C42",
+            "Arn",
+          ],
+        },
+        "FunctionName": {
+          "Ref": "ReportProcessorStackReportProcessorLambda92720B8A",
+        },
+      },
+      "Type": "AWS::Lambda::EventSourceMapping",
+    },
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
+

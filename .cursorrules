@@ -3,3 +3,4 @@
 - never use any, use correct types
 - use AWS CDK for cloud infrastructure setup
 - test files always go inside a "test" folder, new ones or existing ones
+- always use yarn
