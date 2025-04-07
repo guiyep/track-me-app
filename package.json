@@ -13,6 +13,7 @@
   "scripts": {
     "jest-clear": "jest --clearCache",
     "test": "jest --silent",
+    "test-changed": "./scripts/test-changed.sh",
     "test-no-silent": "jest",
     "prettier": "prettier --write ./packages",
     "eslint": "eslint . --fix",
@@ -31,6 +32,7 @@
     "@track-me-app/config": "0.1.0",
     "@types/jest": "29.5.3",
     "jest": "29.7.0",
+    "jest-changed-files": "^29.7.0",
     "@types/node": "22.7.4",
     "husky": "9.1.6",
     "lint-staged": "15.2.10",
