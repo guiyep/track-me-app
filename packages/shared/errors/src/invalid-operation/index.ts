@@ -6,5 +6,7 @@ export class InvalidOperation extends Error {
   constructor({ message }: { message: string }) {
     super();
     this.message = message;
+    this.type = 'InvalidOperation';
+    this.errorNumber = 400;
   }
 }

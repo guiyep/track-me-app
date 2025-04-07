@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InvalidOperation should create an instance with the correct properties 1`] = `[Error: Test error message]`;
