@@ -23,7 +23,15 @@
     "localstack-start": "zsh ./scripts/localstack-start.sh",
     "localstack-update": "zsh ./scripts/localstack-update.sh",
     "localstack-destroy": "zsh ./scripts/localstack-destroy.sh",
-    "localstack-restart": "yarn run localstack-destroy; yarn run localstack-start"
+    "localstack-restart": "yarn run localstack-destroy; yarn run localstack-start",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "docker:restart": "yarn docker:down && yarn docker:up",
+    "docker:cleanup": "zsh ./scripts/docker-cleanup.sh",
+    "dev-be:start": "zsh ./scripts/docker-cleanup.sh && yarn docker:up && zsh ./scripts/localstack-bootstrap.sh",
+    "dev-be:stop": "yarn docker:down",
+    "set-api-url": "zsh ./scripts/set-api-url.sh"
   },
   "devDependencies": {
     "@eslint/config-inspector": "0.6.0",

@@ -1,7 +1,12 @@
 # dependencies
 node_modules
+.pnp
+.pnp.js
 
-# builds
+# Testing
+coverage
+
+# Production
 build
 dist
 .rpt2_cache
@@ -17,3 +22,13 @@ dist
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Local env files
+.env.test
+
+# CDK
+.cdk.staging
+cdk.out
+
+# Docker
+.docker_mount

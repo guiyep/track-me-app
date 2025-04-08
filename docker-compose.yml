@@ -1,0 +1,33 @@
+services:
+  localstack:
+    image: localstack/localstack-pro
+    container_name: localstack
+    ports:
+      - '4566:4566' # LocalStack Edge Proxy
+      - '4510-4559:4510-4559' # external services port range
+    env_file:
+      - .env
+    environment:
+      - DEBUG=1
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - PERSISTENCE=1
+      - LAMBDA_EXECUTOR=docker
+      - HOST_TMP_FOLDER=${TMPDIR:-/tmp}/localstack
+      - AWS_DEFAULT_REGION=us-east-1
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      - LOCALSTACK_API_KEY=${LOCALSTACK_API_KEY:-} # Set your LocalStack Pro API key here
+    volumes:
+      - '${LOCALSTACK_VOLUME_DIR:-.docker_mount}:/var/lib/localstack'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+    networks:
+      - localstack_network
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:4566/_localstack/health']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  localstack_network:
+    driver: bridge
