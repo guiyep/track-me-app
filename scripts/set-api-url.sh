@@ -11,7 +11,7 @@ get_api_url() {
 # Function to write to .env.test file
 write_to_env_file() {
     local api_url="$1"
-    local env_file=".env.test"
+    local env_file=".env.$NODE_ENV"
     
     # Create or overwrite the .env.test file
     echo "ApiUrl=$api_url" > "$env_file"

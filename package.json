@@ -29,7 +29,7 @@
     "docker:logs": "docker-compose logs -f",
     "docker:restart": "yarn docker:down && yarn docker:up",
     "docker:cleanup": "zsh ./scripts/docker-cleanup.sh",
-    "dev-be:start": "zsh ./scripts/docker-cleanup.sh && yarn docker:up && zsh ./scripts/localstack-bootstrap.sh",
+    "dev-be:start": "export NODE_ENV=dev && zsh ./scripts/docker-cleanup.sh && yarn docker:up && zsh ./scripts/localstack-bootstrap.sh",
     "dev-be:stop": "yarn docker:down",
     "set-api-url": "zsh ./scripts/set-api-url.sh"
   },

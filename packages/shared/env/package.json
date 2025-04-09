@@ -1,0 +1,21 @@
+{
+  "name": "@track-me-app/env",
+  "version": "0.1.0",
+  "main": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "devDependencies": {
+    "jest": "29.7.0",
+    "@types/jest": "^29.5.3",
+    "ts-jest": "^29.1.1",
+    "typescript": "5.1.6"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "2.159.1",
+    "dotenv": "^16.4.5",
+    "@track-me-app/logger": "0.1.0"
+  }
+}

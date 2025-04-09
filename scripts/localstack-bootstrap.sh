@@ -1,5 +1,6 @@
 #!/bin/bash
 
+echo "🚀 ENV: $NODE_ENV 🚀 "
 echo "🚀 Starting LocalStack bootstrap process..."
 
 # Wait for LocalStack to be ready with loading indicator
