@@ -13,34 +13,34 @@ exports[`GpsTable Stack snapshot 1`] = `
     "TestGpsTableGpsLocationsC47CFCB6": {
       "DeletionPolicy": "Retain",
       "Properties": {
-        "AttributeDefinitions": [
-          {
+        "AttributeDefinitions": {
+          "0": {
             "AttributeName": "partitionKey",
             "AttributeType": "S",
           },
-          {
+          "1": {
             "AttributeName": "sortKey",
             "AttributeType": "S",
           },
-        ],
+        },
         "BillingMode": "PAY_PER_REQUEST",
-        "KeySchema": [
-          {
+        "KeySchema": {
+          "0": {
             "AttributeName": "partitionKey",
             "KeyType": "HASH",
           },
-          {
+          "1": {
             "AttributeName": "sortKey",
             "KeyType": "RANGE",
           },
-        ],
-        "Replicas": [
-          {
+        },
+        "Replicas": {
+          "0": {
             "Region": {
               "Ref": "AWS::Region",
             },
           },
-        ],
+        },
         "TableName": "GpsLocations",
       },
       "Type": "AWS::DynamoDB::GlobalTable",
@@ -49,29 +49,29 @@ exports[`GpsTable Stack snapshot 1`] = `
   },
   "Rules": {
     "CheckBootstrapVersion": {
-      "Assertions": [
-        {
+      "Assertions": {
+        "0": {
           "Assert": {
-            "Fn::Not": [
-              {
-                "Fn::Contains": [
-                  [
-                    "1",
-                    "2",
-                    "3",
-                    "4",
-                    "5",
-                  ],
-                  {
+            "Fn::Not": {
+              "0": {
+                "Fn::Contains": {
+                  "0": {
+                    "0": "1",
+                    "1": "2",
+                    "2": "3",
+                    "3": "4",
+                    "4": "5",
+                  },
+                  "1": {
                     "Ref": "BootstrapVersion",
                   },
-                ],
+                },
               },
-            ],
+            },
           },
           "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
         },
-      ],
+      },
     },
   },
 }

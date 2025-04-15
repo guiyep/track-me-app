@@ -1,6 +1,7 @@
 import { App } from 'aws-cdk-lib';
 import { CloudStack } from '../cloud-stack';
 import { Template } from 'aws-cdk-lib/assertions';
+import { omit } from '@track-me-app/testing';
 
 const app = new App();
 const stack = new CloudStack(app, 'CloudStack');
@@ -16,6 +17,6 @@ describe('CloudStack', () => {
     const template = Template.fromStack(stack);
 
     // Snapshot the entire stack
-    expect(template.toJSON()).toMatchSnapshot();
+    expect(omit(template.toJSON(), ['S3Key'])).toMatchSnapshot();
   });
 });

@@ -2,6 +2,7 @@ import { App, Stack } from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 import { GpsTable } from '../stack';
 import { getConstants } from '@track-me-app/be-consts';
+import { omit } from '@track-me-app/testing';
 
 const Consts = getConstants();
 
@@ -12,7 +13,7 @@ describe('GpsTable Stack', () => {
 
   test('snapshot', () => {
     const template = Template.fromStack(stack);
-    expect(template.toJSON()).toMatchSnapshot();
+    expect(omit(template.toJSON(), ['S3Key'])).toMatchSnapshot();
   });
 
   test('should create a DynamoDB table with correct properties', () => {

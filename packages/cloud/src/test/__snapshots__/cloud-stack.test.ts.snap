@@ -5,28 +5,28 @@ exports[`CloudStack should api be defined properly 1`] = `
   "Outputs": {
     "MainApiStackMainApiGatewayEndpoint9CB3E853": {
       "Value": {
-        "Fn::Join": [
-          "",
-          [
-            "https://",
-            {
+        "Fn::Join": {
+          "0": "",
+          "1": {
+            "0": "https://",
+            "1": {
               "Ref": "MainApiStackMainApiGatewayF91BF44C",
             },
-            ".execute-api.",
-            {
+            "2": ".execute-api.",
+            "3": {
               "Ref": "AWS::Region",
             },
-            ".",
-            {
+            "4": ".",
+            "5": {
               "Ref": "AWS::URLSuffix",
             },
-            "/",
-            {
+            "6": "/",
+            "7": {
               "Ref": "MainApiStackMainApiGatewayDeploymentStageprodA67525DE",
             },
-            "/",
-          ],
-        ],
+            "8": "/",
+          },
+        },
       },
     },
   },
@@ -52,10 +52,10 @@ exports[`CloudStack should api be defined properly 1`] = `
         "QueueName": "GpsQueue",
         "RedrivePolicy": {
           "deadLetterTargetArn": {
-            "Fn::GetAtt": [
-              "GpsQueueStackGpsDLQE90BE003",
-              "Arn",
-            ],
+            "Fn::GetAtt": {
+              "0": "GpsQueueStackGpsDLQE90BE003",
+              "1": "Arn",
+            },
           },
           "maxReceiveCount": 3,
         },
@@ -67,34 +67,34 @@ exports[`CloudStack should api be defined properly 1`] = `
     "GpsTableStackGpsLocations75E41656": {
       "DeletionPolicy": "Retain",
       "Properties": {
-        "AttributeDefinitions": [
-          {
+        "AttributeDefinitions": {
+          "0": {
             "AttributeName": "partitionKey",
             "AttributeType": "S",
           },
-          {
+          "1": {
             "AttributeName": "sortKey",
             "AttributeType": "S",
           },
-        ],
+        },
         "BillingMode": "PAY_PER_REQUEST",
-        "KeySchema": [
-          {
+        "KeySchema": {
+          "0": {
             "AttributeName": "partitionKey",
             "KeyType": "HASH",
           },
-          {
+          "1": {
             "AttributeName": "sortKey",
             "KeyType": "RANGE",
           },
-        ],
-        "Replicas": [
-          {
+        },
+        "Replicas": {
+          "0": {
             "Region": {
               "Ref": "AWS::Region",
             },
           },
-        ],
+        },
         "TableName": "GpsLocations",
       },
       "Type": "AWS::DynamoDB::GlobalTable",
@@ -104,39 +104,39 @@ exports[`CloudStack should api be defined properly 1`] = `
       "Properties": {
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
-          "Fn::GetAtt": [
-            "MainApiStackMainApiLambda4A8B4853",
-            "Arn",
-          ],
+          "Fn::GetAtt": {
+            "0": "MainApiStackMainApiLambda4A8B4853",
+            "1": "Arn",
+          },
         },
         "Principal": "apigateway.amazonaws.com",
         "SourceArn": {
-          "Fn::Join": [
-            "",
-            [
-              "arn:",
-              {
+          "Fn::Join": {
+            "0": "",
+            "1": {
+              "0": "arn:",
+              "1": {
                 "Ref": "AWS::Partition",
               },
-              ":execute-api:",
-              {
+              "10": "/*/",
+              "2": ":execute-api:",
+              "3": {
                 "Ref": "AWS::Region",
               },
-              ":",
-              {
+              "4": ":",
+              "5": {
                 "Ref": "AWS::AccountId",
               },
-              ":",
-              {
+              "6": ":",
+              "7": {
                 "Ref": "MainApiStackMainApiGatewayF91BF44C",
               },
-              "/",
-              {
+              "8": "/",
+              "9": {
                 "Ref": "MainApiStackMainApiGatewayDeploymentStageprodA67525DE",
               },
-              "/*/",
-            ],
-          ],
+            },
+          },
         },
       },
       "Type": "AWS::Lambda::Permission",
@@ -145,35 +145,35 @@ exports[`CloudStack should api be defined properly 1`] = `
       "Properties": {
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
-          "Fn::GetAtt": [
-            "MainApiStackMainApiLambda4A8B4853",
-            "Arn",
-          ],
+          "Fn::GetAtt": {
+            "0": "MainApiStackMainApiLambda4A8B4853",
+            "1": "Arn",
+          },
         },
         "Principal": "apigateway.amazonaws.com",
         "SourceArn": {
-          "Fn::Join": [
-            "",
-            [
-              "arn:",
-              {
+          "Fn::Join": {
+            "0": "",
+            "1": {
+              "0": "arn:",
+              "1": {
                 "Ref": "AWS::Partition",
               },
-              ":execute-api:",
-              {
+              "2": ":execute-api:",
+              "3": {
                 "Ref": "AWS::Region",
               },
-              ":",
-              {
+              "4": ":",
+              "5": {
                 "Ref": "AWS::AccountId",
               },
-              ":",
-              {
+              "6": ":",
+              "7": {
                 "Ref": "MainApiStackMainApiGatewayF91BF44C",
               },
-              "/test-invoke-stage/*/",
-            ],
-          ],
+              "8": "/test-invoke-stage/*/",
+            },
+          },
         },
       },
       "Type": "AWS::Lambda::Permission",
@@ -186,34 +186,34 @@ exports[`CloudStack should api be defined properly 1`] = `
           "IntegrationHttpMethod": "POST",
           "Type": "AWS_PROXY",
           "Uri": {
-            "Fn::Join": [
-              "",
-              [
-                "arn:",
-                {
+            "Fn::Join": {
+              "0": "",
+              "1": {
+                "0": "arn:",
+                "1": {
                   "Ref": "AWS::Partition",
                 },
-                ":apigateway:",
-                {
+                "2": ":apigateway:",
+                "3": {
                   "Ref": "AWS::Region",
                 },
-                ":lambda:path/2015-03-31/functions/",
-                {
-                  "Fn::GetAtt": [
-                    "MainApiStackMainApiLambda4A8B4853",
-                    "Arn",
-                  ],
+                "4": ":lambda:path/2015-03-31/functions/",
+                "5": {
+                  "Fn::GetAtt": {
+                    "0": "MainApiStackMainApiLambda4A8B4853",
+                    "1": "Arn",
+                  },
                 },
-                "/invocations",
-              ],
-            ],
+                "6": "/invocations",
+              },
+            },
           },
         },
         "ResourceId": {
-          "Fn::GetAtt": [
-            "MainApiStackMainApiGatewayF91BF44C",
-            "RootResourceId",
-          ],
+          "Fn::GetAtt": {
+            "0": "MainApiStackMainApiGatewayF91BF44C",
+            "1": "RootResourceId",
+          },
         },
         "RestApiId": {
           "Ref": "MainApiStackMainApiGatewayF91BF44C",
@@ -223,15 +223,15 @@ exports[`CloudStack should api be defined properly 1`] = `
     },
     "MainApiStackMainApiGatewayAccount2843A3C0": {
       "DeletionPolicy": "Retain",
-      "DependsOn": [
-        "MainApiStackMainApiGatewayF91BF44C",
-      ],
+      "DependsOn": {
+        "0": "MainApiStackMainApiGatewayF91BF44C",
+      },
       "Properties": {
         "CloudWatchRoleArn": {
-          "Fn::GetAtt": [
-            "MainApiStackMainApiGatewayCloudWatchRole0E81662E",
-            "Arn",
-          ],
+          "Fn::GetAtt": {
+            "0": "MainApiStackMainApiGatewayCloudWatchRole0E81662E",
+            "1": "Arn",
+          },
         },
       },
       "Type": "AWS::ApiGateway::Account",
@@ -241,41 +241,41 @@ exports[`CloudStack should api be defined properly 1`] = `
       "DeletionPolicy": "Retain",
       "Properties": {
         "AssumeRolePolicyDocument": {
-          "Statement": [
-            {
+          "Statement": {
+            "0": {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
               "Principal": {
                 "Service": "apigateway.amazonaws.com",
               },
             },
-          ],
+          },
           "Version": "2012-10-17",
         },
-        "ManagedPolicyArns": [
-          {
-            "Fn::Join": [
-              "",
-              [
-                "arn:",
-                {
+        "ManagedPolicyArns": {
+          "0": {
+            "Fn::Join": {
+              "0": "",
+              "1": {
+                "0": "arn:",
+                "1": {
                   "Ref": "AWS::Partition",
                 },
-                ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs",
-              ],
-            ],
+                "2": ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs",
+              },
+            },
           },
-        ],
+        },
       },
       "Type": "AWS::IAM::Role",
       "UpdateReplacePolicy": "Retain",
     },
     "MainApiStackMainApiGatewayDeploymentCB676F040a9b4507e9be4798029b6a5a631bbd55": {
-      "DependsOn": [
-        "MainApiStackMainApiGatewayproxyANYB1DF131C",
-        "MainApiStackMainApiGatewayproxy366500E1",
-        "MainApiStackMainApiGatewayANYCECA7D84",
-      ],
+      "DependsOn": {
+        "0": "MainApiStackMainApiGatewayproxyANYB1DF131C",
+        "1": "MainApiStackMainApiGatewayproxy366500E1",
+        "2": "MainApiStackMainApiGatewayANYCECA7D84",
+      },
       "Properties": {
         "Description": "Automatically created by the RestApi construct",
         "RestApiId": {
@@ -285,9 +285,9 @@ exports[`CloudStack should api be defined properly 1`] = `
       "Type": "AWS::ApiGateway::Deployment",
     },
     "MainApiStackMainApiGatewayDeploymentStageprodA67525DE": {
-      "DependsOn": [
-        "MainApiStackMainApiGatewayAccount2843A3C0",
-      ],
+      "DependsOn": {
+        "0": "MainApiStackMainApiGatewayAccount2843A3C0",
+      },
       "Properties": {
         "DeploymentId": {
           "Ref": "MainApiStackMainApiGatewayDeploymentCB676F040a9b4507e9be4798029b6a5a631bbd55",
@@ -308,10 +308,10 @@ exports[`CloudStack should api be defined properly 1`] = `
     "MainApiStackMainApiGatewayproxy366500E1": {
       "Properties": {
         "ParentId": {
-          "Fn::GetAtt": [
-            "MainApiStackMainApiGatewayF91BF44C",
-            "RootResourceId",
-          ],
+          "Fn::GetAtt": {
+            "0": "MainApiStackMainApiGatewayF91BF44C",
+            "1": "RootResourceId",
+          },
         },
         "PathPart": "{proxy+}",
         "RestApiId": {
@@ -324,39 +324,39 @@ exports[`CloudStack should api be defined properly 1`] = `
       "Properties": {
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
-          "Fn::GetAtt": [
-            "MainApiStackMainApiLambda4A8B4853",
-            "Arn",
-          ],
+          "Fn::GetAtt": {
+            "0": "MainApiStackMainApiLambda4A8B4853",
+            "1": "Arn",
+          },
         },
         "Principal": "apigateway.amazonaws.com",
         "SourceArn": {
-          "Fn::Join": [
-            "",
-            [
-              "arn:",
-              {
+          "Fn::Join": {
+            "0": "",
+            "1": {
+              "0": "arn:",
+              "1": {
                 "Ref": "AWS::Partition",
               },
-              ":execute-api:",
-              {
+              "10": "/*/*",
+              "2": ":execute-api:",
+              "3": {
                 "Ref": "AWS::Region",
               },
-              ":",
-              {
+              "4": ":",
+              "5": {
                 "Ref": "AWS::AccountId",
               },
-              ":",
-              {
+              "6": ":",
+              "7": {
                 "Ref": "MainApiStackMainApiGatewayF91BF44C",
               },
-              "/",
-              {
+              "8": "/",
+              "9": {
                 "Ref": "MainApiStackMainApiGatewayDeploymentStageprodA67525DE",
               },
-              "/*/*",
-            ],
-          ],
+            },
+          },
         },
       },
       "Type": "AWS::Lambda::Permission",
@@ -365,35 +365,35 @@ exports[`CloudStack should api be defined properly 1`] = `
       "Properties": {
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
-          "Fn::GetAtt": [
-            "MainApiStackMainApiLambda4A8B4853",
-            "Arn",
-          ],
+          "Fn::GetAtt": {
+            "0": "MainApiStackMainApiLambda4A8B4853",
+            "1": "Arn",
+          },
         },
         "Principal": "apigateway.amazonaws.com",
         "SourceArn": {
-          "Fn::Join": [
-            "",
-            [
-              "arn:",
-              {
+          "Fn::Join": {
+            "0": "",
+            "1": {
+              "0": "arn:",
+              "1": {
                 "Ref": "AWS::Partition",
               },
-              ":execute-api:",
-              {
+              "2": ":execute-api:",
+              "3": {
                 "Ref": "AWS::Region",
               },
-              ":",
-              {
+              "4": ":",
+              "5": {
                 "Ref": "AWS::AccountId",
               },
-              ":",
-              {
+              "6": ":",
+              "7": {
                 "Ref": "MainApiStackMainApiGatewayF91BF44C",
               },
-              "/test-invoke-stage/*/*",
-            ],
-          ],
+              "8": "/test-invoke-stage/*/*",
+            },
+          },
         },
       },
       "Type": "AWS::Lambda::Permission",
@@ -406,27 +406,27 @@ exports[`CloudStack should api be defined properly 1`] = `
           "IntegrationHttpMethod": "POST",
           "Type": "AWS_PROXY",
           "Uri": {
-            "Fn::Join": [
-              "",
-              [
-                "arn:",
-                {
+            "Fn::Join": {
+              "0": "",
+              "1": {
+                "0": "arn:",
+                "1": {
                   "Ref": "AWS::Partition",
                 },
-                ":apigateway:",
-                {
+                "2": ":apigateway:",
+                "3": {
                   "Ref": "AWS::Region",
                 },
-                ":lambda:path/2015-03-31/functions/",
-                {
-                  "Fn::GetAtt": [
-                    "MainApiStackMainApiLambda4A8B4853",
-                    "Arn",
-                  ],
+                "4": ":lambda:path/2015-03-31/functions/",
+                "5": {
+                  "Fn::GetAtt": {
+                    "0": "MainApiStackMainApiLambda4A8B4853",
+                    "1": "Arn",
+                  },
                 },
-                "/invocations",
-              ],
-            ],
+                "6": "/invocations",
+              },
+            },
           },
         },
         "ResourceId": {
@@ -439,24 +439,23 @@ exports[`CloudStack should api be defined properly 1`] = `
       "Type": "AWS::ApiGateway::Method",
     },
     "MainApiStackMainApiLambda4A8B4853": {
-      "DependsOn": [
-        "MainApiStackMainApiLambdaServiceRoleDefaultPolicyFE9EF2CB",
-        "MainApiStackMainApiLambdaServiceRole56B3538B",
-      ],
+      "DependsOn": {
+        "0": "MainApiStackMainApiLambdaServiceRoleDefaultPolicyFE9EF2CB",
+        "1": "MainApiStackMainApiLambdaServiceRole56B3538B",
+      },
       "Properties": {
         "Code": {
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "231f2aa9ddf30ba13bfda3a56e2cbb65fdf4dbd67270695cc3d914ce5b43555d.zip",
         },
         "FunctionName": "MainApiLambda",
         "Handler": "index.handler",
         "Role": {
-          "Fn::GetAtt": [
-            "MainApiStackMainApiLambdaServiceRole56B3538B",
-            "Arn",
-          ],
+          "Fn::GetAtt": {
+            "0": "MainApiStackMainApiLambdaServiceRole56B3538B",
+            "1": "Arn",
+          },
         },
         "Runtime": "nodejs18.x",
       },
@@ -465,122 +464,121 @@ exports[`CloudStack should api be defined properly 1`] = `
     "MainApiStackMainApiLambdaServiceRole56B3538B": {
       "Properties": {
         "AssumeRolePolicyDocument": {
-          "Statement": [
-            {
+          "Statement": {
+            "0": {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
               "Principal": {
                 "Service": "lambda.amazonaws.com",
               },
             },
-          ],
+          },
           "Version": "2012-10-17",
         },
-        "ManagedPolicyArns": [
-          {
-            "Fn::Join": [
-              "",
-              [
-                "arn:",
-                {
+        "ManagedPolicyArns": {
+          "0": {
+            "Fn::Join": {
+              "0": "",
+              "1": {
+                "0": "arn:",
+                "1": {
                   "Ref": "AWS::Partition",
                 },
-                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-              ],
-            ],
+                "2": ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              },
+            },
           },
-        ],
+        },
       },
       "Type": "AWS::IAM::Role",
     },
     "MainApiStackMainApiLambdaServiceRoleDefaultPolicyFE9EF2CB": {
       "Properties": {
         "PolicyDocument": {
-          "Statement": [
-            {
-              "Action": [
-                "sqs:ReceiveMessage",
-                "sqs:ChangeMessageVisibility",
-                "sqs:GetQueueUrl",
-                "sqs:DeleteMessage",
-                "sqs:GetQueueAttributes",
-              ],
+          "Statement": {
+            "0": {
+              "Action": {
+                "0": "sqs:ReceiveMessage",
+                "1": "sqs:ChangeMessageVisibility",
+                "2": "sqs:GetQueueUrl",
+                "3": "sqs:DeleteMessage",
+                "4": "sqs:GetQueueAttributes",
+              },
               "Effect": "Allow",
               "Resource": {
-                "Fn::GetAtt": [
-                  "GpsQueueStackGpsQueueC7861C42",
-                  "Arn",
-                ],
+                "Fn::GetAtt": {
+                  "0": "GpsQueueStackGpsQueueC7861C42",
+                  "1": "Arn",
+                },
               },
             },
-            {
-              "Action": [
-                "sqs:SendMessage",
-                "sqs:GetQueueAttributes",
-                "sqs:GetQueueUrl",
-              ],
+            "1": {
+              "Action": {
+                "0": "sqs:SendMessage",
+                "1": "sqs:GetQueueAttributes",
+                "2": "sqs:GetQueueUrl",
+              },
               "Effect": "Allow",
               "Resource": {
-                "Fn::GetAtt": [
-                  "GpsQueueStackGpsQueueC7861C42",
-                  "Arn",
-                ],
+                "Fn::GetAtt": {
+                  "0": "GpsQueueStackGpsQueueC7861C42",
+                  "1": "Arn",
+                },
               },
             },
-            {
-              "Action": [
-                "dynamodb:BatchGetItem",
-                "dynamodb:GetRecords",
-                "dynamodb:GetShardIterator",
-                "dynamodb:Query",
-                "dynamodb:GetItem",
-                "dynamodb:Scan",
-                "dynamodb:ConditionCheckItem",
-                "dynamodb:BatchWriteItem",
-                "dynamodb:PutItem",
-                "dynamodb:UpdateItem",
-                "dynamodb:DeleteItem",
-                "dynamodb:DescribeTable",
-              ],
+            "2": {
+              "Action": {
+                "0": "dynamodb:BatchGetItem",
+                "1": "dynamodb:GetRecords",
+                "10": "dynamodb:DeleteItem",
+                "11": "dynamodb:DescribeTable",
+                "2": "dynamodb:GetShardIterator",
+                "3": "dynamodb:Query",
+                "4": "dynamodb:GetItem",
+                "5": "dynamodb:Scan",
+                "6": "dynamodb:ConditionCheckItem",
+                "7": "dynamodb:BatchWriteItem",
+                "8": "dynamodb:PutItem",
+                "9": "dynamodb:UpdateItem",
+              },
               "Effect": "Allow",
               "Resource": {
-                "Fn::GetAtt": [
-                  "GpsTableStackGpsLocations75E41656",
-                  "Arn",
-                ],
+                "Fn::GetAtt": {
+                  "0": "GpsTableStackGpsLocations75E41656",
+                  "1": "Arn",
+                },
               },
             },
-          ],
+          },
           "Version": "2012-10-17",
         },
         "PolicyName": "MainApiStackMainApiLambdaServiceRoleDefaultPolicyFE9EF2CB",
-        "Roles": [
-          {
+        "Roles": {
+          "0": {
             "Ref": "MainApiStackMainApiLambdaServiceRole56B3538B",
           },
-        ],
+        },
       },
       "Type": "AWS::IAM::Policy",
     },
     "ReportProcessorStackReportProcessorLambda92720B8A": {
-      "DependsOn": [
-        "ReportProcessorStackReportProcessorLambdaServiceRoleDefaultPolicy2B97C212",
-        "ReportProcessorStackReportProcessorLambdaServiceRole3C6C297C",
-      ],
+      "DependsOn": {
+        "0": "ReportProcessorStackReportProcessorLambdaServiceRoleDefaultPolicy2B97C212",
+        "1": "ReportProcessorStackReportProcessorLambdaServiceRole3C6C297C",
+      },
       "Properties": {
         "Code": {
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "e00ef89bae7a1af34a6d1475e4eb565866f75a8f07b6786bbcfbcbdf27170b6b.zip",
         },
         "FunctionName": "ReportProcessorLambda",
         "Handler": "index.handler",
         "Role": {
-          "Fn::GetAtt": [
-            "ReportProcessorStackReportProcessorLambdaServiceRole3C6C297C",
-            "Arn",
-          ],
+          "Fn::GetAtt": {
+            "0": "ReportProcessorStackReportProcessorLambdaServiceRole3C6C297C",
+            "1": "Arn",
+          },
         },
         "Runtime": "nodejs18.x",
       },
@@ -589,77 +587,77 @@ exports[`CloudStack should api be defined properly 1`] = `
     "ReportProcessorStackReportProcessorLambdaServiceRole3C6C297C": {
       "Properties": {
         "AssumeRolePolicyDocument": {
-          "Statement": [
-            {
+          "Statement": {
+            "0": {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
               "Principal": {
                 "Service": "lambda.amazonaws.com",
               },
             },
-          ],
+          },
           "Version": "2012-10-17",
         },
-        "ManagedPolicyArns": [
-          {
-            "Fn::Join": [
-              "",
-              [
-                "arn:",
-                {
+        "ManagedPolicyArns": {
+          "0": {
+            "Fn::Join": {
+              "0": "",
+              "1": {
+                "0": "arn:",
+                "1": {
                   "Ref": "AWS::Partition",
                 },
-                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-              ],
-            ],
+                "2": ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              },
+            },
           },
-        ],
+        },
       },
       "Type": "AWS::IAM::Role",
     },
     "ReportProcessorStackReportProcessorLambdaServiceRoleDefaultPolicy2B97C212": {
       "Properties": {
         "PolicyDocument": {
-          "Statement": [
-            {
-              "Action": [
-                "sqs:ReceiveMessage",
-                "sqs:ChangeMessageVisibility",
-                "sqs:GetQueueUrl",
-                "sqs:DeleteMessage",
-                "sqs:GetQueueAttributes",
-              ],
+          "Statement": {
+            "0": {
+              "Action": {
+                "0": "sqs:ReceiveMessage",
+                "1": "sqs:ChangeMessageVisibility",
+                "2": "sqs:GetQueueUrl",
+                "3": "sqs:DeleteMessage",
+                "4": "sqs:GetQueueAttributes",
+              },
               "Effect": "Allow",
               "Resource": {
-                "Fn::GetAtt": [
-                  "GpsQueueStackGpsQueueC7861C42",
-                  "Arn",
-                ],
+                "Fn::GetAtt": {
+                  "0": "GpsQueueStackGpsQueueC7861C42",
+                  "1": "Arn",
+                },
               },
             },
-            {
-              "Action": [
-                "sqs:SendMessage",
-                "sqs:GetQueueAttributes",
-                "sqs:GetQueueUrl",
-              ],
+            "1": {
+              "Action": {
+                "0": "sqs:SendMessage",
+                "1": "sqs:GetQueueAttributes",
+                "2": "sqs:GetQueueUrl",
+              },
               "Effect": "Allow",
               "Resource": {
-                "Fn::GetAtt": [
-                  "GpsQueueStackGpsQueueC7861C42",
-                  "Arn",
-                ],
+                "Fn::GetAtt": {
+                  "0": "GpsQueueStackGpsQueueC7861C42",
+                  "1": "Arn",
+                },
               },
             },
-          ],
+          },
           "Version": "2012-10-17",
         },
         "PolicyName": "ReportProcessorStackReportProcessorLambdaServiceRoleDefaultPolicy2B97C212",
-        "Roles": [
-          {
+        "Roles": {
+          "0": {
             "Ref": "ReportProcessorStackReportProcessorLambdaServiceRole3C6C297C",
           },
-        ],
+        },
       },
       "Type": "AWS::IAM::Policy",
     },
@@ -667,10 +665,10 @@ exports[`CloudStack should api be defined properly 1`] = `
       "Properties": {
         "BatchSize": 5,
         "EventSourceArn": {
-          "Fn::GetAtt": [
-            "GpsQueueStackGpsQueueC7861C42",
-            "Arn",
-          ],
+          "Fn::GetAtt": {
+            "0": "GpsQueueStackGpsQueueC7861C42",
+            "1": "Arn",
+          },
         },
         "FunctionName": {
           "Ref": "ReportProcessorStackReportProcessorLambda92720B8A",
@@ -681,29 +679,29 @@ exports[`CloudStack should api be defined properly 1`] = `
   },
   "Rules": {
     "CheckBootstrapVersion": {
-      "Assertions": [
-        {
+      "Assertions": {
+        "0": {
           "Assert": {
-            "Fn::Not": [
-              {
-                "Fn::Contains": [
-                  [
-                    "1",
-                    "2",
-                    "3",
-                    "4",
-                    "5",
-                  ],
-                  {
+            "Fn::Not": {
+              "0": {
+                "Fn::Contains": {
+                  "0": {
+                    "0": "1",
+                    "1": "2",
+                    "2": "3",
+                    "3": "4",
+                    "4": "5",
+                  },
+                  "1": {
                     "Ref": "BootstrapVersion",
                   },
-                ],
+                },
               },
-            ],
+            },
           },
           "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
         },
-      ],
+      },
     },
   },
 }

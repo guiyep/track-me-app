@@ -2,6 +2,7 @@ import { App, Stack } from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 import { Api } from '../stack';
 import { NAMES } from '../config';
+import { omit } from '@track-me-app/testing';
 
 describe('Api Stack', () => {
   const app = new App();
@@ -10,7 +11,7 @@ describe('Api Stack', () => {
 
   test('snapshot', () => {
     const template = Template.fromStack(stack);
-    expect(template.toJSON()).toMatchSnapshot();
+    expect(omit(template.toJSON(), ['S3Key'])).toMatchSnapshot();
   });
 
   test('should create an API Gateway with correct properties', () => {

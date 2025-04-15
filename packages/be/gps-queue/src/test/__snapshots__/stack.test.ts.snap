@@ -16,10 +16,10 @@ exports[`GpsQueue Stack snapshot 1`] = `
         "QueueName": "GpsQueue",
         "RedrivePolicy": {
           "deadLetterTargetArn": {
-            "Fn::GetAtt": [
-              "TestGpsQueueGpsDLQ47C94382",
-              "Arn",
-            ],
+            "Fn::GetAtt": {
+              "0": "TestGpsQueueGpsDLQ47C94382",
+              "1": "Arn",
+            },
           },
           "maxReceiveCount": 3,
         },
@@ -39,29 +39,29 @@ exports[`GpsQueue Stack snapshot 1`] = `
   },
   "Rules": {
     "CheckBootstrapVersion": {
-      "Assertions": [
-        {
+      "Assertions": {
+        "0": {
           "Assert": {
-            "Fn::Not": [
-              {
-                "Fn::Contains": [
-                  [
-                    "1",
-                    "2",
-                    "3",
-                    "4",
-                    "5",
-                  ],
-                  {
+            "Fn::Not": {
+              "0": {
+                "Fn::Contains": {
+                  "0": {
+                    "0": "1",
+                    "1": "2",
+                    "2": "3",
+                    "3": "4",
+                    "4": "5",
+                  },
+                  "1": {
                     "Ref": "BootstrapVersion",
                   },
-                ],
+                },
               },
-            ],
+            },
           },
           "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
         },
-      ],
+      },
     },
   },
 }

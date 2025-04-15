@@ -5,28 +5,28 @@ exports[`Api Stack snapshot 1`] = `
   "Outputs": {
     "TestApiMainApiGatewayEndpoint7A856E58": {
       "Value": {
-        "Fn::Join": [
-          "",
-          [
-            "https://",
-            {
+        "Fn::Join": {
+          "0": "",
+          "1": {
+            "0": "https://",
+            "1": {
               "Ref": "TestApiMainApiGateway6BDC2E1D",
             },
-            ".execute-api.",
-            {
+            "2": ".execute-api.",
+            "3": {
               "Ref": "AWS::Region",
             },
-            ".",
-            {
+            "4": ".",
+            "5": {
               "Ref": "AWS::URLSuffix",
             },
-            "/",
-            {
+            "6": "/",
+            "7": {
               "Ref": "TestApiMainApiGatewayDeploymentStageprod96AA5D61",
             },
-            "/",
-          ],
-        ],
+            "8": "/",
+          },
+        },
       },
     },
   },
@@ -52,34 +52,34 @@ exports[`Api Stack snapshot 1`] = `
           "IntegrationHttpMethod": "POST",
           "Type": "AWS_PROXY",
           "Uri": {
-            "Fn::Join": [
-              "",
-              [
-                "arn:",
-                {
+            "Fn::Join": {
+              "0": "",
+              "1": {
+                "0": "arn:",
+                "1": {
                   "Ref": "AWS::Partition",
                 },
-                ":apigateway:",
-                {
+                "2": ":apigateway:",
+                "3": {
                   "Ref": "AWS::Region",
                 },
-                ":lambda:path/2015-03-31/functions/",
-                {
-                  "Fn::GetAtt": [
-                    "TestApiMainApiLambdaE9AF4E93",
-                    "Arn",
-                  ],
+                "4": ":lambda:path/2015-03-31/functions/",
+                "5": {
+                  "Fn::GetAtt": {
+                    "0": "TestApiMainApiLambdaE9AF4E93",
+                    "1": "Arn",
+                  },
                 },
-                "/invocations",
-              ],
-            ],
+                "6": "/invocations",
+              },
+            },
           },
         },
         "ResourceId": {
-          "Fn::GetAtt": [
-            "TestApiMainApiGateway6BDC2E1D",
-            "RootResourceId",
-          ],
+          "Fn::GetAtt": {
+            "0": "TestApiMainApiGateway6BDC2E1D",
+            "1": "RootResourceId",
+          },
         },
         "RestApiId": {
           "Ref": "TestApiMainApiGateway6BDC2E1D",
@@ -91,39 +91,39 @@ exports[`Api Stack snapshot 1`] = `
       "Properties": {
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
-          "Fn::GetAtt": [
-            "TestApiMainApiLambdaE9AF4E93",
-            "Arn",
-          ],
+          "Fn::GetAtt": {
+            "0": "TestApiMainApiLambdaE9AF4E93",
+            "1": "Arn",
+          },
         },
         "Principal": "apigateway.amazonaws.com",
         "SourceArn": {
-          "Fn::Join": [
-            "",
-            [
-              "arn:",
-              {
+          "Fn::Join": {
+            "0": "",
+            "1": {
+              "0": "arn:",
+              "1": {
                 "Ref": "AWS::Partition",
               },
-              ":execute-api:",
-              {
+              "10": "/*/",
+              "2": ":execute-api:",
+              "3": {
                 "Ref": "AWS::Region",
               },
-              ":",
-              {
+              "4": ":",
+              "5": {
                 "Ref": "AWS::AccountId",
               },
-              ":",
-              {
+              "6": ":",
+              "7": {
                 "Ref": "TestApiMainApiGateway6BDC2E1D",
               },
-              "/",
-              {
+              "8": "/",
+              "9": {
                 "Ref": "TestApiMainApiGatewayDeploymentStageprod96AA5D61",
               },
-              "/*/",
-            ],
-          ],
+            },
+          },
         },
       },
       "Type": "AWS::Lambda::Permission",
@@ -132,50 +132,50 @@ exports[`Api Stack snapshot 1`] = `
       "Properties": {
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
-          "Fn::GetAtt": [
-            "TestApiMainApiLambdaE9AF4E93",
-            "Arn",
-          ],
+          "Fn::GetAtt": {
+            "0": "TestApiMainApiLambdaE9AF4E93",
+            "1": "Arn",
+          },
         },
         "Principal": "apigateway.amazonaws.com",
         "SourceArn": {
-          "Fn::Join": [
-            "",
-            [
-              "arn:",
-              {
+          "Fn::Join": {
+            "0": "",
+            "1": {
+              "0": "arn:",
+              "1": {
                 "Ref": "AWS::Partition",
               },
-              ":execute-api:",
-              {
+              "2": ":execute-api:",
+              "3": {
                 "Ref": "AWS::Region",
               },
-              ":",
-              {
+              "4": ":",
+              "5": {
                 "Ref": "AWS::AccountId",
               },
-              ":",
-              {
+              "6": ":",
+              "7": {
                 "Ref": "TestApiMainApiGateway6BDC2E1D",
               },
-              "/test-invoke-stage/*/",
-            ],
-          ],
+              "8": "/test-invoke-stage/*/",
+            },
+          },
         },
       },
       "Type": "AWS::Lambda::Permission",
     },
     "TestApiMainApiGatewayAccount33A9C9F6": {
       "DeletionPolicy": "Retain",
-      "DependsOn": [
-        "TestApiMainApiGateway6BDC2E1D",
-      ],
+      "DependsOn": {
+        "0": "TestApiMainApiGateway6BDC2E1D",
+      },
       "Properties": {
         "CloudWatchRoleArn": {
-          "Fn::GetAtt": [
-            "TestApiMainApiGatewayCloudWatchRole35536BA9",
-            "Arn",
-          ],
+          "Fn::GetAtt": {
+            "0": "TestApiMainApiGatewayCloudWatchRole35536BA9",
+            "1": "Arn",
+          },
         },
       },
       "Type": "AWS::ApiGateway::Account",
@@ -185,41 +185,41 @@ exports[`Api Stack snapshot 1`] = `
       "DeletionPolicy": "Retain",
       "Properties": {
         "AssumeRolePolicyDocument": {
-          "Statement": [
-            {
+          "Statement": {
+            "0": {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
               "Principal": {
                 "Service": "apigateway.amazonaws.com",
               },
             },
-          ],
+          },
           "Version": "2012-10-17",
         },
-        "ManagedPolicyArns": [
-          {
-            "Fn::Join": [
-              "",
-              [
-                "arn:",
-                {
+        "ManagedPolicyArns": {
+          "0": {
+            "Fn::Join": {
+              "0": "",
+              "1": {
+                "0": "arn:",
+                "1": {
                   "Ref": "AWS::Partition",
                 },
-                ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs",
-              ],
-            ],
+                "2": ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs",
+              },
+            },
           },
-        ],
+        },
       },
       "Type": "AWS::IAM::Role",
       "UpdateReplacePolicy": "Retain",
     },
     "TestApiMainApiGatewayDeploymentD7E89E0Fc3c7df44cff6467ee015e5c3d9edc64d": {
-      "DependsOn": [
-        "TestApiMainApiGatewayproxyANY79151641",
-        "TestApiMainApiGatewayproxy58AE3F12",
-        "TestApiMainApiGatewayANYADEB3614",
-      ],
+      "DependsOn": {
+        "0": "TestApiMainApiGatewayproxyANY79151641",
+        "1": "TestApiMainApiGatewayproxy58AE3F12",
+        "2": "TestApiMainApiGatewayANYADEB3614",
+      },
       "Properties": {
         "Description": "Automatically created by the RestApi construct",
         "RestApiId": {
@@ -229,9 +229,9 @@ exports[`Api Stack snapshot 1`] = `
       "Type": "AWS::ApiGateway::Deployment",
     },
     "TestApiMainApiGatewayDeploymentStageprod96AA5D61": {
-      "DependsOn": [
-        "TestApiMainApiGatewayAccount33A9C9F6",
-      ],
+      "DependsOn": {
+        "0": "TestApiMainApiGatewayAccount33A9C9F6",
+      },
       "Properties": {
         "DeploymentId": {
           "Ref": "TestApiMainApiGatewayDeploymentD7E89E0Fc3c7df44cff6467ee015e5c3d9edc64d",
@@ -246,10 +246,10 @@ exports[`Api Stack snapshot 1`] = `
     "TestApiMainApiGatewayproxy58AE3F12": {
       "Properties": {
         "ParentId": {
-          "Fn::GetAtt": [
-            "TestApiMainApiGateway6BDC2E1D",
-            "RootResourceId",
-          ],
+          "Fn::GetAtt": {
+            "0": "TestApiMainApiGateway6BDC2E1D",
+            "1": "RootResourceId",
+          },
         },
         "PathPart": "{proxy+}",
         "RestApiId": {
@@ -266,27 +266,27 @@ exports[`Api Stack snapshot 1`] = `
           "IntegrationHttpMethod": "POST",
           "Type": "AWS_PROXY",
           "Uri": {
-            "Fn::Join": [
-              "",
-              [
-                "arn:",
-                {
+            "Fn::Join": {
+              "0": "",
+              "1": {
+                "0": "arn:",
+                "1": {
                   "Ref": "AWS::Partition",
                 },
-                ":apigateway:",
-                {
+                "2": ":apigateway:",
+                "3": {
                   "Ref": "AWS::Region",
                 },
-                ":lambda:path/2015-03-31/functions/",
-                {
-                  "Fn::GetAtt": [
-                    "TestApiMainApiLambdaE9AF4E93",
-                    "Arn",
-                  ],
+                "4": ":lambda:path/2015-03-31/functions/",
+                "5": {
+                  "Fn::GetAtt": {
+                    "0": "TestApiMainApiLambdaE9AF4E93",
+                    "1": "Arn",
+                  },
                 },
-                "/invocations",
-              ],
-            ],
+                "6": "/invocations",
+              },
+            },
           },
         },
         "ResourceId": {
@@ -302,39 +302,39 @@ exports[`Api Stack snapshot 1`] = `
       "Properties": {
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
-          "Fn::GetAtt": [
-            "TestApiMainApiLambdaE9AF4E93",
-            "Arn",
-          ],
+          "Fn::GetAtt": {
+            "0": "TestApiMainApiLambdaE9AF4E93",
+            "1": "Arn",
+          },
         },
         "Principal": "apigateway.amazonaws.com",
         "SourceArn": {
-          "Fn::Join": [
-            "",
-            [
-              "arn:",
-              {
+          "Fn::Join": {
+            "0": "",
+            "1": {
+              "0": "arn:",
+              "1": {
                 "Ref": "AWS::Partition",
               },
-              ":execute-api:",
-              {
+              "10": "/*/*",
+              "2": ":execute-api:",
+              "3": {
                 "Ref": "AWS::Region",
               },
-              ":",
-              {
+              "4": ":",
+              "5": {
                 "Ref": "AWS::AccountId",
               },
-              ":",
-              {
+              "6": ":",
+              "7": {
                 "Ref": "TestApiMainApiGateway6BDC2E1D",
               },
-              "/",
-              {
+              "8": "/",
+              "9": {
                 "Ref": "TestApiMainApiGatewayDeploymentStageprod96AA5D61",
               },
-              "/*/*",
-            ],
-          ],
+            },
+          },
         },
       },
       "Type": "AWS::Lambda::Permission",
@@ -343,57 +343,56 @@ exports[`Api Stack snapshot 1`] = `
       "Properties": {
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
-          "Fn::GetAtt": [
-            "TestApiMainApiLambdaE9AF4E93",
-            "Arn",
-          ],
+          "Fn::GetAtt": {
+            "0": "TestApiMainApiLambdaE9AF4E93",
+            "1": "Arn",
+          },
         },
         "Principal": "apigateway.amazonaws.com",
         "SourceArn": {
-          "Fn::Join": [
-            "",
-            [
-              "arn:",
-              {
+          "Fn::Join": {
+            "0": "",
+            "1": {
+              "0": "arn:",
+              "1": {
                 "Ref": "AWS::Partition",
               },
-              ":execute-api:",
-              {
+              "2": ":execute-api:",
+              "3": {
                 "Ref": "AWS::Region",
               },
-              ":",
-              {
+              "4": ":",
+              "5": {
                 "Ref": "AWS::AccountId",
               },
-              ":",
-              {
+              "6": ":",
+              "7": {
                 "Ref": "TestApiMainApiGateway6BDC2E1D",
               },
-              "/test-invoke-stage/*/*",
-            ],
-          ],
+              "8": "/test-invoke-stage/*/*",
+            },
+          },
         },
       },
       "Type": "AWS::Lambda::Permission",
     },
     "TestApiMainApiLambdaE9AF4E93": {
-      "DependsOn": [
-        "TestApiMainApiLambdaServiceRole612723F3",
-      ],
+      "DependsOn": {
+        "0": "TestApiMainApiLambdaServiceRole612723F3",
+      },
       "Properties": {
         "Code": {
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "231f2aa9ddf30ba13bfda3a56e2cbb65fdf4dbd67270695cc3d914ce5b43555d.zip",
         },
         "FunctionName": "MainApiLambda",
         "Handler": "index.handler",
         "Role": {
-          "Fn::GetAtt": [
-            "TestApiMainApiLambdaServiceRole612723F3",
-            "Arn",
-          ],
+          "Fn::GetAtt": {
+            "0": "TestApiMainApiLambdaServiceRole612723F3",
+            "1": "Arn",
+          },
         },
         "Runtime": "nodejs18.x",
       },
@@ -402,60 +401,60 @@ exports[`Api Stack snapshot 1`] = `
     "TestApiMainApiLambdaServiceRole612723F3": {
       "Properties": {
         "AssumeRolePolicyDocument": {
-          "Statement": [
-            {
+          "Statement": {
+            "0": {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
               "Principal": {
                 "Service": "lambda.amazonaws.com",
               },
             },
-          ],
+          },
           "Version": "2012-10-17",
         },
-        "ManagedPolicyArns": [
-          {
-            "Fn::Join": [
-              "",
-              [
-                "arn:",
-                {
+        "ManagedPolicyArns": {
+          "0": {
+            "Fn::Join": {
+              "0": "",
+              "1": {
+                "0": "arn:",
+                "1": {
                   "Ref": "AWS::Partition",
                 },
-                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-              ],
-            ],
+                "2": ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              },
+            },
           },
-        ],
+        },
       },
       "Type": "AWS::IAM::Role",
     },
   },
   "Rules": {
     "CheckBootstrapVersion": {
-      "Assertions": [
-        {
+      "Assertions": {
+        "0": {
           "Assert": {
-            "Fn::Not": [
-              {
-                "Fn::Contains": [
-                  [
-                    "1",
-                    "2",
-                    "3",
-                    "4",
-                    "5",
-                  ],
-                  {
+            "Fn::Not": {
+              "0": {
+                "Fn::Contains": {
+                  "0": {
+                    "0": "1",
+                    "1": "2",
+                    "2": "3",
+                    "3": "4",
+                    "4": "5",
+                  },
+                  "1": {
                     "Ref": "BootstrapVersion",
                   },
-                ],
+                },
               },
-            ],
+            },
           },
           "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
         },
-      ],
+      },
     },
   },
 }
