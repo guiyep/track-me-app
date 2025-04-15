@@ -22,7 +22,7 @@ echo "✅ CDK bootstrap completed!"
 
 # Run CDK deploy
 echo "🚀 Starting CDK deployment..."
-cdklocal deploy --all --require-approval never
+cdklocal deploy
 echo "✅ CDK deployment completed!"
 
 # Return to root directory

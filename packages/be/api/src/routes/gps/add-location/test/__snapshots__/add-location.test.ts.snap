@@ -2,16 +2,12 @@
 
 exports[`POST /gps/add-location/:email/:sessionId (add location)  to return 200 when correctly called 1`] = `
 {
-  "data": {
-    "created": 1577836800000,
-    "displayName": "asd",
-    "email": "guiyep@gmail.com",
-    "lastUpdated": 1577836800000,
-    "lat": 2,
-    "long": 2,
-    "sessionId": "222gh",
-  },
-  "partitionKey": "guiyep@gmail.com",
-  "sortKey": "sessionId:222gh/created:1577836800000",
+  "created": 1577836800000,
+  "displayName": "asd",
+  "email": "guiyep@gmail.com",
+  "lastUpdated": 1577836800000,
+  "lat": 2,
+  "long": 2,
+  "sessionId": "222gh",
 }
 `;

@@ -34,7 +34,7 @@ router.post(
       const result = await GpsLocation.save(gpsLocationEntity);
       await GpsQueue.sendQueueMessage({ email, sessionId });
 
-      return result;
+      return result.data;
     },
   ),
 );

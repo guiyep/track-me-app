@@ -385,7 +385,7 @@ exports[`Api Stack snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "ba3c45b1e2b6f83b36e1ced24da6c03f4a7c45a01c1789162d196e2f73e0eeaa.zip",
+          "S3Key": "231f2aa9ddf30ba13bfda3a56e2cbb65fdf4dbd67270695cc3d914ce5b43555d.zip",
         },
         "FunctionName": "MainApiLambda",
         "Handler": "index.handler",

@@ -5,3 +5,5 @@ cd packages/cloud
 cdklocal deploy
 cd ..
 cd ..
+echo "${Green}Localstack cloud environment updated"
+echo ""

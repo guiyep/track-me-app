@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { GpsLocation, GpsQueue } from '@track-me-app/be-entities';
-import { GpsLocationEntity } from '@track-me-app/entities';
+import { GpsLocationData, GpsLocationEntity } from '@track-me-app/entities';
 import {
   validateItems,
   expressHandler,
@@ -15,7 +15,7 @@ type GpsLocationParams = {
   sessionId: string;
 };
 
-type GpsLocation = {
+export type GpsLocation = {
   displayName: string;
   lat: number;
   long: number;
@@ -37,7 +37,7 @@ const saveOne = async ({
   displayName: string;
   lat: number;
   long: number;
-}): Promise<GpsLocationEntity> => {
+}): Promise<GpsLocationData> => {
   const gpsLocationEntity = new GpsLocationEntity({
     email,
     sessionId,
@@ -49,15 +49,15 @@ const saveOne = async ({
   const result = await GpsLocation.save(gpsLocationEntity);
   await GpsQueue.sendQueueMessage({ email, sessionId });
 
-  return result;
+  return result.data;
 };
 
 router.post(
   '/gps/add-locations/:email/:sessionId',
   validateItems(GpsLocation.validate, { min: 1, max: 1000 }),
-  expressHandler<GpsLocationParams, object, ListBody<GpsLocation>>(
+  expressHandler<GpsLocationParams, object, ListBody<GpsLocationData>>(
     async ({ email, sessionId }, { items }) => {
-      const result: GpsLocationEntity[] = await processBatch(
+      const result: GpsLocationData[] = await processBatch(
         items,
         (one: GpsLocation) => saveOne({ email, sessionId, ...one }),
         100,
