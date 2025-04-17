@@ -1,5 +1,6 @@
 import { GpsLocation } from '../routes/gps/add-locations';
 import { getEnvEntry } from '@track-me-app/env';
+import { fetch } from 'undici';
 
 const apiUrl = getEnvEntry('ApiUrl');
 
@@ -15,7 +16,7 @@ type GpsLocationResponse = {
   };
 };
 
-describe('POST /gps/add-location/:email/:sessionId (add multiple locations)', () => {
+describe('POST /v1/gps/add-location/:email/:sessionId (add multiple locations)', () => {
   test('should return 200 when correctly', async () => {
     const location: GpsLocation = {
       displayName: 'Location 1',
@@ -24,7 +25,7 @@ describe('POST /gps/add-location/:email/:sessionId (add multiple locations)', ()
     };
 
     const response = await fetch(
-      `${apiUrl}gps/add-location/guiyep@gmail.com/222gh`,
+      `${apiUrl}/v1/gps/add-location/guiyep@gmail.com/222gh`,
       {
         method: 'POST',
         headers: {

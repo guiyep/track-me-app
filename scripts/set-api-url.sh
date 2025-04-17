@@ -8,12 +8,13 @@ get_api_url() {
         --output text
 }
 
-# Function to write to .env.test file
+# Function to write to environment file
 write_to_env_file() {
     local api_url="$1"
-    local env_file=".env.$NODE_ENV"
+    local env_type="$2"
+    local env_file=".env.$env_type"
     
-    # Create or overwrite the .env.test file
+    # Create or overwrite the environment file
     echo "ApiUrl=$api_url" > "$env_file"
     
     if [ $? -eq 0 ]; then
@@ -34,7 +35,8 @@ main() {
         exit 1
     fi
     
-    write_to_env_file "$api_url"
+    write_to_env_file "$api_url" "test"
+    write_to_env_file "$api_url" "dev"
 }
 
 # Execute main function

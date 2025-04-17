@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`POST /gps/add-locations/:email/:sessionId (add location)  to return 200 when correctly called 1`] = `
+exports[`POST /v1/gps/add-locations/:email/:sessionId (add location)  to return 200 when correctly called 1`] = `
 [
   {
     "created": 1577836800000,

@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GET /version should return 200 when correctly 1`] = `
+{
+  "identifier": 1,
+  "message": "Api V1",
+  "version": "v1",
+  "versionList": [
+    "v1",
+  ],
+}
+`;

@@ -15,7 +15,7 @@ type GpsLocationResponse = {
   }[];
 };
 
-describe('POST /gps/add-locations/:email/:sessionId (add multiple locations)', () => {
+describe('POST /v1/gps/add-locations/:email/:sessionId (add multiple locations)', () => {
   test('should return 200 when correctly called with multiple locations', async () => {
     const locations: GpsLocation[] = [
       {
@@ -31,7 +31,7 @@ describe('POST /gps/add-locations/:email/:sessionId (add multiple locations)', (
     ];
 
     const response = await fetch(
-      `${apiUrl}gps/add-locations/guiyep@gmail.com/222gh`,
+      `${apiUrl}/v1/gps/add-locations/guiyep@gmail.com/222gh`,
       {
         method: 'POST',
         headers: {

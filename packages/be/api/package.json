@@ -16,7 +16,8 @@
     "aws-sdk-client-mock": "4.1.0",
     "undici": "7.7.0",
     "@track-me-app/env": "0.1.0",
-    "@track-me-app/testing": "0.1.0"
+    "@track-me-app/testing": "0.1.0",
+    "@faker-js/faker": "9.7.0"
   },
   "dependencies": {
     "@track-me-app/logger": "0.1.0",

@@ -20,6 +20,14 @@ echo "🔄 Running CDK bootstrap..."
 cdklocal bootstrap
 echo "✅ CDK bootstrap completed!"
 
+# Wait for LocalStack to be ready with loading indicator
+echo -n "⏳ Waiting for first deployment... ["
+for i in {1..10}; do
+    echo -n "▓"
+    sleep 1
+done
+echo "] ✅"
+
 # Run CDK deploy
 echo "🚀 Starting CDK deployment..."
 cdklocal deploy

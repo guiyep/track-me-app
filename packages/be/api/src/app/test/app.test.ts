@@ -15,5 +15,7 @@ describe('GET /version', () => {
     expect(response.status).toEqual(200);
     expect(body.message).toEqual('Api V1');
     expect(body.identifier).toEqual(1);
+    expect(body.version).toEqual('v1');
+    expect(body.versionList).toEqual(['v1']);
   });
 });

@@ -12,7 +12,7 @@ import { getConstants } from '@track-me-app/be-consts';
 
 const Consts = getConstants();
 
-describe('GET /gps/end-session/:email/', () => {
+describe('GET /v1/gps/end-session/:email/', () => {
   test('to return 400 when session is not started', async () => {
     const dynamoMockClient = mockClient(DynamoDBClient);
     dynamoMockClient
@@ -24,7 +24,7 @@ describe('GET /gps/end-session/:email/', () => {
       });
 
     const response: request.Response = await request(app as App)
-      .post('/gps/end-session/guiyep@gmail.com')
+      .post('/v1/gps/end-session/guiyep@gmail.com')
       .set('Accept', 'application/json');
 
     expect(response.status).toEqual(400);
@@ -49,7 +49,7 @@ describe('GET /gps/end-session/:email/', () => {
       .resolves({});
 
     const response = await request(app as App)
-      .post('/gps/end-session/guiyep@gmail.com')
+      .post('/v1/gps/end-session/guiyep@gmail.com')
       .set('Accept', 'application/json');
 
     expect(response.status).toEqual(200);
