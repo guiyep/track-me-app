@@ -1,3 +1,7 @@
+import { logger } from '@track-me-app/logger';
+import { unmarshall } from '@aws-sdk/util-dynamodb';
+import { AttributeValue } from '@aws-sdk/client-dynamodb';
+
 export type GpsLocationDataArgs = {
   email: string;
   displayName: string;
@@ -20,6 +24,13 @@ export class GpsLocationEntity {
     this.data = this.hydrateData(data);
     this.partitionKey = data.email;
     this.sortKey = `sessionId:${data.sessionId}/created:${this.data.created.toString()}`;
+  }
+
+  static fromRecord(dynamoData: Record<string, AttributeValue>) {
+    logger.log({ message: 'GpsLocationEntity -> fromRecord' }, { dynamoData });
+    const entity = unmarshall(dynamoData) as GpsLocationEntity;
+    logger.log({ message: 'GpsLocationEntity -> unmarshall' }, entity);
+    return new GpsLocationEntity(entity.data);
   }
 
   private hydrateData(data: GpsLocationDataArgs): GpsLocationData {

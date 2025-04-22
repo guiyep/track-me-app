@@ -1,6 +1,10 @@
 import { GpsLocationEntity } from '@track-me-app/entities';
 import { marshall } from '@aws-sdk/util-dynamodb';
-import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
+import {
+  DynamoDBClient,
+  GetItemCommand,
+  PutItemCommand,
+} from '@aws-sdk/client-dynamodb';
 import { getConstants } from '@track-me-app/be-consts';
 import { logger } from '@track-me-app/logger';
 import * as z from 'zod';
@@ -38,5 +42,34 @@ export const save = logger.func(
     await client.send(command);
 
     return entity;
+  },
+);
+
+export const get = logger.func(
+  async ({
+    email,
+    sessionId,
+  }: {
+    email: string;
+    sessionId: string;
+  }): Promise<GpsLocationEntity | undefined> => {
+    const client = new DynamoDBClient();
+
+    const data = await client.send(
+      new GetItemCommand({
+        TableName: Consts.GpsTable.TABLE_NAME,
+        Key: {
+          partitionKey: marshall(email),
+          sortKey: marshall(sessionId),
+        },
+      }),
+    );
+
+    if (data.Item) {
+      const item = GpsLocationEntity.fromRecord(data.Item);
+      return item;
+    }
+
+    return undefined;
   },
 );

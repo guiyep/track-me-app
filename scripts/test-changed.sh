@@ -40,7 +40,7 @@ done
 
 # Run jest with the collected patterns
 if [ ${#test_patterns[@]} -gt 0 ]; then
-    jest_command="yarn jest --silent --findRelatedTests ${test_patterns[*]}"
+    jest_command="yarn jest --silent --findRelatedTests ${test_patterns[*]} --passWithNoTests"
     if ! eval "$jest_command"; then
         echo "Error running tests"
         exit 1
