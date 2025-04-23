@@ -9,7 +9,7 @@ import { GpsTableSettingData } from '@track-me-app/gps-table';
 
 const Consts = getConstants();
 
-describe('GET /v1/settings/:userId/ (start session) ', () => {
+describe('GET /v1/settings/:userId', () => {
   test('to return 200 with undefined if not present', async () => {
     const dynamoMockClient = mockClient(DynamoDBClient);
     dynamoMockClient

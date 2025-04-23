@@ -8,7 +8,24 @@ import {
 import { getConstants } from '@track-me-app/be-consts';
 import { logger } from '@track-me-app/logger';
 import { GpsTableSettingData } from '@track-me-app/gps-table';
+import { z } from 'zod';
 const Consts = getConstants();
+
+export const validate = (data: unknown): void => {
+  const schema = z.object({
+    userId: z.string(),
+    displayName: z.string(),
+    name: z.string(),
+    lastName: z.string(),
+    email: z.string().email(),
+    phoneNumber: z.string().optional(),
+    profilePictureUrl: z.string().url().optional(),
+    isEmailVerified: z.boolean(),
+    isPhoneNumberVerified: z.boolean().optional(),
+  });
+
+  schema.parse(data);
+};
 
 export const save = logger.func(
   async (data: GpsTableSettingData): Promise<GpsTableSettingData> => {

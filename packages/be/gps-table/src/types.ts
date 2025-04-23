@@ -86,10 +86,10 @@ export type GpsTableSettingData = {
   name: string;
   lastName: string;
   email: string;
-  phoneNumber: string;
-  profilePictureUrl: string;
+  phoneNumber?: string;
+  profilePictureUrl?: string;
   isEmailVerified: boolean;
-  isPhoneNumberVerified: boolean;
+  isPhoneNumberVerified?: boolean;
 };
 
 export type GpsTableSettingSchema = {
