@@ -11,13 +11,20 @@ import {
   generateWifiSignalInfo,
   generateBatteryInfo,
 } from '@track-me-app/testing';
+import { faker } from '@faker-js/faker';
+
+// Set a consistent seed for faker
+faker.seed(12345);
 
 const Consts = getConstants();
 
 describe('POST /v1/gps/add-locations/:userId/:sessionId (add location) ', () => {
+  const fakeUsername = faker.internet.username();
+  const fakeSessionId = faker.string.uuid();
+
   test('to return 400 on empty body', async () => {
     const response: request.Response = await request(app as App)
-      .post('/v1/gps/add-locations/guiyep/222gh')
+      .post(`/v1/gps/add-locations/${fakeUsername}/${fakeSessionId}`)
       .set('Accept', 'application/json');
 
     expect(response.headers['content-type']).toMatch(/json/);
@@ -26,7 +33,7 @@ describe('POST /v1/gps/add-locations/:userId/:sessionId (add location) ', () => 
 
   test('to return 400 when validation do not pass', async () => {
     const response: request.Response = await request(app as App)
-      .post('/v1/gps/add-locations/guiyep/222gh')
+      .post(`/v1/gps/add-locations/${fakeUsername}/${fakeSessionId}`)
       .set('Accept', 'application/json')
       .set('Content-Type', 'application/json')
       .send({ displayName: 222 });
@@ -54,7 +61,7 @@ describe('POST /v1/gps/add-locations/:userId/:sessionId (add location) ', () => 
       .resolves({ MessageId: '222' });
 
     const response: request.Response = await request(app as App)
-      .post('/v1/gps/add-locations/guiyep/222gh')
+      .post(`/v1/gps/add-locations/${fakeUsername}/${fakeSessionId}`)
       .set('Accept', 'application/json')
       .set('Content-Type', 'application/json')
       .send({

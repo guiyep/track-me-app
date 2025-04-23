@@ -5,10 +5,17 @@ import { mockClient } from 'aws-sdk-client-mock';
 import { DynamoDBClient, GetItemCommand } from '@aws-sdk/client-dynamodb';
 import { marshall } from '@aws-sdk/util-dynamodb';
 import { getConstants } from '@track-me-app/be-consts';
+import { faker } from '@faker-js/faker';
+
+// Set a consistent seed for faker
+faker.seed(12345);
 
 const Consts = getConstants();
 
 describe('GET /v1/gps/get-session/:userId/ (start session) ', () => {
+  const fakeUsername = faker.internet.username();
+  const fakeSessionId = faker.string.uuid();
+
   test('to return 200 with undefined if not present', async () => {
     const dynamoMockClient = mockClient(DynamoDBClient);
     dynamoMockClient
@@ -20,7 +27,7 @@ describe('GET /v1/gps/get-session/:userId/ (start session) ', () => {
       });
 
     const response: request.Response = await request(app as App)
-      .get('/v1/gps/get-session/guiyep')
+      .get(`/v1/gps/get-session/${fakeUsername}`)
       .set('Accept', 'application/json');
 
     expect(response.status).toEqual(200);
@@ -35,17 +42,17 @@ describe('GET /v1/gps/get-session/:userId/ (start session) ', () => {
       })
       .resolves({
         Item: marshall({
-          data: { sessionId: 'a session', userId: 'an email' },
+          data: { sessionId: fakeSessionId, userId: fakeUsername },
         }),
       });
 
     const response = await request(app as App)
-      .get('/v1/gps/get-session/guiyep')
+      .get(`/v1/gps/get-session/${fakeUsername}`)
       .set('Accept', 'application/json');
 
     expect(response.status).toEqual(200);
     expect(response.body).toEqual({
-      data: 'a session',
+      data: fakeSessionId,
     });
   });
 });

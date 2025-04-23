@@ -22,13 +22,13 @@ exports[`POST /v1/gps/add-location/:userId/:sessionId (add location)  to return 
   "lastUpdated": 1577836800000,
   "lat": 2,
   "long": 2,
-  "sessionId": "222gh",
+  "sessionId": "fababf01-4acd-4fba-ab75-7bfac20ce078",
   "signalInfo": {
     "frequency": 3374,
     "isConnected": true,
     "strength": 70,
     "type": "wifi",
   },
-  "userId": "guiyep",
+  "userId": "Toby.Deckow",
 }
 `;
