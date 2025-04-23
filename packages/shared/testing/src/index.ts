@@ -1,3 +1,9 @@
+export {
+  generateGpsInfo,
+  generateWifiSignalInfo,
+  generateBatteryInfo,
+} from './fake';
+
 export const omit = <T extends object>(
   obj: T,
   properties: string[],

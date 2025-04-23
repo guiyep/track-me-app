@@ -6,6 +6,11 @@ import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
 import { SQSClient, SendMessageCommand } from '@aws-sdk/client-sqs';
 import type { GpsLocationPostResponseBody } from '../index';
 import { getConstants } from '@track-me-app/be-consts';
+import {
+  generateGpsInfo,
+  generateWifiSignalInfo,
+  generateBatteryInfo,
+} from '@track-me-app/testing';
 
 const Consts = getConstants();
 
@@ -54,8 +59,20 @@ describe('POST /v1/gps/add-locations/:email/:sessionId (add location) ', () => {
       .set('Content-Type', 'application/json')
       .send({
         items: [
-          { displayName: 'asd', lat: 2, long: 2 },
-          { displayName: 'asd2', lat: 3, long: 4 },
+          {
+            lat: 2,
+            long: 2,
+            gpsInfo: generateGpsInfo(1),
+            signalInfo: generateWifiSignalInfo(1),
+            batteryInfo: generateBatteryInfo(1),
+          },
+          {
+            lat: 3,
+            long: 4,
+            gpsInfo: generateGpsInfo(1),
+            signalInfo: generateWifiSignalInfo(1),
+            batteryInfo: generateBatteryInfo(1),
+          },
         ],
       });
 

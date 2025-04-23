@@ -6,7 +6,8 @@
   "devDependencies": {
     "jest": "29.7.0",
     "@types/jest": "^29.5.3",
-    "typescript": "5.1.6"
+    "typescript": "5.1.6",
+    "@track-me-app/gps-table": "0.1.0"
   },
   "dependencies": {}
 }

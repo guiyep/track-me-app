@@ -1,1 +1,18 @@
 export { GpsTable } from './stack';
+export type {
+  GpsTableSchema,
+  GpsTableLatestSessionSchema,
+  GpsInfo,
+  WifiSignalInfo,
+  CellularSignalInfo,
+  CellularGeneration,
+  BatteryInfo,
+  GpsTableData,
+  GpsTableLocation,
+  BatteryState,
+  ChargingSource,
+  BatteryHealth,
+  GpsTableIdentifiers,
+  GpsTableTime,
+  GpsTableInfo,
+} from './types';

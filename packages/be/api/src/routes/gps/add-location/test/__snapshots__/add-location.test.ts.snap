@@ -2,12 +2,33 @@
 
 exports[`POST /v1/gps/add-location/:email/:sessionId (add location)  to return 200 when correctly called 1`] = `
 {
+  "batteryInfo": {
+    "batteryHealth": "unknown",
+    "batteryLevel": 70,
+    "batteryState": "full",
+    "chargingSource": "AC",
+    "chargingStatus": true,
+  },
   "created": 1577836800000,
-  "displayName": "asd",
   "email": "guiyep@gmail.com",
+  "gpsInfo": {
+    "accuracy": 48.75234603591707,
+    "altitude": 200.08059867222983,
+    "altitudeAccuracy": 75.72533686161478,
+    "heading": 304.20648386696485,
+    "latitude": 37.772654213622445,
+    "longitude": 170.73657245433424,
+    "speed": 25.979615636724702,
+  },
   "lastUpdated": 1577836800000,
   "lat": 2,
   "long": 2,
   "sessionId": "222gh",
+  "signalInfo": {
+    "frequency": 3374,
+    "isConnected": true,
+    "strength": 70,
+    "type": "wifi",
+  },
 }
 `;

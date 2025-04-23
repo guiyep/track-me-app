@@ -1,6 +1,2 @@
-export {
-  GpsLocationEntity,
-  GpsLocationData,
-  GpsLocationDataArgs,
-} from './gps-location';
+export { GpsLocationEntity } from './gps-location';
 export { SessionData, SessionEntity } from './session';
