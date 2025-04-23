@@ -5,18 +5,21 @@ const apiUrl = getEnvEntry('ApiUrl');
 
 type SessionResponse = {
   data: {
-    email: string;
+    userId: string;
     sessionId: string | undefined;
   };
 };
 
-describe('Session operations', () => {
-  const testEmail = `${faker.person.firstName()}@${faker.internet.domainName()}`;
+const userId =
+  faker.person.firstName().toLowerCase() +
+  '_' +
+  faker.person.lastName().toLowerCase();
 
+describe('Session operations for userId:${userId}', () => {
   test('should complete full session lifecycle', async () => {
     // Start session
     const startResponse = await fetch(
-      `${apiUrl}/v1/gps/start-session/${testEmail}`,
+      `${apiUrl}/v1/gps/start-session/${userId}`,
       {
         method: 'POST',
       },
@@ -28,35 +31,29 @@ describe('Session operations', () => {
     expect(sessionId.length).toBeGreaterThan(0);
 
     // Get session
-    const getResponse = await fetch(
-      `${apiUrl}/v1/gps/get-session/${testEmail}`,
-      {
-        method: 'GET',
-      },
-    );
+    const getResponse = await fetch(`${apiUrl}/v1/gps/get-session/${userId}`, {
+      method: 'GET',
+    });
 
     expect(getResponse.status).toBe(200);
     const getSessionId = await getResponse.text();
     expect(getSessionId).toBe(sessionId);
 
     // End session
-    const endResponse = await fetch(
-      `${apiUrl}/v1/gps/end-session/${testEmail}`,
-      {
-        method: 'POST',
-      },
-    );
+    const endResponse = await fetch(`${apiUrl}/v1/gps/end-session/${userId}`, {
+      method: 'POST',
+    });
 
     expect(endResponse.status).toBe(200);
     const endResponseBody = (await endResponse.json()) as SessionResponse;
     expect(endResponseBody.data).toEqual({
-      email: testEmail,
+      userId,
       sessionId: undefined,
     });
 
     // Verify session is ended
     const verifyResponse = await fetch(
-      `${apiUrl}/v1/gps/get-session/${testEmail}`,
+      `${apiUrl}/v1/gps/get-session/${userId}`,
       {
         method: 'GET',
       },

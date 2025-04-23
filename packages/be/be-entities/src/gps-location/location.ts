@@ -53,7 +53,7 @@ export const validate = (data: unknown): void => {
   });
 
   const schema = z.object({
-    email: z.string().email(),
+    userId: z.string(),
     sessionId: z.string().min(1),
     lat: z.number().refine((val) => val >= -90 && val <= 90, {
       message: 'Latitude must be between -90 and 90',
@@ -89,10 +89,10 @@ export const save = logger.func(
 
 export const get = logger.func(
   async ({
-    email,
+    userId,
     sessionId,
   }: {
-    email: string;
+    userId: string;
     sessionId: string;
   }): Promise<GpsLocationEntity | undefined> => {
     const client = new DynamoDBClient();
@@ -101,7 +101,7 @@ export const get = logger.func(
       new GetItemCommand({
         TableName: Consts.GpsTable.TABLE_NAME,
         Key: {
-          partitionKey: marshall(email),
+          partitionKey: marshall(userId),
           sortKey: marshall(sessionId),
         },
       }),

@@ -12,7 +12,7 @@ import { getConstants } from '@track-me-app/be-consts';
 
 const Consts = getConstants();
 
-describe('GET /v1/gps/end-session/:email/', () => {
+describe('GET /v1/gps/end-session/:userId/', () => {
   test('to return 400 when session is not started', async () => {
     const dynamoMockClient = mockClient(DynamoDBClient);
     dynamoMockClient
@@ -24,7 +24,7 @@ describe('GET /v1/gps/end-session/:email/', () => {
       });
 
     const response: request.Response = await request(app as App)
-      .post('/v1/gps/end-session/guiyep@gmail.com')
+      .post('/v1/gps/end-session/guiyep')
       .set('Accept', 'application/json');
 
     expect(response.status).toEqual(400);
@@ -38,7 +38,7 @@ describe('GET /v1/gps/end-session/:email/', () => {
       })
       .resolves({
         Item: marshall({
-          data: { sessionId: 'a-session', email: 'guiyep@gmail.com' },
+          data: { sessionId: 'a-session', userId: 'guiyep' },
         }),
       });
 
@@ -49,12 +49,12 @@ describe('GET /v1/gps/end-session/:email/', () => {
       .resolves({});
 
     const response = await request(app as App)
-      .post('/v1/gps/end-session/guiyep@gmail.com')
+      .post('/v1/gps/end-session/guiyep')
       .set('Accept', 'application/json');
 
     expect(response.status).toEqual(200);
     expect(response.body).toEqual({
-      data: { sessionId: undefined, email: 'guiyep@gmail.com' },
+      data: { sessionId: undefined, userId: 'guiyep' },
     });
   });
 });

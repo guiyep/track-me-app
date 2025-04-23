@@ -14,18 +14,18 @@ export type GpsLocationPostResponseBody = {
 };
 
 router.post(
-  '/gps/add-location/:email/:sessionId',
+  '/gps/add-location/:userId/:sessionId',
   validateAll(GpsLocation.validate),
   expressHandler<GpsTableIdentifiers, object, GpsTableLocation>(
-    async ({ email, sessionId }, body) => {
+    async ({ userId, sessionId }, body) => {
       const gpsLocationEntity = new GpsLocationEntity({
-        email,
+        userId,
         sessionId,
         ...body,
       });
 
       const result = await GpsLocation.save(gpsLocationEntity);
-      await GpsQueue.sendQueueMessage({ email, sessionId });
+      await GpsQueue.sendQueueMessage({ userId, sessionId });
 
       return result.data;
     },

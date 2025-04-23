@@ -48,7 +48,7 @@ export type GpsTableLocation = {
 };
 
 export type GpsTableIdentifiers = {
-  email: string;
+  userId: string;
   sessionId: string;
 };
 
@@ -64,13 +64,13 @@ export type GpsTableData = GpsTableIdentifiers &
   GpsTableTime;
 
 export type GpsTableSchema = {
-  partitionKey: string; // [email]
+  partitionKey: string; // [userId]
   sortKey: `sessionId/${string}/created/${number}`; // sessionId/[sessionId]/created/[created]
   data: GpsTableData;
 };
 
 export type GpsTableLatestSessionSchema = {
-  partitionKey: string; // [email]
+  partitionKey: string; // [userId]
   sortKey: 'latestSession';
   data: {
     sessionId: string;

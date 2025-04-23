@@ -7,7 +7,7 @@ const Consts = getConstants();
 
 export type SessionData = {
   sessionId?: string;
-  email: string;
+  userId: string;
 };
 
 export class SessionEntity {
@@ -22,13 +22,13 @@ export class SessionEntity {
     return new SessionEntity(sessionEntity.data);
   }
 
-  constructor({ sessionId, email }: SessionData) {
-    logger.log({ message: 'new SessionEntity' }, { sessionId, email });
-    this.partitionKey = email;
+  constructor({ sessionId, userId }: SessionData) {
+    logger.log({ message: 'new SessionEntity' }, { sessionId, userId });
+    this.partitionKey = userId;
     // the session data will always have sorting key as LATEST_SESSION_KEY
     this.sortKey = Consts.GpsTable.LATEST_SESSION_KEY;
     this.data = {
-      email,
+      userId,
       // the session will change only based on the session that is running
       ...(sessionId ? { sessionId } : {}),
     };

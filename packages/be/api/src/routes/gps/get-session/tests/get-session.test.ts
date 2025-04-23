@@ -8,7 +8,7 @@ import { getConstants } from '@track-me-app/be-consts';
 
 const Consts = getConstants();
 
-describe('GET /v1/gps/get-session/:email/ (start session) ', () => {
+describe('GET /v1/gps/get-session/:userId/ (start session) ', () => {
   test('to return 200 with undefined if not present', async () => {
     const dynamoMockClient = mockClient(DynamoDBClient);
     dynamoMockClient
@@ -20,7 +20,7 @@ describe('GET /v1/gps/get-session/:email/ (start session) ', () => {
       });
 
     const response: request.Response = await request(app as App)
-      .get('/v1/gps/get-session/guiyep@gmail.com')
+      .get('/v1/gps/get-session/guiyep')
       .set('Accept', 'application/json');
 
     expect(response.status).toEqual(200);
@@ -34,11 +34,13 @@ describe('GET /v1/gps/get-session/:email/ (start session) ', () => {
         TableName: Consts.GpsTable.TABLE_NAME,
       })
       .resolves({
-        Item: marshall({ data: { sessionId: 'a session', email: 'an email' } }),
+        Item: marshall({
+          data: { sessionId: 'a session', userId: 'an email' },
+        }),
       });
 
     const response = await request(app as App)
-      .get('/v1/gps/get-session/guiyep@gmail.com')
+      .get('/v1/gps/get-session/guiyep')
       .set('Accept', 'application/json');
 
     expect(response.status).toEqual(200);

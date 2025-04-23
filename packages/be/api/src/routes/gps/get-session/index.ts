@@ -3,21 +3,21 @@ import { GpsSession } from '@track-me-app/be-entities';
 import {
   expressHandler,
   validateParams,
-  emailValidation,
+  userIdValidation,
 } from '@track-me-app/express';
 
 const router = Router();
 
 type GetSessionParams = {
-  email: string;
+  userId: string;
 };
 
 router.get(
-  '/gps/get-session/:email',
-  validateParams(emailValidation),
-  expressHandler<GetSessionParams, string | undefined>(async ({ email }) => {
+  '/gps/get-session/:userId',
+  validateParams(userIdValidation),
+  expressHandler<GetSessionParams, string | undefined>(async ({ userId }) => {
     const item = await GpsSession.get({
-      email,
+      userId,
     });
 
     return item?.data.sessionId;

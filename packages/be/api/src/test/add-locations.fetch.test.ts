@@ -13,11 +13,14 @@ type GpsLocationResponse = {
   data: GpsTableData[];
 };
 
-const email = faker.person.firstName() + '@' + faker.internet.domainName();
+const userId =
+  faker.person.firstName().toLowerCase() +
+  '_' +
+  faker.person.lastName().toLowerCase();
 const sessionId = faker.string.uuid();
 
-describe(`With email:${email} - sessionId:${sessionId} `, () => {
-  describe('POST /v1/gps/add-locations/:email/:sessionId (add multiple locations)', () => {
+describe(`With userId:${userId} - sessionId:${sessionId} `, () => {
+  describe('POST /v1/gps/add-locations/:userId/:sessionId (add multiple locations)', () => {
     test('should return 200 when correctly called with multiple locations', async () => {
       const locations: GpsTableLocation[] = [
         {
@@ -37,7 +40,7 @@ describe(`With email:${email} - sessionId:${sessionId} `, () => {
       ];
 
       const response = await fetch(
-        `${apiUrl}/v1/gps/add-locations/${email}/${sessionId}`,
+        `${apiUrl}/v1/gps/add-locations/${userId}/${sessionId}`,
         {
           method: 'POST',
           headers: {
@@ -55,7 +58,7 @@ describe(`With email:${email} - sessionId:${sessionId} `, () => {
 
       expect(locationsData[0]).toEqual(
         expect.objectContaining({
-          email,
+          userId,
           lat: 1,
           long: 1,
           sessionId,
@@ -67,7 +70,7 @@ describe(`With email:${email} - sessionId:${sessionId} `, () => {
 
       expect(locationsData[1]).toEqual(
         expect.objectContaining({
-          email,
+          userId,
           lat: 2,
           long: 2,
           sessionId,

@@ -3,7 +3,7 @@ import { GpsSession } from '@track-me-app/be-entities';
 import {
   expressHandler,
   validateParams,
-  emailValidation,
+  userIdValidation,
 } from '@track-me-app/express';
 import { SessionData } from '@track-me-app/entities';
 import { InvalidOperation } from '@track-me-app/errors';
@@ -11,16 +11,16 @@ import { InvalidOperation } from '@track-me-app/errors';
 const router = Router();
 
 type GetSessionParams = {
-  email: string;
+  userId: string;
 };
 
 router.post(
-  '/gps/end-session/:email',
-  validateParams(emailValidation),
+  '/gps/end-session/:userId',
+  validateParams(userIdValidation),
   expressHandler<GetSessionParams, SessionData | undefined, SessionData>(
-    async ({ email }) => {
+    async ({ userId }) => {
       const item = await GpsSession.get({
-        email,
+        userId,
       });
 
       const sessionId = item?.data.sessionId;
@@ -29,12 +29,12 @@ router.post(
       }
 
       await GpsSession.save({
-        email,
+        userId,
         sessionId: undefined,
       });
 
       return {
-        email,
+        userId,
         sessionId: undefined,
       };
     },

@@ -21,26 +21,26 @@ export type GpsLocationPostResponseBody = {
 };
 
 const saveOne = async (args: GpsTableInfo): Promise<GpsTableData> => {
-  const { email, sessionId } = args;
+  const { userId, sessionId } = args;
   const gpsLocationEntity = new GpsLocationEntity(args);
 
   const result = await GpsLocation.save(gpsLocationEntity);
-  await GpsQueue.sendQueueMessage({ email, sessionId });
+  await GpsQueue.sendQueueMessage({ userId, sessionId });
 
   return result.data;
 };
 
 router.post(
-  '/gps/add-locations/:email/:sessionId',
+  '/gps/add-locations/:userId/:sessionId',
   validateItems(GpsLocation.validate, { min: 1, max: 1000 }),
   expressHandler<
     GpsTableIdentifiers,
     object,
     ListBody<GpsTableLocation & GpsTableIdentifiers>
-  >(async ({ email, sessionId }, { items }) => {
+  >(async ({ userId, sessionId }, { items }) => {
     const result: GpsTableData[] = await processBatch(
       items,
-      (one: GpsTableLocation) => saveOne({ email, sessionId, ...one }),
+      (one: GpsTableLocation) => saveOne({ userId, sessionId, ...one }),
       100,
     );
 

@@ -19,7 +19,7 @@ const mockUuidv4 = uuidv4 as jest.Mock;
 
 const Consts = getConstants();
 
-describe('POST /v1/gps/start-session/:email/ (start session) ', () => {
+describe('POST /v1/gps/start-session/:userId/ (start session) ', () => {
   test('to return 400 when session already started', async () => {
     const dynamoMockClient = mockClient(DynamoDBClient);
     dynamoMockClient
@@ -27,11 +27,13 @@ describe('POST /v1/gps/start-session/:email/ (start session) ', () => {
         TableName: Consts.GpsTable.TABLE_NAME,
       })
       .resolves({
-        Item: marshall({ data: { sessionId: 'a session', email: 'an email' } }),
+        Item: marshall({
+          data: { sessionId: 'a session', userId: 'an email' },
+        }),
       });
 
     const response: request.Response = await request(app as App)
-      .post('/v1/gps/start-session/guiyep@gmail.com')
+      .post('/v1/gps/start-session/guiyep')
       .set('Accept', 'application/json');
 
     expect(response.status).toEqual(400);
@@ -57,7 +59,7 @@ describe('POST /v1/gps/start-session/:email/ (start session) ', () => {
     mockUuidv4.mockReturnValue(newSessionId);
 
     const response = await request(app as App)
-      .post('/v1/gps/start-session/guiyep@gmail.com')
+      .post('/v1/gps/start-session/guiyep')
       .set('Accept', 'application/json');
 
     expect(response.status).toEqual(200);

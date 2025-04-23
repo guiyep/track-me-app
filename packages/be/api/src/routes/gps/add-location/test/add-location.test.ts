@@ -14,10 +14,10 @@ import {
 
 const Consts = getConstants();
 
-describe('POST /v1/gps/add-location/:email/:sessionId (add location) ', () => {
+describe('POST /v1/gps/add-location/:userId/:sessionId (add location) ', () => {
   test('to return 400 on empty body', async () => {
     const response: request.Response = await request(app as App)
-      .post('/v1/gps/add-location/guiyep@gmail.com/222gh')
+      .post('/v1/gps/add-location/guiyep/222gh')
       .set('Accept', 'application/json');
 
     expect(response.headers['content-type']).toMatch(/json/);
@@ -26,7 +26,7 @@ describe('POST /v1/gps/add-location/:email/:sessionId (add location) ', () => {
 
   test('to return 400 when validation do not pass', async () => {
     const response: request.Response = await request(app as App)
-      .post('/v1/gps/add-location/guiyep@gmail.com/222gh')
+      .post('/v1/gps/add-location/guiyep/222gh')
       .set('Accept', 'application/json')
       .set('Content-Type', 'application/json')
       .send({ displayName: 222 });
@@ -54,7 +54,7 @@ describe('POST /v1/gps/add-location/:email/:sessionId (add location) ', () => {
       .resolves({ MessageId: '222' });
 
     const response: request.Response = await request(app as App)
-      .post('/v1/gps/add-location/guiyep@gmail.com/222gh')
+      .post('/v1/gps/add-location/guiyep/222gh')
       .set('Accept', 'application/json')
       .set('Content-Type', 'application/json')
       .send({

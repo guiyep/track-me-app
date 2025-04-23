@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`POST /v1/gps/add-location/:email/:sessionId (add location)  to return 200 when correctly called 1`] = `
+exports[`POST /v1/gps/add-location/:userId/:sessionId (add location)  to return 200 when correctly called 1`] = `
 {
   "batteryInfo": {
     "batteryHealth": "unknown",
@@ -10,7 +10,6 @@ exports[`POST /v1/gps/add-location/:email/:sessionId (add location)  to return 2
     "chargingStatus": true,
   },
   "created": 1577836800000,
-  "email": "guiyep@gmail.com",
   "gpsInfo": {
     "accuracy": 48.75234603591707,
     "altitude": 200.08059867222983,
@@ -30,5 +29,6 @@ exports[`POST /v1/gps/add-location/:email/:sessionId (add location)  to return 2
     "strength": 70,
     "type": "wifi",
   },
+  "userId": "guiyep",
 }
 `;

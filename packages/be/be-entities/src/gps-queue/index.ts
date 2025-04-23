@@ -7,9 +7,9 @@ const Consts = getConstants();
 const sqsClient = new SQSClient();
 
 export const sendQueueMessage = logger.func(
-  async ({ email, sessionId }: { email: string; sessionId: string }) => {
+  async ({ userId, sessionId }: { userId: string; sessionId: string }) => {
     const attributes = marshallSqsAttributes({
-      email,
+      userId,
       sessionId,
     });
 

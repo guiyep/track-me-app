@@ -10,7 +10,7 @@ export class GpsLocationEntity {
 
   constructor(data: GpsTableInfo) {
     this.data = this.hydrateData(data);
-    this.partitionKey = data.email;
+    this.partitionKey = data.userId;
     this.sortKey = `sessionId:${data.sessionId}/created:${this.data.created.toString()}`;
   }
 

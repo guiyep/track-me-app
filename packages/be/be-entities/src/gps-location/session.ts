@@ -13,7 +13,7 @@ const Consts = getConstants();
 
 export const validate = (data: unknown): void => {
   const schema = z.object({
-    email: z.string().email(),
+    userId: z.string(),
     sessionId: z.string().min(1),
   });
 
@@ -21,30 +21,34 @@ export const validate = (data: unknown): void => {
 };
 
 export const save = logger.func(
-  async ({ sessionId, email }: SessionData): Promise<SessionData> => {
+  async ({ sessionId, userId }: SessionData): Promise<SessionData> => {
     const client = new DynamoDBClient();
     await client.send(
       new PutItemCommand({
         TableName: Consts.GpsTable.TABLE_NAME,
-        Item: marshall(new SessionEntity({ sessionId, email }), {
+        Item: marshall(new SessionEntity({ sessionId, userId }), {
           convertClassInstanceToMap: true,
         }),
       }),
     );
 
-    return { sessionId, email };
+    return { sessionId, userId };
   },
 );
 
 export const get = logger.func(
-  async ({ email }: { email: string }): Promise<SessionEntity | undefined> => {
+  async ({
+    userId,
+  }: {
+    userId: string;
+  }): Promise<SessionEntity | undefined> => {
     const client = new DynamoDBClient();
 
     const data = await client.send(
       new GetItemCommand({
         TableName: Consts.GpsTable.TABLE_NAME,
         Key: {
-          partitionKey: marshall(email),
+          partitionKey: marshall(userId),
           sortKey: marshall(Consts.GpsTable.LATEST_SESSION_KEY),
         },
       }),
