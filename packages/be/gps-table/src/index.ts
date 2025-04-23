@@ -15,4 +15,6 @@ export type {
   GpsTableIdentifiers,
   GpsTableTime,
   GpsTableInfo,
+  GpsTableSettingData,
+  GpsTableSettingSchema,
 } from './types';

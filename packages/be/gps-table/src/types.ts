@@ -69,10 +69,31 @@ export type GpsTableSchema = {
   data: GpsTableData;
 };
 
+export type GpsTableLatestSessionData = {
+  userId: string;
+  sessionId?: string;
+};
+
 export type GpsTableLatestSessionSchema = {
   partitionKey: string; // [userId]
   sortKey: 'latestSession';
-  data: {
-    sessionId: string;
-  };
+  data: GpsTableLatestSessionData;
+};
+
+export type GpsTableSettingData = {
+  userId: string;
+  displayName: string;
+  name: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  profilePictureUrl: string;
+  isEmailVerified: boolean;
+  isPhoneNumberVerified: boolean;
+};
+
+export type GpsTableSettingSchema = {
+  partitionKey: string; // [userId]
+  sortKey: 'setting';
+  data: GpsTableSettingData;
 };
