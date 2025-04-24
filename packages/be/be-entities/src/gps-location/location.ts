@@ -70,7 +70,7 @@ export const validate = (data: unknown): void => {
   schema.parse(data);
 };
 
-export const save = logger.func(
+export const save = logger.asyncFunc(
   async (entity: GpsLocationEntity): Promise<GpsLocationEntity> => {
     const client = new DynamoDBClient();
 
@@ -90,7 +90,7 @@ export const save = logger.func(
   },
 );
 
-export const get = logger.func(
+export const get = logger.asyncFunc(
   async ({
     userId,
     sessionId,

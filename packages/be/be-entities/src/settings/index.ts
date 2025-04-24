@@ -27,7 +27,7 @@ export const validate = (data: unknown): void => {
   schema.parse(data);
 };
 
-export const save = logger.func(
+export const save = logger.asyncFunc(
   async (data: GpsTableSettingData): Promise<GpsTableSettingData> => {
     const client = new DynamoDBClient();
     await client.send(
@@ -43,7 +43,7 @@ export const save = logger.func(
   },
 );
 
-export const get = logger.func(
+export const get = logger.asyncFunc(
   async ({
     userId,
   }: {

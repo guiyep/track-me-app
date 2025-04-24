@@ -1,4 +1,4 @@
-import { global, warn, log, error, func } from '../index';
+import { global, warn, log, error, asyncFunc } from '../index';
 
 describe('Logger', () => {
   let consoleLogSpy: jest.SpyInstance;
@@ -86,7 +86,7 @@ describe('Logger', () => {
   describe('func wrapper', () => {
     it('should log function execution start and completion', async () => {
       const testFunction = (param: string) => param.toUpperCase();
-      const wrappedFunction = func(testFunction);
+      const wrappedFunction = asyncFunc(testFunction);
 
       const result = await wrappedFunction('test');
 
@@ -106,7 +106,7 @@ describe('Logger', () => {
       const failingFunction = () => {
         throw testError;
       };
-      const wrappedFunction = func(failingFunction);
+      const wrappedFunction = asyncFunc(failingFunction);
 
       await expect(wrappedFunction()).rejects.toThrow(testError);
 

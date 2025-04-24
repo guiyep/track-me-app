@@ -13,22 +13,24 @@ export type SqsAttributesMessage = {
   data: string;
 };
 
-export const sendQueueMessage = logger.func(async (item: GpsLocationEntity) => {
-  const attributes = marshallSqsAttributes({
-    userId: item.data.userId,
-    sessionId: item.data.sessionId,
-    data: JSON.stringify(item.data),
-  });
+export const sendQueueMessage = logger.asyncFunc(
+  async (item: GpsLocationEntity) => {
+    const attributes = marshallSqsAttributes({
+      userId: item.data.userId,
+      sessionId: item.data.sessionId,
+      data: JSON.stringify(item.data),
+    });
 
-  logger.log({ message: 'Sending message to queue' }, attributes);
+    logger.log({ message: 'Sending message to queue' }, attributes);
 
-  const command = new SendMessageCommand({
-    QueueUrl: Consts.GpsLocationsQueue.QUEUE_URL,
-    MessageBody: Consts.GpsLocationsQueue.GPS_LOCATION_ADDED_COMMAND,
-    MessageAttributes: attributes,
-  });
+    const command = new SendMessageCommand({
+      QueueUrl: Consts.GpsLocationsQueue.QUEUE_URL,
+      MessageBody: Consts.GpsLocationsQueue.GPS_LOCATION_ADDED_COMMAND,
+      MessageAttributes: attributes,
+    });
 
-  const data = await sqsClient.send(command);
+    const data = await sqsClient.send(command);
 
-  logger.log({ message: 'Message sent successfully:' }, data.MessageId);
-});
+    logger.log({ message: 'Message sent successfully:' }, data.MessageId);
+  },
+);

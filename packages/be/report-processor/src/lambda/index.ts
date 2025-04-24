@@ -2,7 +2,7 @@ import { SQSEvent } from 'aws-lambda'; // Import types from @types/aws-lambda
 import { logger } from '@track-me-app/logger';
 import { GpsLocationEntity } from '@track-me-app/entities';
 
-export const handler = logger.func((event: SQSEvent) => {
+export const handler = logger.asyncFunc((event: SQSEvent) => {
   // Process each SQS message in the event
   for (const record of event.Records) {
     const entity = GpsLocationEntity.fromSqs(record.messageAttributes);
