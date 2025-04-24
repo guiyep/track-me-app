@@ -11,3 +11,7 @@ export const GpsTable = {
   LATEST_SESSION_KEY: 'latestSession',
   SETTING_KEY: 'setting',
 };
+
+export const ReportTable = {
+  TABLE_NAME: 'Reports',
+};

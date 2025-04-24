@@ -17,4 +17,5 @@ export type {
   GpsTableInfo,
   GpsTableSettingData,
   GpsTableSettingSchema,
+  UserIdentity,
 } from './types';

@@ -4,12 +4,14 @@ import { GpsQueue } from '@track-me-app/gps-queue';
 import { Api } from '@track-me-app/api';
 import { GpsTable } from '@track-me-app/gps-table';
 import { ReportProcessor } from '@track-me-app/report-processor';
+import { ReportTable } from '@track-me-app/report-table';
 
 export const STACK_IDS = {
   GpsQueueStack: 'GpsQueueStack',
   MainApiStack: 'MainApiStack',
   GpsTableStack: 'GpsTableStack',
   ReportProcessorStack: 'ReportProcessorStack',
+  ReportTableStack: 'ReportTableStack',
 };
 
 export class CloudStack extends cdk.Stack {
@@ -29,7 +31,11 @@ export class CloudStack extends cdk.Stack {
     });
 
     new GpsTable(this, STACK_IDS.GpsTableStack, {
-      readAndWrite: [api.lambdaApi],
+      readAndWrite: [api.lambdaApi, reportProcessing.lambda],
+    });
+
+    new ReportTable(this, STACK_IDS.ReportTableStack, {
+      readAndWrite: [reportProcessing.lambda],
     });
   }
 }

@@ -80,16 +80,20 @@ export type GpsTableLatestSessionSchema = {
   data: GpsTableLatestSessionData;
 };
 
-export type GpsTableSettingData = {
+export type UserIdentity = {
   userId: string;
   displayName: string;
   name: string;
   lastName: string;
   email: string;
   phoneNumber?: string;
+};
+
+export type GpsTableSettingData = UserIdentity & {
   profilePictureUrl?: string;
   isEmailVerified: boolean;
   isPhoneNumberVerified?: boolean;
+  hasEmergencyContactSetup?: boolean;
 };
 
 export type GpsTableSettingSchema = {
