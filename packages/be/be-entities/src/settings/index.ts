@@ -1,15 +1,38 @@
-import { SettingsEntity } from '@track-me-app/entities';
-import { marshall } from '@aws-sdk/util-dynamodb';
 import {
+  AttributeValue,
   DynamoDBClient,
   PutItemCommand,
   GetItemCommand,
 } from '@aws-sdk/client-dynamodb';
+import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
 import { getConstants } from '@track-me-app/be-consts';
 import { logger } from '@track-me-app/logger';
 import { GpsTableSettingData } from '@track-me-app/gps-table';
 import { z } from 'zod';
+
 const Consts = getConstants();
+
+export class Entity {
+  protected readonly partitionKey: string;
+  protected readonly sortKey: string = Consts.GpsTable.SETTING_KEY;
+  readonly data: GpsTableSettingData;
+
+  static fromRecord(dynamoData: Record<string, AttributeValue>) {
+    logger.log({ message: 'Entity -> fromRecord' }, { dynamoData });
+    const settingsEntity = unmarshall(dynamoData) as Entity;
+    logger.log({ message: 'Entity -> unmarshall' }, settingsEntity);
+    return new Entity(settingsEntity.data);
+  }
+
+  constructor({ userId, ...rest }: GpsTableSettingData) {
+    logger.log({ message: 'new Entity' }, { userId });
+    this.partitionKey = userId;
+    this.data = {
+      userId,
+      ...rest,
+    };
+  }
+}
 
 export const validate = (data: unknown): void => {
   const schema = z.object({
@@ -33,7 +56,7 @@ export const save = logger.asyncFunc(
     await client.send(
       new PutItemCommand({
         TableName: Consts.GpsTable.TABLE_NAME,
-        Item: marshall(new SettingsEntity(data), {
+        Item: marshall(new Entity(data), {
           convertClassInstanceToMap: true,
         }),
       }),
@@ -44,11 +67,7 @@ export const save = logger.asyncFunc(
 );
 
 export const get = logger.asyncFunc(
-  async ({
-    userId,
-  }: {
-    userId: string;
-  }): Promise<SettingsEntity | undefined> => {
+  async ({ userId }: { userId: string }): Promise<Entity | undefined> => {
     const client = new DynamoDBClient();
 
     const data = await client.send(
@@ -62,7 +81,7 @@ export const get = logger.asyncFunc(
     );
 
     if (data.Item) {
-      const item = SettingsEntity.fromRecord(data.Item);
+      const item = Entity.fromRecord(data.Item);
       return item;
     }
 
