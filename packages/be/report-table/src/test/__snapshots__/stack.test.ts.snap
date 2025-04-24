@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReportTable Stack snapshot 1`] = `
+{
+  "Parameters": {
+    "BootstrapVersion": {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": {
+    "TestReportTableReports7D7A15F3": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "AttributeDefinitions": {
+          "0": {
+            "AttributeName": "partitionKey",
+            "AttributeType": "S",
+          },
+          "1": {
+            "AttributeName": "sortKey",
+            "AttributeType": "S",
+          },
+        },
+        "BillingMode": "PAY_PER_REQUEST",
+        "KeySchema": {
+          "0": {
+            "AttributeName": "partitionKey",
+            "KeyType": "HASH",
+          },
+          "1": {
+            "AttributeName": "sortKey",
+            "KeyType": "RANGE",
+          },
+        },
+        "Replicas": {
+          "0": {
+            "Region": {
+              "Ref": "AWS::Region",
+            },
+          },
+        },
+        "TableName": "Reports",
+      },
+      "Type": "AWS::DynamoDB::GlobalTable",
+      "UpdateReplacePolicy": "Retain",
+    },
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": {
+        "0": {
+          "Assert": {
+            "Fn::Not": {
+              "0": {
+                "Fn::Contains": {
+                  "0": {
+                    "0": "1",
+                    "1": "2",
+                    "2": "3",
+                    "3": "4",
+                    "4": "5",
+                  },
+                  "1": {
+                    "Ref": "BootstrapVersion",
+                  },
+                },
+              },
+            },
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      },
+    },
+  },
+}
+`;
