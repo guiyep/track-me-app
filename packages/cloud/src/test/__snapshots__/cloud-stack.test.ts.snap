@@ -649,6 +649,52 @@ exports[`CloudStack should api be defined properly 1`] = `
                 },
               },
             },
+            "2": {
+              "Action": {
+                "0": "dynamodb:BatchGetItem",
+                "1": "dynamodb:GetRecords",
+                "10": "dynamodb:DeleteItem",
+                "11": "dynamodb:DescribeTable",
+                "2": "dynamodb:GetShardIterator",
+                "3": "dynamodb:Query",
+                "4": "dynamodb:GetItem",
+                "5": "dynamodb:Scan",
+                "6": "dynamodb:ConditionCheckItem",
+                "7": "dynamodb:BatchWriteItem",
+                "8": "dynamodb:PutItem",
+                "9": "dynamodb:UpdateItem",
+              },
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": {
+                  "0": "GpsTableStackGpsLocations75E41656",
+                  "1": "Arn",
+                },
+              },
+            },
+            "3": {
+              "Action": {
+                "0": "dynamodb:BatchGetItem",
+                "1": "dynamodb:GetRecords",
+                "10": "dynamodb:DeleteItem",
+                "11": "dynamodb:DescribeTable",
+                "2": "dynamodb:GetShardIterator",
+                "3": "dynamodb:Query",
+                "4": "dynamodb:GetItem",
+                "5": "dynamodb:Scan",
+                "6": "dynamodb:ConditionCheckItem",
+                "7": "dynamodb:BatchWriteItem",
+                "8": "dynamodb:PutItem",
+                "9": "dynamodb:UpdateItem",
+              },
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": {
+                  "0": "ReportTableStackReports29FDE124",
+                  "1": "Arn",
+                },
+              },
+            },
           },
           "Version": "2012-10-17",
         },
@@ -675,6 +721,42 @@ exports[`CloudStack should api be defined properly 1`] = `
         },
       },
       "Type": "AWS::Lambda::EventSourceMapping",
+    },
+    "ReportTableStackReports29FDE124": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "AttributeDefinitions": {
+          "0": {
+            "AttributeName": "partitionKey",
+            "AttributeType": "S",
+          },
+          "1": {
+            "AttributeName": "sortKey",
+            "AttributeType": "S",
+          },
+        },
+        "BillingMode": "PAY_PER_REQUEST",
+        "KeySchema": {
+          "0": {
+            "AttributeName": "partitionKey",
+            "KeyType": "HASH",
+          },
+          "1": {
+            "AttributeName": "sortKey",
+            "KeyType": "RANGE",
+          },
+        },
+        "Replicas": {
+          "0": {
+            "Region": {
+              "Ref": "AWS::Region",
+            },
+          },
+        },
+        "TableName": "Reports",
+      },
+      "Type": "AWS::DynamoDB::GlobalTable",
+      "UpdateReplacePolicy": "Retain",
     },
   },
   "Rules": {

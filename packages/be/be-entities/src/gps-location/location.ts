@@ -8,6 +8,7 @@ import {
 import { getConstants } from '@track-me-app/be-consts';
 import { logger } from '@track-me-app/logger';
 import * as z from 'zod';
+import { GpsQueue } from '..';
 
 const Consts = getConstants();
 
@@ -82,6 +83,8 @@ export const save = logger.func(
 
     const command = new PutItemCommand(params);
     await client.send(command);
+
+    await GpsQueue.sendQueueMessage(entity);
 
     return entity;
   },

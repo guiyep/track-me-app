@@ -1,4 +1,5 @@
-import { IGrantable } from 'aws-cdk-lib/aws-iam';
+import type { IGrantable } from 'aws-cdk-lib/aws-iam';
+import type { SQSMessageAttributes } from 'aws-lambda';
 
 export type AccessProps = {
   read?: IGrantable[];
@@ -21,3 +22,26 @@ export const marshallSqsAttributes = (
     }
     return acc;
   }, {});
+
+export const unmarshallSqsAttributes = (
+  attributes: SQSMessageAttributes,
+): Record<string, string | number> =>
+  Object.keys(attributes).reduce<Record<string, string | number>>(
+    (acc, key) => {
+      const attribute = attributes[key];
+      const stringValue = attribute.stringValue;
+      const dataType = attribute.dataType;
+
+      if (!stringValue) {
+        return acc;
+      }
+
+      if (dataType === 'Number') {
+        acc[key] = Number(stringValue);
+      } else {
+        acc[key] = stringValue;
+      }
+      return acc;
+    },
+    {},
+  );

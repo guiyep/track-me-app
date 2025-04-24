@@ -59,3 +59,23 @@ export const func = <T, K>(f: (...args: T[]) => Promise<K> | K) => {
     }
   };
 };
+
+export const syncFunc = <T, K>(f: (...args: T[]) => K) => {
+  return (...args: T[]) => {
+    log(
+      { message: `Logging Function: "${f.name}" start execution` },
+      { ...args },
+    );
+    try {
+      const result = f(...args);
+      log(
+        { message: `Logging Function: "${f.name}" has completed` },
+        { result, args },
+      );
+      return result;
+    } catch (e) {
+      error({ message: `Logging Function: "${f.name}" Failed` }, { e, args });
+      throw e;
+    }
+  };
+};
