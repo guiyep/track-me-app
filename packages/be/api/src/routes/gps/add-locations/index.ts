@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import { GpsLocation } from '@track-me-app/be-entities';
-import { GpsLocationEntity } from '@track-me-app/entities';
 import {
   validateItems,
   expressHandler,
@@ -17,11 +16,11 @@ import type {
 const router = Router();
 
 export type GpsLocationPostResponseBody = {
-  data: GpsLocationEntity;
+  data: GpsLocation.Entity;
 };
 
 const saveOne = async (args: GpsTableInfo): Promise<GpsTableData> => {
-  const gpsLocationEntity = new GpsLocationEntity(args);
+  const gpsLocationEntity = new GpsLocation.Entity(args);
   const result = await GpsLocation.save(gpsLocationEntity);
   return result.data;
 };

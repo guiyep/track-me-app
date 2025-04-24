@@ -1,7 +1,7 @@
 import { SQSClient, SendMessageCommand } from '@aws-sdk/client-sqs';
 import { marshallSqsAttributes } from '@track-me-app/aws';
 import { getConstants } from '@track-me-app/be-consts';
-import { GpsLocationEntity } from '@track-me-app/entities';
+import { GpsLocation } from '@track-me-app/be-entities';
 import { logger } from '@track-me-app/logger';
 
 const Consts = getConstants();
@@ -14,7 +14,7 @@ export type SqsAttributesMessage = {
 };
 
 export const sendQueueMessage = logger.asyncFunc(
-  async (item: GpsLocationEntity) => {
+  async (item: GpsLocation.Entity) => {
     const attributes = marshallSqsAttributes({
       userId: item.data.userId,
       sessionId: item.data.sessionId,
