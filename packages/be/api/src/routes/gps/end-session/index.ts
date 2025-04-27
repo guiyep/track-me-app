@@ -6,7 +6,7 @@ import {
   userIdValidation,
 } from '@track-me-app/express';
 import { InvalidOperation } from '@track-me-app/errors';
-import { GpsTableLatestSessionData } from '@track-me-app/gps-table/src/types';
+import type { GpsTableLatestSessionData } from '@track-me-app/gps-table/src/types';
 
 const router = Router();
 

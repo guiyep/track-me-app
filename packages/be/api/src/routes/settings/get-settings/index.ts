@@ -5,7 +5,7 @@ import {
   validateParams,
   userIdValidation,
 } from '@track-me-app/express';
-import { GpsTableSettingData } from '@track-me-app/gps-table';
+import type { GpsTableSettingData } from '@track-me-app/gps-table';
 
 const router = Router();
 

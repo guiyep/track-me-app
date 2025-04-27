@@ -1,4 +1,4 @@
-import { VersionResponseBody } from '../app';
+import type { VersionResponseBody } from '../app';
 import { getEnvEntry } from '@track-me-app/env';
 
 const apiUrl = getEnvEntry('ApiUrl');

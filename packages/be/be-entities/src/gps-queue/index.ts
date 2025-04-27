@@ -1,7 +1,7 @@
 import { SQSClient, SendMessageCommand } from '@aws-sdk/client-sqs';
 import { marshallSqsAttributes } from '@track-me-app/aws';
 import { getConstants } from '@track-me-app/be-consts';
-import { GpsLocation } from '@track-me-app/be-entities';
+import type { GpsLocation } from '@track-me-app/be-entities';
 import { logger } from '@track-me-app/logger';
 
 const Consts = getConstants();

@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import { logger } from '@track-me-app/logger';
 import type { ListBody } from '../index';
 

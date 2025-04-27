@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import { logger } from '@track-me-app/logger';
 import { InvalidOperation } from '@track-me-app/errors';
 

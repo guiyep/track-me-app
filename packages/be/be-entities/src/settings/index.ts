@@ -1,5 +1,5 @@
+import type { AttributeValue } from '@aws-sdk/client-dynamodb';
 import {
-  AttributeValue,
   DynamoDBClient,
   PutItemCommand,
   GetItemCommand,
@@ -7,7 +7,7 @@ import {
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
 import { getConstants } from '@track-me-app/be-consts';
 import { logger } from '@track-me-app/logger';
-import { GpsTableSettingData } from '@track-me-app/gps-table';
+import type { GpsTableSettingData } from '@track-me-app/gps-table';
 import { z } from 'zod';
 
 const Consts = getConstants();

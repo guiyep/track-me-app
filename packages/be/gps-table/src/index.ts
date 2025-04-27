@@ -18,4 +18,5 @@ export type {
   GpsTableSettingData,
   GpsTableSettingSchema,
   UserIdentity,
+  GpsTableLatestSessionData,
 } from './types';

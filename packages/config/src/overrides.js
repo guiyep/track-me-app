@@ -11,6 +11,12 @@ export const generalRules = {
 export const tsRules = {
   rules: {
     '@typescript-eslint/consistent-type-definitions': 'off',
+    '@typescript-eslint/consistent-type-imports': [
+      'error',
+      {
+        prefer: 'type-imports', // Always use 'import type'
+      },
+    ],
   },
 };
 

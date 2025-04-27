@@ -1,5 +1,5 @@
 import * as cdk from 'aws-cdk-lib';
-import { Construct } from 'constructs';
+import type { Construct } from 'constructs';
 import { GpsQueue } from '@track-me-app/gps-queue';
 import { Api } from '@track-me-app/api';
 import { GpsTable } from '@track-me-app/gps-table';

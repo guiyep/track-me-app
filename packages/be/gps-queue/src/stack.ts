@@ -5,7 +5,7 @@ import * as lambdaEventSources from 'aws-cdk-lib/aws-lambda-event-sources';
 import { CONFIGURATIONS } from './config';
 import { getConstants } from '@track-me-app/be-consts';
 import type { AccessProps } from '@track-me-app/aws';
-import { IFunction } from 'aws-cdk-lib/aws-lambda';
+import type { IFunction } from 'aws-cdk-lib/aws-lambda';
 
 const Consts = getConstants();
 

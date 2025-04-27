@@ -1,4 +1,4 @@
-import { App } from 'supertest/types';
+import type { App } from 'supertest/types';
 import app from '../index';
 import request from 'supertest';
 import type { VersionResponseBody } from '../index';

@@ -1,4 +1,4 @@
-import { App } from 'supertest/types';
+import type { App } from 'supertest/types';
 import app from '../../../../app/index';
 import request from 'supertest';
 import { mockClient } from 'aws-sdk-client-mock';

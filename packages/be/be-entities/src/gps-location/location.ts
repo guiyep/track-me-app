@@ -1,9 +1,9 @@
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
+import type { AttributeValue } from '@aws-sdk/client-dynamodb';
 import {
   DynamoDBClient,
   GetItemCommand,
   PutItemCommand,
-  AttributeValue,
 } from '@aws-sdk/client-dynamodb';
 import { getConstants } from '@track-me-app/be-consts';
 import { logger } from '@track-me-app/logger';

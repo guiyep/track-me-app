@@ -1,4 +1,4 @@
-import { SQSEvent } from 'aws-lambda'; // Import types from @types/aws-lambda
+import type { SQSEvent } from 'aws-lambda'; // Import types from @types/aws-lambda
 import { logger } from '@track-me-app/logger';
 import { GpsLocation } from '@track-me-app/be-entities';
 

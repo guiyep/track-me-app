@@ -1,11 +1,11 @@
-import { App } from 'supertest/types';
+import type { App } from 'supertest/types';
 import app from '../../../../app/index';
 import request from 'supertest';
 import { mockClient } from 'aws-sdk-client-mock';
 import { DynamoDBClient, GetItemCommand } from '@aws-sdk/client-dynamodb';
 import { marshall } from '@aws-sdk/util-dynamodb';
 import { getConstants } from '@track-me-app/be-consts';
-import { GpsTableSettingData } from '@track-me-app/gps-table';
+import type { GpsTableSettingData } from '@track-me-app/gps-table';
 
 const Consts = getConstants();
 

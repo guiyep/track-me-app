@@ -1,5 +1,5 @@
 import { getEnvEntry } from '@track-me-app/env';
-import { GpsTableData, GpsTableLocation } from '@track-me-app/gps-table';
+import type { GpsTableData, GpsTableLocation } from '@track-me-app/gps-table';
 import { faker } from '@faker-js/faker';
 import {
   generateGpsInfo,
