@@ -15,16 +15,12 @@ export const sendQueueMessage = logger.asyncFunc(
       data: JSON.stringify(item.data),
     });
 
-    logger.log({ message: 'Sending message to queue' }, attributes);
-
     const command = new SendMessageCommand({
       QueueUrl: Consts.GpsLocationsQueue.QUEUE_URL,
       MessageBody: Consts.GpsLocationsQueue.GPS_LOCATION_ADDED_COMMAND,
       MessageAttributes: attributes,
     });
 
-    const data = await sqsClient.send(command);
-
-    logger.log({ message: 'Message sent successfully:' }, data.MessageId);
+    await sqsClient.send(command);
   },
 );
