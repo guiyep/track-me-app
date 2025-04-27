@@ -11,12 +11,12 @@ export class Entity {
   protected readonly sortKey: string;
   readonly data: GpsTableLatestSessionData;
 
-  static fromRecord(dynamoData: Record<string, AttributeValue>) {
-    logger.log({ message: 'Entity -> fromRecord' }, { dynamoData });
-    const sessionEntity = unmarshall(dynamoData) as Entity;
-    logger.log({ message: 'Entity -> unmarshall' }, sessionEntity);
-    return new Entity(sessionEntity.data);
-  }
+  static fromRecord = logger.syncFunc(
+    (dynamoData: Record<string, AttributeValue>): Entity => {
+      const sessionEntity = unmarshall(dynamoData) as Entity;
+      return new Entity(sessionEntity.data);
+    },
+  );
 
   constructor({ sessionId, userId }: GpsTableLatestSessionData) {
     logger.log({ message: 'new Entity' }, { sessionId, userId });
