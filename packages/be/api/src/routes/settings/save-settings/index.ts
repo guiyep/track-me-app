@@ -17,8 +17,10 @@ router.post(
     GpsTableSettingData,
     Omit<GpsTableSettingData, 'userId'>
   >(async ({ userId }, body) => {
-    const data = await Settings.save({ userId, ...body });
-    return data;
+    const entity = await Settings.save(
+      new Settings.Entity({ userId, ...body }),
+    );
+    return entity.data;
   }),
 );
 

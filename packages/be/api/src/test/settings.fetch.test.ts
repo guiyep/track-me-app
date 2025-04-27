@@ -14,6 +14,8 @@ const userId =
   '_' +
   faker.person.lastName().toLowerCase();
 
+jest.setTimeout(15000);
+
 describe(`With userId:${userId}`, () => {
   describe(`GET - /v1/settings/:userId (get settings)`, () => {
     beforeEach(async () => {

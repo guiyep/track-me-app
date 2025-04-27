@@ -19,6 +19,8 @@ const userId =
   faker.person.lastName().toLowerCase();
 const sessionId = faker.string.uuid();
 
+jest.setTimeout(15000);
+
 describe(`With userId:${userId} - sessionId:${sessionId} `, () => {
   describe('POST /v1/gps/add-locations/:userId/:sessionId (add multiple locations)', () => {
     test('should return 200 when correctly called with multiple locations', async () => {

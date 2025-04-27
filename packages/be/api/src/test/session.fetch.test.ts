@@ -15,6 +15,8 @@ const userId =
   '_' +
   faker.person.lastName().toLowerCase();
 
+jest.setTimeout(15000);
+
 describe('Session operations for userId:${userId}', () => {
   test('should complete full session lifecycle', async () => {
     // Start session

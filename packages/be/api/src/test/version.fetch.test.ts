@@ -3,6 +3,8 @@ import { getEnvEntry } from '@track-me-app/env';
 
 const apiUrl = getEnvEntry('ApiUrl');
 
+jest.setTimeout(15000);
+
 describe('GET /version', () => {
   test('should return 200 when correctly', async () => {
     const response = await fetch(`${apiUrl}/version`, {

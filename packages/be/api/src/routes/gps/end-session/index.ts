@@ -31,10 +31,12 @@ router.post(
       throw new InvalidOperation({ message: 'sessionId not started' });
     }
 
-    await GpsSession.save({
-      userId,
-      sessionId: undefined,
-    });
+    await GpsSession.save(
+      new GpsSession.Entity({
+        userId,
+        sessionId: undefined,
+      }),
+    );
 
     return {
       userId,

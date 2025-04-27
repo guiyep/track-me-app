@@ -47,21 +47,18 @@ export const validate = (data: unknown): void => {
 };
 
 export const save = logger.asyncFunc(
-  async ({
-    sessionId,
-    userId,
-  }: GpsTableLatestSessionData): Promise<GpsTableLatestSessionData> => {
+  async (entity: Entity): Promise<Entity> => {
     const client = new DynamoDBClient();
     await client.send(
       new PutItemCommand({
         TableName: Consts.GpsTable.TABLE_NAME,
-        Item: marshall(new Entity({ sessionId, userId }), {
+        Item: marshall(entity, {
           convertClassInstanceToMap: true,
         }),
       }),
     );
 
-    return { sessionId, userId };
+    return entity;
   },
 );
 

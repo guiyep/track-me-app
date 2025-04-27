@@ -27,7 +27,12 @@ router.post(
     }
 
     const newSessionId = uuidv4();
-    await GpsSession.save({ sessionId: newSessionId, userId });
+    await GpsSession.save(
+      new GpsSession.Entity({
+        userId,
+        sessionId: newSessionId,
+      }),
+    );
 
     return newSessionId;
   }),
