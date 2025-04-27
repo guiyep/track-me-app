@@ -5,8 +5,8 @@ import {
   validateParams,
   userIdValidation,
 } from '@track-me-app/express';
-import { SessionData } from '@track-me-app/entities';
 import { InvalidOperation } from '@track-me-app/errors';
+import { GpsTableLatestSessionData } from '@track-me-app/gps-table/src/types';
 
 const router = Router();
 
@@ -17,28 +17,30 @@ type GetSessionParams = {
 router.post(
   '/gps/end-session/:userId',
   validateParams(userIdValidation),
-  expressHandler<GetSessionParams, SessionData | undefined, SessionData>(
-    async ({ userId }) => {
-      const item = await GpsSession.get({
-        userId,
-      });
+  expressHandler<
+    GetSessionParams,
+    GpsTableLatestSessionData | undefined,
+    GpsTableLatestSessionData
+  >(async ({ userId }) => {
+    const item = await GpsSession.get({
+      userId,
+    });
 
-      const sessionId = item?.data.sessionId;
-      if (!sessionId) {
-        throw new InvalidOperation({ message: 'sessionId not started' });
-      }
+    const sessionId = item?.data.sessionId;
+    if (!sessionId) {
+      throw new InvalidOperation({ message: 'sessionId not started' });
+    }
 
-      await GpsSession.save({
-        userId,
-        sessionId: undefined,
-      });
+    await GpsSession.save({
+      userId,
+      sessionId: undefined,
+    });
 
-      return {
-        userId,
-        sessionId: undefined,
-      };
-    },
-  ),
+    return {
+      userId,
+      sessionId: undefined,
+    };
+  }),
 );
 
 export default router;
