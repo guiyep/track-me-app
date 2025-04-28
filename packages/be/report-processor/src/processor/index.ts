@@ -14,7 +14,7 @@ export const transform = logger.asyncFunc(
     logger.log({ message: 'Hydrated Report' }, result);
 
     return new ReportEntry.Entity({
-      ...location.data,
+      ...ReportEntry.Entity.fromGpsLocation(location).data,
       ...result.reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {}),
     });
   },

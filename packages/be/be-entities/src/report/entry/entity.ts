@@ -25,7 +25,7 @@ export class Entity {
   constructor(data: Omit<ReportTableData, 'lastUpdated'>) {
     this.data = this.hydrateData(data);
     this.partitionKey = data.sessionId;
-    this.sortKey = `tracking:${data.userId}`;
+    this.sortKey = `tracking:${data.userId}/created:${data.created.toString()}`;
   }
 
   private hydrateData(
