@@ -28,6 +28,11 @@ export type LocationInfo = {
   region: string;
 };
 
+export type ReportTableTime = {
+  created: number;
+  lastUpdated: number;
+};
+
 export type TimeInfo = {
   sentDate: number;
 };
@@ -38,10 +43,10 @@ export type ReportTableLocation = {
   gpsInfo: GpsInfo;
   signalInfo: WifiSignalInfo | CellularSignalInfo;
   batteryInfo: BatteryInfo;
-  userInfo: UserInfo;
-  weatherInfo: WeatherInfo;
-  locationInfo: LocationInfo;
-  timeInfo: TimeInfo;
+  userInfo?: UserInfo;
+  weatherInfo?: WeatherInfo;
+  locationInfo?: LocationInfo;
+  timeInfo?: TimeInfo;
 };
 
 export type UserInfo = UserIdentity;
@@ -51,10 +56,12 @@ export type ReportTableIdentifiers = {
   sessionId: string;
 };
 
-export type ReportTableData = ReportTableIdentifiers & ReportTableLocation;
+export type ReportTableData = ReportTableIdentifiers &
+  ReportTableLocation &
+  ReportTableTime;
 
 export type ReportTableSchema = {
   partitionKey: string; // [sessionId]
-  sortKey: string; // [email1],[email2],[email3],...
+  sortKey: string; // tracking:[email1],[email2],[email3],...
   data: ReportTableData;
 };
