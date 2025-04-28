@@ -13,14 +13,43 @@ write_to_env_file() {
     local api_url="$1"
     local env_type="$2"
     local env_file=".env.$env_type"
+    local temp_file="${env_file}.tmp"
     
-    # Create or overwrite the environment file
-    echo "ApiUrl=$api_url" > "$env_file"
+    # Create a temporary file
+    touch "$temp_file"
+    
+    # If the environment file exists, read and preserve existing variables
+    if [ -f "$env_file" ]; then
+        # Read each line from the existing file
+        while IFS= read -r line; do
+            # Skip empty lines and comments
+            if [[ -z "$line" || "$line" =~ ^[[:space:]]*# ]]; then
+                echo "$line" >> "$temp_file"
+                continue
+            fi
+            
+            # If the line contains ApiUrl, update it
+            if [[ "$line" =~ ^ApiUrl= ]]; then
+                echo "ApiUrl=$api_url" >> "$temp_file"
+            else
+                # Preserve other variables
+                echo "$line" >> "$temp_file"
+            fi
+        done < "$env_file"
+    fi
+    
+    # If ApiUrl wasn't found in the existing file, add it
+    if ! grep -q "^ApiUrl=" "$temp_file"; then
+        echo "ApiUrl=$api_url" >> "$temp_file"
+    fi
+    
+    # Replace the original file with the temporary file
+    mv "$temp_file" "$env_file"
     
     if [ $? -eq 0 ]; then
-        echo "Successfully wrote API URL to $env_file"
+        echo "Successfully updated API URL in $env_file"
     else
-        echo "Error: Failed to write to $env_file"
+        echo "Error: Failed to update $env_file"
         exit 1
     fi
 }

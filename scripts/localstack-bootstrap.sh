@@ -39,4 +39,11 @@ cd ../..
 # Set API URL
 echo "🔗 Setting API URL..."
 yarn set-api-url
-echo "✅ Bootstrap process completed successfully! 🎉" 
+echo "✅ API URL set!"
+
+# Set GraphQL URL
+echo "🔗 Setting GraphQL URL..."
+yarn set-graphql-url
+echo "✅ GraphQL URL set!"
+
+echo "✅ ✅ ✅ ✅ Bootstrap process completed successfully! 🎉🎉🎉🎉🎉🎉🎉" 

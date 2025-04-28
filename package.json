@@ -34,7 +34,8 @@
     "dev-be:stop": "yarn docker:down",
     "dev-be:destroy": "yarn localstack-destroy && yarn docker:down",
     "dev-be:api": "zsh ./scripts/get-api-url.sh",
-    "set-api-url": "zsh ./scripts/set-api-url.sh"
+    "set-api-url": "zsh ./scripts/set-api-url.sh",
+    "set-graphql-url": "zsh ./scripts/set-graphql-url.sh"
   },
   "devDependencies": {
     "@eslint/config-inspector": "0.6.0",

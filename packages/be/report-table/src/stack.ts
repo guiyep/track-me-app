@@ -5,9 +5,11 @@ import {
   GraphqlApi,
   SchemaFile,
   AuthorizationType,
+  MappingTemplate,
 } from 'aws-cdk-lib/aws-appsync';
 import type { AccessProps } from '@track-me-app/aws';
 import * as path from 'path';
+import { CfnOutput, Duration, Expiration } from 'aws-cdk-lib';
 
 const Consts = getConstants();
 
@@ -38,19 +40,52 @@ export class ReportTable extends Construct {
       this.table.grantReadWriteData(grantable);
     });
 
-    const api = new GraphqlApi(this, 'MyApi', {
-      name: 'my-graphql-api',
+    const graphqlApiName = `${Consts.ReportTable.TABLE_NAME}GraphqlApi`;
+
+    const api = new GraphqlApi(this, graphqlApiName, {
+      name: graphqlApiName,
       schema: SchemaFile.fromAsset(
         path.join(__dirname, 'graphql/schema.graphql'),
       ),
       authorizationConfig: {
         defaultAuthorization: {
-          authorizationType: AuthorizationType.API_KEY,
+          authorizationType: AuthorizationType.API_KEY, // for dev; use IAM or Cognito in prod
+          apiKeyConfig: {
+            expires: Expiration.after(Duration.days(365)),
+          },
         },
       },
       xrayEnabled: true,
     });
 
-    api.addDynamoDbDataSource('MyTableDataSource', this.table);
+    const dataSource = api.addDynamoDbDataSource(
+      `${Consts.ReportTable.TABLE_NAME}DataSource`,
+      this.table,
+    );
+
+    // Configure resolver for listReportEntries query
+    dataSource.createResolver('ListReportEntriesResolver', {
+      typeName: 'Query',
+      fieldName: 'listReportEntries',
+      requestMappingTemplate: MappingTemplate.fromFile(
+        path.join(
+          __dirname,
+          'graphql/resolvers/list-report-entries/Query.listReportEntries.req.vtl',
+        ),
+      ),
+      responseMappingTemplate: MappingTemplate.fromFile(
+        path.join(
+          __dirname,
+          'graphql/resolvers/list-report-entries/Query.listReportEntries.res.vtl',
+        ),
+      ),
+    });
+
+    new CfnOutput(this, `${graphqlApiName}-URL`, {
+      value: api.graphqlUrl,
+    });
+    new CfnOutput(this, `${graphqlApiName}-KEY`, {
+      value: api.apiKey ?? '',
+    });
   }
 }

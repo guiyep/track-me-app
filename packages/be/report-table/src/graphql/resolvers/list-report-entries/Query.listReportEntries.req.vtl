@@ -1,0 +1,10 @@
+{
+  "version": "2018-05-29",
+  "operation": "Query",
+  "query": {
+    "expression": "partitionKey = :partitionKey",
+    "expressionValues": {
+      ":partitionKey": $util.dynamodb.toDynamoDBJson($ctx.args.partitionKey)
+    }
+  }
+} 
