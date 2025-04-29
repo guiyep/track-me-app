@@ -7,6 +7,8 @@ import {
   generateGpsInfo,
 } from '@track-me-app/testing';
 import type { GpsTableLocation } from '@track-me-app/gps-table';
+import { gql } from 'graphql-tag';
+import { describe, expect, jest, test } from '@jest/globals';
 
 const apiUrl = getEnvEntry('ApiUrl');
 const graphqlUrl = getEnvEntry('GraphqlUrl');
@@ -62,7 +64,7 @@ describe(`With userId:${userId} sessionId:${sessionId}`, () => {
 
       await new Promise((resolve) => setTimeout(resolve, 5000));
 
-      const query = `
+      const query = gql`
         query ListReportEntries($partitionKey: String) {
           listReportEntries(partitionKey: $partitionKey) {
             partitionKey
@@ -82,7 +84,7 @@ describe(`With userId:${userId} sessionId:${sessionId}`, () => {
           'x-api-key': graphqlKey,
         },
         body: JSON.stringify({
-          query,
+          query: query.loc?.source.body ?? '',
           variables: {
             partitionKey: sessionId,
           },
