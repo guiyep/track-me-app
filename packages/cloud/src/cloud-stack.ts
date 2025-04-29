@@ -1,13 +1,13 @@
 import * as cdk from 'aws-cdk-lib';
 import type { Construct } from 'constructs';
-import { GpsQueue } from '@track-me-app/gps-queue';
+import { ReportQueue } from '@track-me-app/report-queue';
 import { Api } from '@track-me-app/api';
 import { GpsTable } from '@track-me-app/gps-table';
 import { ReportProcessor } from '@track-me-app/report-processor';
 import { ReportTable } from '@track-me-app/report-table';
 
 export const STACK_IDS = {
-  GpsQueueStack: 'GpsQueueStack',
+  ReportQueueStack: 'ReportQueueStack',
   MainApiStack: 'MainApiStack',
   GpsTableStack: 'GpsTableStack',
   ReportProcessorStack: 'ReportProcessorStack',
@@ -25,7 +25,7 @@ export class CloudStack extends cdk.Stack {
       STACK_IDS.ReportProcessorStack,
     );
 
-    new GpsQueue(this, STACK_IDS.GpsQueueStack, {
+    new ReportQueue(this, STACK_IDS.ReportQueueStack, {
       readAndWrite: [api.lambdaApi],
       listeners: [reportProcessing.lambda],
     });

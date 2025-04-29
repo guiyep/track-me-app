@@ -1,5 +1,5 @@
 {
-  "name": "@track-me-app/gps-queue",
+  "name": "@track-me-app/gps-sns",
   "version": "0.1.0",
   "main": "src/index.ts",
   "devDependencies": {

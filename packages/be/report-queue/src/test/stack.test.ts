@@ -1,16 +1,16 @@
 import { App, Stack } from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
-import { GpsQueue } from '../stack';
+import { ReportQueue } from '../stack';
 import { getConstants } from '@track-me-app/be-consts';
 import { omit } from '@track-me-app/testing';
 import { CONFIGURATIONS } from '../config';
 
 const Consts = getConstants();
 
-describe('GpsQueue Stack', () => {
+describe('ReportQueue Stack', () => {
   const app = new App();
   const stack = new Stack(app, 'TestStack');
-  new GpsQueue(stack, 'TestGpsQueue');
+  new ReportQueue(stack, 'TestReportQueue');
 
   test('snapshot', () => {
     const template = Template.fromStack(stack);
@@ -21,7 +21,7 @@ describe('GpsQueue Stack', () => {
     const template = Template.fromStack(stack);
 
     template.hasResourceProperties('AWS::SQS::Queue', {
-      QueueName: Consts.GpsLocationsQueue.QUEUE_NAME,
+      QueueName: Consts.ReportQueue.QUEUE_NAME,
       VisibilityTimeout: CONFIGURATIONS.VisibilityTimeout,
     });
   });
@@ -30,7 +30,7 @@ describe('GpsQueue Stack', () => {
     const template = Template.fromStack(stack);
 
     template.hasResourceProperties('AWS::SQS::Queue', {
-      QueueName: Consts.GpsLocationsQueue.QUEUE_NAME,
+      QueueName: Consts.ReportQueue.QUEUE_NAME,
       RedrivePolicy: {
         maxReceiveCount: 3,
       },

@@ -55,8 +55,8 @@ describe('POST /v1/gps/add-location/:userId/:sessionId (add location) ', () => {
     const snsMockClient = mockClient(SQSClient);
     snsMockClient
       .on(SendMessageCommand, {
-        QueueUrl: Consts.GpsLocationsQueue.QUEUE_URL,
-        MessageBody: Consts.GpsLocationsQueue.GPS_LOCATION_ADDED_COMMAND,
+        QueueUrl: Consts.ReportQueue.QUEUE_URL,
+        MessageBody: Consts.ReportQueue.GPS_LOCATION_ADDED_COMMAND,
       })
       .resolves({ MessageId: '222' });
 

@@ -6,10 +6,11 @@ import { CONFIGURATIONS } from './config';
 import { getConstants } from '@track-me-app/be-consts';
 import type { AccessProps } from '@track-me-app/aws';
 import type { IFunction } from 'aws-cdk-lib/aws-lambda';
+import { CfnOutput } from 'aws-cdk-lib';
 
 const Consts = getConstants();
 
-export class GpsQueue extends Construct {
+export class ReportQueue extends Construct {
   public readonly queue: sqs.Queue;
   public readonly dlq: sqs.Queue;
 
@@ -22,13 +23,13 @@ export class GpsQueue extends Construct {
   ) {
     super(scope, id);
 
-    this.dlq = new sqs.Queue(this, Consts.GpsLocationsQueue.DLQ, {
+    this.dlq = new sqs.Queue(this, Consts.ReportQueue.DLQ, {
       visibilityTimeout: cdk.Duration.seconds(CONFIGURATIONS.VisibilityTimeout),
     });
 
-    this.queue = new sqs.Queue(this, Consts.GpsLocationsQueue.QUEUE_NAME, {
+    this.queue = new sqs.Queue(this, Consts.ReportQueue.QUEUE_NAME, {
       visibilityTimeout: cdk.Duration.seconds(CONFIGURATIONS.VisibilityTimeout),
-      queueName: Consts.GpsLocationsQueue.QUEUE_NAME,
+      queueName: Consts.ReportQueue.QUEUE_NAME,
       deadLetterQueue: {
         queue: this.dlq,
         maxReceiveCount: 3,
@@ -59,6 +60,14 @@ export class GpsQueue extends Construct {
       this.queue.grantConsumeMessages(listener);
       this.queue.grantSendMessages(listener);
       listener.addEventSource(lambdaEventSource);
+    });
+
+    new CfnOutput(this, `ReportQueueArn`, {
+      value: this.queue.queueArn,
+    });
+
+    new CfnOutput(this, `ReportQueueUrl`, {
+      value: this.queue.queueUrl,
     });
   }
 }

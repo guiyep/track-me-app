@@ -2,6 +2,24 @@
 
 exports[`ReportTable Stack snapshot 1`] = `
 {
+  "Outputs": {
+    "TestReportTableReportsGraphqlApiKEYDCA6781B": {
+      "Value": {
+        "Fn::GetAtt": {
+          "0": "TestReportTableReportsGraphqlApiDefaultApiKey4A67513B",
+          "1": "ApiKey",
+        },
+      },
+    },
+    "TestReportTableReportsGraphqlApiURL016AFE0A": {
+      "Value": {
+        "Fn::GetAtt": {
+          "0": "TestReportTableReportsGraphqlApi6D34D6D9",
+          "1": "GraphQLUrl",
+        },
+      },
+    },
+  },
   "Parameters": {
     "BootstrapVersion": {
       "Default": "/cdk-bootstrap/hnb659fds/version",
@@ -45,6 +63,244 @@ exports[`ReportTable Stack snapshot 1`] = `
       },
       "Type": "AWS::DynamoDB::GlobalTable",
       "UpdateReplacePolicy": "Retain",
+    },
+    "TestReportTableReportsGraphqlApi6D34D6D9": {
+      "Properties": {
+        "AuthenticationType": "API_KEY",
+        "Name": "ReportsGraphqlApi",
+        "XrayEnabled": true,
+      },
+      "Type": "AWS::AppSync::GraphQLApi",
+    },
+    "TestReportTableReportsGraphqlApiDefaultApiKey4A67513B": {
+      "DependsOn": {
+        "0": "TestReportTableReportsGraphqlApiSchema474F985C",
+      },
+      "Properties": {
+        "ApiId": {
+          "Fn::GetAtt": {
+            "0": "TestReportTableReportsGraphqlApi6D34D6D9",
+            "1": "ApiId",
+          },
+        },
+        "Expires": 1777444236,
+      },
+      "Type": "AWS::AppSync::ApiKey",
+    },
+    "TestReportTableReportsGraphqlApiListReportEntriesResolver4D3507C0": {
+      "DependsOn": {
+        "0": "TestReportTableReportsGraphqlApiReportsDataSourceB9EF6B70",
+        "1": "TestReportTableReportsGraphqlApiSchema474F985C",
+      },
+      "Properties": {
+        "ApiId": {
+          "Fn::GetAtt": {
+            "0": "TestReportTableReportsGraphqlApi6D34D6D9",
+            "1": "ApiId",
+          },
+        },
+        "DataSourceName": "ReportsDataSource",
+        "FieldName": "listReportEntries",
+        "Kind": "UNIT",
+        "RequestMappingTemplate": "{
+  "version": "2018-05-29",
+  "operation": "Query",
+  "query": {
+    "expression": "partitionKey = :partitionKey",
+    "expressionValues": {
+      ":partitionKey": $util.dynamodb.toDynamoDBJson($ctx.args.partitionKey)
+    }
+  }
+} ",
+        "ResponseMappingTemplate": "$util.toJson($ctx.result.items) ",
+        "TypeName": "Query",
+      },
+      "Type": "AWS::AppSync::Resolver",
+    },
+    "TestReportTableReportsGraphqlApiReportsDataSourceB9EF6B70": {
+      "Properties": {
+        "ApiId": {
+          "Fn::GetAtt": {
+            "0": "TestReportTableReportsGraphqlApi6D34D6D9",
+            "1": "ApiId",
+          },
+        },
+        "DynamoDBConfig": {
+          "AwsRegion": {
+            "Ref": "AWS::Region",
+          },
+          "TableName": {
+            "Ref": "TestReportTableReports7D7A15F3",
+          },
+        },
+        "Name": "ReportsDataSource",
+        "ServiceRoleArn": {
+          "Fn::GetAtt": {
+            "0": "TestReportTableReportsGraphqlApiReportsDataSourceServiceRoleB9FB28AC",
+            "1": "Arn",
+          },
+        },
+        "Type": "AMAZON_DYNAMODB",
+      },
+      "Type": "AWS::AppSync::DataSource",
+    },
+    "TestReportTableReportsGraphqlApiReportsDataSourceServiceRoleB9FB28AC": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": {
+            "0": {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "appsync.amazonaws.com",
+              },
+            },
+          },
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "TestReportTableReportsGraphqlApiReportsDataSourceServiceRoleDefaultPolicy815370C9": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": {
+            "0": {
+              "Action": {
+                "0": "dynamodb:BatchGetItem",
+                "1": "dynamodb:GetRecords",
+                "10": "dynamodb:DeleteItem",
+                "11": "dynamodb:DescribeTable",
+                "2": "dynamodb:GetShardIterator",
+                "3": "dynamodb:Query",
+                "4": "dynamodb:GetItem",
+                "5": "dynamodb:Scan",
+                "6": "dynamodb:ConditionCheckItem",
+                "7": "dynamodb:BatchWriteItem",
+                "8": "dynamodb:PutItem",
+                "9": "dynamodb:UpdateItem",
+              },
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": {
+                  "0": "TestReportTableReports7D7A15F3",
+                  "1": "Arn",
+                },
+              },
+            },
+          },
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "TestReportTableReportsGraphqlApiReportsDataSourceServiceRoleDefaultPolicy815370C9",
+        "Roles": {
+          "0": {
+            "Ref": "TestReportTableReportsGraphqlApiReportsDataSourceServiceRoleB9FB28AC",
+          },
+        },
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "TestReportTableReportsGraphqlApiSchema474F985C": {
+      "Properties": {
+        "ApiId": {
+          "Fn::GetAtt": {
+            "0": "TestReportTableReportsGraphqlApi6D34D6D9",
+            "1": "ApiId",
+          },
+        },
+        "Definition": "type GpsInfo {
+  accuracy: Float
+  altitude: Float
+  heading: Float
+  speed: Float
+}
+
+type WifiSignalInfo {
+  ssid: String
+  bssid: String
+  frequency: Int
+  level: Int
+  timestamp: Float
+}
+
+type CellularSignalInfo {
+  cellId: String
+  locationAreaCode: String
+  mobileCountryCode: String
+  mobileNetworkCode: String
+  signalStrength: Int
+  timestamp: Float
+}
+
+type BatteryInfo {
+  batteryLevel: Float
+  batteryState: String
+  chargingSource: String
+  chargingStatus: Boolean
+  batteryHealth: String
+}
+
+type WeatherInfo {
+  temperature: Float
+  humidity: Float
+  pressure: Float
+}
+
+type LocationInfo {
+  city: String
+  country: String
+  region: String
+}
+
+type TimeInfo {
+  sentDate: Float
+}
+
+type UserInfo {
+  userId: String
+  email: String
+  name: String
+}
+
+type ReportTableLocation {
+  lat: Float
+  long: Float
+  gpsInfo: GpsInfo
+  signalInfo: SignalInfo
+  batteryInfo: BatteryInfo
+  userInfo: UserInfo
+  weatherInfo: WeatherInfo
+  locationInfo: LocationInfo
+  timeInfo: TimeInfo
+}
+
+union SignalInfo = WifiSignalInfo | CellularSignalInfo
+
+type ReportTableData {
+  userId: String
+  sessionId: String
+  created: Float
+  lastUpdated: Float
+  location: ReportTableLocation
+}
+
+type ReportTable {
+  partitionKey: String
+  sortKey: String
+  data: ReportTableData
+}
+
+type Query {
+  getReportEntry(partitionKey: String!, sortKey: String!): ReportTable
+  listReportEntries(partitionKey: String): [ReportTable]
+}
+
+schema {
+  query: Query
+}
+",
+      },
+      "Type": "AWS::AppSync::GraphQLSchema",
     },
   },
   "Rules": {

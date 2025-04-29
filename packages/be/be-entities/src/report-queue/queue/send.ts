@@ -16,8 +16,8 @@ export const sendQueueMessage = logger.asyncFunc(
     });
 
     const command = new SendMessageCommand({
-      QueueUrl: Consts.GpsLocationsQueue.QUEUE_URL,
-      MessageBody: Consts.GpsLocationsQueue.GPS_LOCATION_ADDED_COMMAND,
+      QueueUrl: Consts.ReportQueue.QUEUE_URL,
+      MessageBody: Consts.ReportQueue.GPS_LOCATION_ADDED_COMMAND,
       MessageAttributes: attributes,
     });
 

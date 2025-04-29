@@ -1,7 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`GpsQueue Stack snapshot 1`] = `
+exports[`ReportQueue Stack snapshot 1`] = `
 {
+  "Outputs": {
+    "TestReportQueueReportQueueArn6F8A1DDD": {
+      "Value": {
+        "Fn::GetAtt": {
+          "0": "TestReportQueue1AC98C48",
+          "1": "Arn",
+        },
+      },
+    },
+    "TestReportQueueReportQueueUrl266CB693": {
+      "Value": {
+        "Ref": "TestReportQueue1AC98C48",
+      },
+    },
+  },
   "Parameters": {
     "BootstrapVersion": {
       "Default": "/cdk-bootstrap/hnb659fds/version",
@@ -10,14 +25,14 @@ exports[`GpsQueue Stack snapshot 1`] = `
     },
   },
   "Resources": {
-    "TestGpsQueueBF2150AA": {
+    "TestReportQueue1AC98C48": {
       "DeletionPolicy": "Delete",
       "Properties": {
-        "QueueName": "GpsQueue",
+        "QueueName": "ReportQueue",
         "RedrivePolicy": {
           "deadLetterTargetArn": {
             "Fn::GetAtt": {
-              "0": "TestGpsQueueGpsDLQ47C94382",
+              "0": "TestReportQueueGpsDLQC9427C5F",
               "1": "Arn",
             },
           },
@@ -28,7 +43,7 @@ exports[`GpsQueue Stack snapshot 1`] = `
       "Type": "AWS::SQS::Queue",
       "UpdateReplacePolicy": "Delete",
     },
-    "TestGpsQueueGpsDLQ47C94382": {
+    "TestReportQueueGpsDLQC9427C5F": {
       "DeletionPolicy": "Delete",
       "Properties": {
         "VisibilityTimeout": 300,
