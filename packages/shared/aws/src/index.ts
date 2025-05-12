@@ -1,6 +1,6 @@
 import type { IGrantable } from 'aws-cdk-lib/aws-iam';
-import type { SQSMessageAttributes } from 'aws-lambda';
-
+import type { SQSMessageAttributes, SNSEventRecord } from 'aws-lambda';
+import { logger } from '@track-me-app/logger';
 export type AccessProps = {
   read?: IGrantable[];
   write?: IGrantable[];
@@ -45,3 +45,12 @@ export const unmarshallSqsAttributes = (
     },
     {},
   );
+
+export const getSnsTypeFromLambdaRecord = logger.syncFunc(
+   
+  <T>(record: SNSEventRecord): T => {
+    const sns = record.Sns;
+    const type = sns.MessageAttributes.eventType.Value as T;
+    return type;
+  },
+);

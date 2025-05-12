@@ -17,6 +17,7 @@ export const tsRules = {
         prefer: 'type-imports', // Always use 'import type'
       },
     ],
+    '@typescript-eslint/no-unnecessary-type-parameters': 'off',
   },
 };
 

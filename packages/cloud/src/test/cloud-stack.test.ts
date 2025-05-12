@@ -11,12 +11,12 @@ describe('CloudStack', () => {
     expect(stack).toBeDefined();
   });
 
-  it('should api be defined properly', () => {
+  it('should stack be defined properly', () => {
     const app = new App();
     const stack = new CloudStack(app, 'CloudStack');
     const template = Template.fromStack(stack);
 
     // Snapshot the entire stack
-    expect(omit(template.toJSON(), ['S3Key'])).toMatchSnapshot();
+    expect(omit(template.toJSON(), ['S3Key', 'Expires'])).toMatchSnapshot();
   });
 });

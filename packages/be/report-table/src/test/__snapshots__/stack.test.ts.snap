@@ -83,7 +83,6 @@ exports[`ReportTable Stack snapshot 1`] = `
             "1": "ApiId",
           },
         },
-        "Expires": 1777444236,
       },
       "Type": "AWS::AppSync::ApiKey",
     },

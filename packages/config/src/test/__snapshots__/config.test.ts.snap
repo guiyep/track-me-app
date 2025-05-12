@@ -19801,6 +19801,7 @@ If your function does not access \`this\`, you can annotate it with \`this: void
           "prefer": "type-imports",
         },
       ],
+      "@typescript-eslint/no-unnecessary-type-parameters": "off",
     },
   },
 ]

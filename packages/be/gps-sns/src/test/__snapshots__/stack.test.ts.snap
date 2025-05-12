@@ -4,6 +4,7 @@ exports[`GpsSns Stack snapshot 1`] = `
 {
   "Outputs": {
     "TestGpsSnsGpsSnsTopicArn15E524F6": {
+      "Description": "The ARN of the GPS SNS topic",
       "Value": {
         "Ref": "TestGpsSnsGpsLocationTopicBB58EE85",
       },

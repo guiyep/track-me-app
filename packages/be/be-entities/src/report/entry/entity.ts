@@ -1,6 +1,8 @@
 import { logger } from '@track-me-app/logger';
 import type { ReportTableData } from '@track-me-app/report-table';
 import type { GpsLocation } from '../..';
+import { unmarshall } from '@aws-sdk/util-dynamodb';
+import type { AttributeValue } from '@aws-sdk/client-dynamodb';
 
 export class Entity {
   readonly partitionKey: string;
@@ -19,6 +21,13 @@ export class Entity {
         batteryInfo: location.data.batteryInfo,
         created: location.data.created,
       });
+    },
+  );
+
+  static fromRecord = logger.syncFunc(
+    (dynamoData: Record<string, AttributeValue>): Entity => {
+      const entity = unmarshall(dynamoData) as Entity;
+      return new Entity(entity.data);
     },
   );
 

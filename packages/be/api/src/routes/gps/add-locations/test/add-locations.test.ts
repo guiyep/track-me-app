@@ -3,9 +3,8 @@ import app from '../../../../app/index';
 import request from 'supertest';
 import { mockClient } from 'aws-sdk-client-mock';
 import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
-import { SQSClient, SendMessageCommand } from '@aws-sdk/client-sqs';
+import { SNSClient, PublishCommand } from '@aws-sdk/client-sns';
 import type { GpsLocationPostResponseBody } from '../index';
-import { getConstants } from '@track-me-app/be-consts';
 import {
   generateGpsInfo,
   generateWifiSignalInfo,
@@ -15,8 +14,6 @@ import { faker } from '@faker-js/faker';
 
 // Set a consistent seed for faker
 faker.seed(12345);
-
-const Consts = getConstants();
 
 describe('POST /v1/gps/add-locations/:userId/:sessionId (add location) ', () => {
   const fakeUsername = faker.internet.username();
@@ -46,19 +43,10 @@ describe('POST /v1/gps/add-locations/:userId/:sessionId (add location) ', () => 
     jest.useFakeTimers().setSystemTime(new Date('2020-01-01'));
 
     const dynamoMockClient = mockClient(DynamoDBClient);
-    dynamoMockClient
-      .on(PutItemCommand, {
-        TableName: Consts.GpsTable.TABLE_NAME,
-      })
-      .resolves({});
+    dynamoMockClient.on(PutItemCommand).resolves({});
 
-    const snsMockClient = mockClient(SQSClient);
-    snsMockClient
-      .on(SendMessageCommand, {
-        QueueUrl: Consts.ReportQueue.QUEUE_URL,
-        MessageBody: Consts.ReportQueue.GPS_LOCATION_ADDED_COMMAND,
-      })
-      .resolves({ MessageId: '222' });
+    const snsMockClient = mockClient(SNSClient);
+    snsMockClient.on(PublishCommand).resolves({});
 
     const response: request.Response = await request(app as App)
       .post(`/v1/gps/add-locations/${fakeUsername}/${fakeSessionId}`)
@@ -84,6 +72,9 @@ describe('POST /v1/gps/add-locations/:userId/:sessionId (add location) ', () => 
       });
 
     const body = response.body as GpsLocationPostResponseBody;
+
+    expect(snsMockClient.calls()).toHaveLength(2);
+    expect(dynamoMockClient.calls()).toHaveLength(2);
 
     expect(response.headers['content-type']).toMatch(/json/);
     expect(response.status).toEqual(200);

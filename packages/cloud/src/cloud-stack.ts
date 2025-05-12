@@ -5,6 +5,7 @@ import { Api } from '@track-me-app/api';
 import { GpsTable } from '@track-me-app/gps-table';
 import { ReportProcessor } from '@track-me-app/report-processor';
 import { ReportTable } from '@track-me-app/report-table';
+import { GpsSns } from '@track-me-app/gps-sns';
 
 export const STACK_IDS = {
   ReportQueueStack: 'ReportQueueStack',
@@ -12,6 +13,7 @@ export const STACK_IDS = {
   GpsTableStack: 'GpsTableStack',
   ReportProcessorStack: 'ReportProcessorStack',
   ReportTableStack: 'ReportTableStack',
+  GpsSnsStack: 'GpsSnsStack',
 };
 
 export class CloudStack extends cdk.Stack {
@@ -20,22 +22,31 @@ export class CloudStack extends cdk.Stack {
 
     const api = new Api(this, STACK_IDS.MainApiStack);
 
+    new GpsTable(this, STACK_IDS.GpsTableStack, {
+      readAndWrite: [api.lambdaApi],
+    });
+
     const reportProcessing = new ReportProcessor(
       this,
       STACK_IDS.ReportProcessorStack,
     );
 
-    new ReportQueue(this, STACK_IDS.ReportQueueStack, {
-      readAndWrite: [api.lambdaApi],
+    new ReportTable(this, STACK_IDS.ReportTableStack, {
+      readAndWrite: [reportProcessing.lambda],
+    });
+
+    const queueStack = new ReportQueue(this, STACK_IDS.ReportQueueStack, {
       listeners: [reportProcessing.lambda],
     });
 
-    new GpsTable(this, STACK_IDS.GpsTableStack, {
-      readAndWrite: [api.lambdaApi, reportProcessing.lambda],
-    });
-
-    new ReportTable(this, STACK_IDS.ReportTableStack, {
-      readAndWrite: [reportProcessing.lambda],
+    new GpsSns(this, STACK_IDS.GpsSnsStack, {
+      readAndWrite: [api.lambdaApi],
+      queueSubscriptions: [
+        {
+          queue: queueStack.queue,
+          listenTo: ['LOCATION_ADDED', 'SETTINGS_ADDED'],
+        },
+      ],
     });
   }
 }

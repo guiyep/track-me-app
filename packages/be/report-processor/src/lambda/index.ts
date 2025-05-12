@@ -1,20 +1,25 @@
-import type { SQSEvent } from 'aws-lambda'; // Import types from @types/aws-lambda
+import type { SNSEvent } from 'aws-lambda'; // Import types from @types/aws-lambda
 import { logger } from '@track-me-app/logger';
-import { GpsLocation, ReportEntry } from '@track-me-app/be-entities';
 import { processBatch } from '@track-me-app/express';
-import { transform } from '../processor';
+import { getSnsTypeFromLambdaRecord } from '@track-me-app/aws';
+import { getConstants } from '@track-me-app/be-consts';
+import { messagesHandler } from '../messages';
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const Consts = getConstants();
 
 const BATCH_SIZE = 50;
 
-export const handler = logger.asyncFunc(async (event: SQSEvent) => {
+export type MessageType =
+  (typeof Consts.GpsSns.MESSAGES)[keyof typeof Consts.GpsSns.MESSAGES];
+
+export const handler = logger.asyncFunc(async (event: SNSEvent) => {
   await processBatch(
-    event.Records.map((record) =>
-      GpsLocation.Entity.fromSqs(record.messageAttributes),
-    ),
-    async (one: GpsLocation.Entity) => {
-      const result = await transform(one);
-      await ReportEntry.save(result);
-    },
+    event.Records.map((record) => ({
+      type: getSnsTypeFromLambdaRecord<MessageType>(record),
+      dataJson: record.Sns.Message,
+    })),
+    ({ type, dataJson }) => messagesHandler({ type, dataJson }),
     BATCH_SIZE,
   );
 });

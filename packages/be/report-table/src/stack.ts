@@ -9,7 +9,8 @@ import {
 } from 'aws-cdk-lib/aws-appsync';
 import type { AccessProps } from '@track-me-app/aws';
 import * as path from 'path';
-import { CfnOutput, Duration, Expiration } from 'aws-cdk-lib';
+import { CfnOutput } from 'aws-cdk-lib';
+// import { CfnOutput, Duration, Expiration } from 'aws-cdk-lib';
 
 const Consts = getConstants();
 
@@ -50,9 +51,9 @@ export class ReportTable extends Construct {
       authorizationConfig: {
         defaultAuthorization: {
           authorizationType: AuthorizationType.API_KEY, // for dev; use IAM or Cognito in prod
-          apiKeyConfig: {
-            expires: Expiration.after(Duration.days(365)),
-          },
+          // apiKeyConfig: {
+          //   expires: Expiration.after(Duration.days(365)),
+          // },
         },
       },
       xrayEnabled: true,

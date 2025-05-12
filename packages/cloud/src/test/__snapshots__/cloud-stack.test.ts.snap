@@ -1,8 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CloudStack should api be defined properly 1`] = `
+exports[`CloudStack should stack be defined properly 1`] = `
 {
   "Outputs": {
+    "GpsSnsStackGpsSnsTopicArnBD0B9FF0": {
+      "Description": "The ARN of the GPS SNS topic",
+      "Value": {
+        "Ref": "GpsSnsStackGpsLocationTopicC7DF29B6",
+      },
+    },
     "MainApiStackMainApiGatewayEndpoint9CB3E853": {
       "Value": {
         "Fn::Join": {
@@ -67,6 +73,9 @@ exports[`CloudStack should api be defined properly 1`] = `
     },
   },
   "Resources": {
+    "GpsSnsStackGpsLocationTopicC7DF29B6": {
+      "Type": "AWS::SNS::Topic",
+    },
     "GpsTableStackGpsLocations75E41656": {
       "DeletionPolicy": "Retain",
       "Properties": {
@@ -501,36 +510,6 @@ exports[`CloudStack should api be defined properly 1`] = `
           "Statement": {
             "0": {
               "Action": {
-                "0": "sqs:ReceiveMessage",
-                "1": "sqs:ChangeMessageVisibility",
-                "2": "sqs:GetQueueUrl",
-                "3": "sqs:DeleteMessage",
-                "4": "sqs:GetQueueAttributes",
-              },
-              "Effect": "Allow",
-              "Resource": {
-                "Fn::GetAtt": {
-                  "0": "ReportQueueStackReportQueueDDD250C3",
-                  "1": "Arn",
-                },
-              },
-            },
-            "1": {
-              "Action": {
-                "0": "sqs:SendMessage",
-                "1": "sqs:GetQueueAttributes",
-                "2": "sqs:GetQueueUrl",
-              },
-              "Effect": "Allow",
-              "Resource": {
-                "Fn::GetAtt": {
-                  "0": "ReportQueueStackReportQueueDDD250C3",
-                  "1": "Arn",
-                },
-              },
-            },
-            "2": {
-              "Action": {
                 "0": "dynamodb:BatchGetItem",
                 "1": "dynamodb:GetRecords",
                 "10": "dynamodb:DeleteItem",
@@ -550,6 +529,20 @@ exports[`CloudStack should api be defined properly 1`] = `
                   "0": "GpsTableStackGpsLocations75E41656",
                   "1": "Arn",
                 },
+              },
+            },
+            "1": {
+              "Action": "sns:Subscribe",
+              "Effect": "Allow",
+              "Resource": {
+                "Ref": "GpsSnsStackGpsLocationTopicC7DF29B6",
+              },
+            },
+            "2": {
+              "Action": "sns:Publish",
+              "Effect": "Allow",
+              "Resource": {
+                "Ref": "GpsSnsStackGpsLocationTopicC7DF29B6",
               },
             },
           },
@@ -624,59 +617,6 @@ exports[`CloudStack should api be defined properly 1`] = `
           "Statement": {
             "0": {
               "Action": {
-                "0": "sqs:ReceiveMessage",
-                "1": "sqs:ChangeMessageVisibility",
-                "2": "sqs:GetQueueUrl",
-                "3": "sqs:DeleteMessage",
-                "4": "sqs:GetQueueAttributes",
-              },
-              "Effect": "Allow",
-              "Resource": {
-                "Fn::GetAtt": {
-                  "0": "ReportQueueStackReportQueueDDD250C3",
-                  "1": "Arn",
-                },
-              },
-            },
-            "1": {
-              "Action": {
-                "0": "sqs:SendMessage",
-                "1": "sqs:GetQueueAttributes",
-                "2": "sqs:GetQueueUrl",
-              },
-              "Effect": "Allow",
-              "Resource": {
-                "Fn::GetAtt": {
-                  "0": "ReportQueueStackReportQueueDDD250C3",
-                  "1": "Arn",
-                },
-              },
-            },
-            "2": {
-              "Action": {
-                "0": "dynamodb:BatchGetItem",
-                "1": "dynamodb:GetRecords",
-                "10": "dynamodb:DeleteItem",
-                "11": "dynamodb:DescribeTable",
-                "2": "dynamodb:GetShardIterator",
-                "3": "dynamodb:Query",
-                "4": "dynamodb:GetItem",
-                "5": "dynamodb:Scan",
-                "6": "dynamodb:ConditionCheckItem",
-                "7": "dynamodb:BatchWriteItem",
-                "8": "dynamodb:PutItem",
-                "9": "dynamodb:UpdateItem",
-              },
-              "Effect": "Allow",
-              "Resource": {
-                "Fn::GetAtt": {
-                  "0": "GpsTableStackGpsLocations75E41656",
-                  "1": "Arn",
-                },
-              },
-            },
-            "3": {
-              "Action": {
                 "0": "dynamodb:BatchGetItem",
                 "1": "dynamodb:GetRecords",
                 "10": "dynamodb:DeleteItem",
@@ -694,6 +634,36 @@ exports[`CloudStack should api be defined properly 1`] = `
               "Resource": {
                 "Fn::GetAtt": {
                   "0": "ReportTableStackReports29FDE124",
+                  "1": "Arn",
+                },
+              },
+            },
+            "1": {
+              "Action": {
+                "0": "sqs:ReceiveMessage",
+                "1": "sqs:ChangeMessageVisibility",
+                "2": "sqs:GetQueueUrl",
+                "3": "sqs:DeleteMessage",
+                "4": "sqs:GetQueueAttributes",
+              },
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": {
+                  "0": "ReportQueueStackReportQueueDDD250C3",
+                  "1": "Arn",
+                },
+              },
+            },
+            "2": {
+              "Action": {
+                "0": "sqs:SendMessage",
+                "1": "sqs:GetQueueAttributes",
+                "2": "sqs:GetQueueUrl",
+              },
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": {
+                  "0": "ReportQueueStackReportQueueDDD250C3",
                   "1": "Arn",
                 },
               },
@@ -733,6 +703,32 @@ exports[`CloudStack should api be defined properly 1`] = `
       "Type": "AWS::SQS::Queue",
       "UpdateReplacePolicy": "Delete",
     },
+    "ReportQueueStackReportQueueCloudStackGpsSnsStackGpsLocationTopicC9BAEE10ADF0AFFC": {
+      "DependsOn": {
+        "0": "ReportQueueStackReportQueuePolicyFEFBACF9",
+      },
+      "Properties": {
+        "Endpoint": {
+          "Fn::GetAtt": {
+            "0": "ReportQueueStackReportQueueDDD250C3",
+            "1": "Arn",
+          },
+        },
+        "FilterPolicy": {
+          "LOCATION_ADDED": {
+            "0": "LOCATION_ADDED",
+          },
+          "SETTINGS_ADDED": {
+            "0": "SETTINGS_ADDED",
+          },
+        },
+        "Protocol": "sqs",
+        "TopicArn": {
+          "Ref": "GpsSnsStackGpsLocationTopicC7DF29B6",
+        },
+      },
+      "Type": "AWS::SNS::Subscription",
+    },
     "ReportQueueStackReportQueueDDD250C3": {
       "DeletionPolicy": "Delete",
       "Properties": {
@@ -750,6 +746,41 @@ exports[`CloudStack should api be defined properly 1`] = `
       },
       "Type": "AWS::SQS::Queue",
       "UpdateReplacePolicy": "Delete",
+    },
+    "ReportQueueStackReportQueuePolicyFEFBACF9": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": {
+            "0": {
+              "Action": "sqs:SendMessage",
+              "Condition": {
+                "ArnEquals": {
+                  "aws:SourceArn": {
+                    "Ref": "GpsSnsStackGpsLocationTopicC7DF29B6",
+                  },
+                },
+              },
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "sns.amazonaws.com",
+              },
+              "Resource": {
+                "Fn::GetAtt": {
+                  "0": "ReportQueueStackReportQueueDDD250C3",
+                  "1": "Arn",
+                },
+              },
+            },
+          },
+          "Version": "2012-10-17",
+        },
+        "Queues": {
+          "0": {
+            "Ref": "ReportQueueStackReportQueueDDD250C3",
+          },
+        },
+      },
+      "Type": "AWS::SQS::QueuePolicy",
     },
     "ReportTableStackReports29FDE124": {
       "DeletionPolicy": "Retain",
@@ -806,7 +837,6 @@ exports[`CloudStack should api be defined properly 1`] = `
             "1": "ApiId",
           },
         },
-        "Expires": 1777444239,
       },
       "Type": "AWS::AppSync::ApiKey",
     },
