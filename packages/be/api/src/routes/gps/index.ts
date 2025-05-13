@@ -1,12 +1,12 @@
-import addLocationRoute from './add-location/index';
-import addLocationsRoute from './add-locations/index';
-import startSessionRoute from './start-session/index';
-import endSessionRoute from './end-session/index';
-import getSessionRoute from './get-session/index';
-import saveSettingsRoute from './save-settings/index';
-import getSettingsRoute from './get-settings/index';
+import { addLocationRoute } from './add-location/route';
+import { addLocationsRoute } from './add-locations/route';
+import { startSessionRoute } from './start-session/route';
+import { endSessionRoute } from './end-session/route';
+import { getSessionRoute } from './get-session/route';
+import { saveSettingsRoute } from './save-settings/route';
+import { getSettingsRoute } from './get-settings/route';
 
-export default [
+export const gpsRoutes = [
   getSessionRoute,
   addLocationRoute,
   addLocationsRoute,

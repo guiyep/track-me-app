@@ -1,5 +1,5 @@
-import routeGps from './gps/index';
+import { gpsRoutes } from './gps/index';
 
-const routes = [...routeGps];
+const routes = [...gpsRoutes];
 
 export default routes;
