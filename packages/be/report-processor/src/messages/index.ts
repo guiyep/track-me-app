@@ -1,6 +1,6 @@
 import { logger } from '@track-me-app/logger';
 import { locationAddedHandler } from './location-added';
-import { Settings, GpsLocation } from '@track-me-app/be-entities';
+import { GpsSettings, GpsLocation } from '@track-me-app/be-entities';
 import { getConstants } from '@track-me-app/be-consts';
 import type {
   GpsTableData,
@@ -31,7 +31,7 @@ export const messagesHandler = logger.asyncFunc(
       }
       case Consts.GpsSns.MESSAGES.SETTINGS_ADDED: {
         const data = parseToEntity<GpsTableSettingData>(dataJson);
-        await settingsAddedHandler(new Settings.Entity(data));
+        await settingsAddedHandler(new GpsSettings.Entity(data));
         break;
       }
       default:

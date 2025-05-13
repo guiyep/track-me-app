@@ -1,7 +1,7 @@
-export * as GpsLocation from './gps-location/location';
-export * as GpsSession from './gps-location/session';
-export * as ReportQueue from './report-queue';
-export * as Settings from './settings';
+export * as GpsLocation from './gps/location';
+export * as GpsSession from './gps/session';
+export * as GpsSettings from './gps/settings';
+export * as GpsNotifications from './gps/notifications';
 export * as ReportEntry from './report/entry';
 
-export type { SqsAttributesMessage } from './report-queue';
+export type { SqsAttributesMessage } from './report/queue';

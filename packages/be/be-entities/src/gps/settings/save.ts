@@ -3,6 +3,7 @@ import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
 import { getConstants } from '@track-me-app/be-consts';
 import { logger } from '@track-me-app/logger';
 import type { Entity } from './entity';
+import { sendSettingsAddedNotification } from '../notifications';
 
 const Consts = getConstants();
 
@@ -17,6 +18,8 @@ export const save = logger.asyncFunc(
         }),
       }),
     );
+
+    await sendSettingsAddedNotification({ entity });
 
     return entity;
   },

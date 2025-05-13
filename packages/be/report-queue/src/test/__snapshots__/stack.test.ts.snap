@@ -11,6 +11,11 @@ exports[`ReportQueue Stack snapshot 1`] = `
         },
       },
     },
+    "TestReportQueueReportQueueDlqUrlA1739E69": {
+      "Value": {
+        "Ref": "TestReportQueueGpsDLQC9427C5F",
+      },
+    },
     "TestReportQueueReportQueueUrl266CB693": {
       "Value": {
         "Ref": "TestReportQueue1AC98C48",

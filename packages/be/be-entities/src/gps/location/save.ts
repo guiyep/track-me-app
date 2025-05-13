@@ -3,7 +3,7 @@ import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
 import { getConstants } from '@track-me-app/be-consts';
 import { logger } from '@track-me-app/logger';
 import type { GpsLocation } from '@track-me-app/be-entities';
-import { sendLocationAddedNotification } from '../../gps-notifications';
+import { sendLocationAddedNotification } from '../notifications';
 
 const Consts = getConstants();
 

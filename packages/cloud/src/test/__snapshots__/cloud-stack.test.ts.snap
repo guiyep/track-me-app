@@ -9,6 +9,22 @@ exports[`CloudStack should stack be defined properly 1`] = `
         "Ref": "GpsSnsStackGpsLocationTopicC7DF29B6",
       },
     },
+    "GpsSnsStackGpsSnsTopicSubscribers17ADBEE9": {
+      "Value": {
+        "Fn::Join": {
+          "0": "",
+          "1": {
+            "0": {
+              "Fn::GetAtt": {
+                "0": "ReportQueueStackReportQueueDDD250C3",
+                "1": "Arn",
+              },
+            },
+            "1": " - ["location-added","settings-added"]",
+          },
+        },
+      },
+    },
     "MainApiStackMainApiGatewayEndpoint9CB3E853": {
       "Value": {
         "Fn::Join": {
@@ -40,6 +56,31 @@ exports[`CloudStack should stack be defined properly 1`] = `
         "Fn::GetAtt": {
           "0": "ReportQueueStackReportQueueDDD250C3",
           "1": "Arn",
+        },
+      },
+    },
+    "ReportQueueStackReportQueueDlqUrl720014D1": {
+      "Value": {
+        "Ref": "ReportQueueStackGpsDLQ62507C3E",
+      },
+    },
+    "ReportQueueStackReportQueueEventSourcingAAF6B94A": {
+      "Value": {
+        "Fn::Join": {
+          "0": "",
+          "1": {
+            "0": "fn:",
+            "1": {
+              "Ref": "ReportProcessorStackReportProcessorLambda92720B8A",
+            },
+            "2": " - queue:",
+            "3": {
+              "Fn::GetAtt": {
+                "0": "ReportQueueStackReportQueueDDD250C3",
+                "1": "Arn",
+              },
+            },
+          },
         },
       },
     },
@@ -654,20 +695,6 @@ exports[`CloudStack should stack be defined properly 1`] = `
                 },
               },
             },
-            "2": {
-              "Action": {
-                "0": "sqs:SendMessage",
-                "1": "sqs:GetQueueAttributes",
-                "2": "sqs:GetQueueUrl",
-              },
-              "Effect": "Allow",
-              "Resource": {
-                "Fn::GetAtt": {
-                  "0": "ReportQueueStackReportQueueDDD250C3",
-                  "1": "Arn",
-                },
-              },
-            },
           },
           "Version": "2012-10-17",
         },
@@ -682,7 +709,6 @@ exports[`CloudStack should stack be defined properly 1`] = `
     },
     "ReportProcessorStackReportProcessorLambdaSqsEventSourceCloudStackReportQueueStackReportQueueB7E179A8DFFDE018": {
       "Properties": {
-        "BatchSize": 5,
         "EventSourceArn": {
           "Fn::GetAtt": {
             "0": "ReportQueueStackReportQueueDDD250C3",
@@ -715,11 +741,9 @@ exports[`CloudStack should stack be defined properly 1`] = `
           },
         },
         "FilterPolicy": {
-          "LOCATION_ADDED": {
-            "0": "LOCATION_ADDED",
-          },
-          "SETTINGS_ADDED": {
-            "0": "SETTINGS_ADDED",
+          "eventType": {
+            "0": "location-added",
+            "1": "settings-added",
           },
         },
         "Protocol": "sqs",

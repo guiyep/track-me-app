@@ -5,6 +5,8 @@ import { mockClient } from 'aws-sdk-client-mock';
 import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
 import { getConstants } from '@track-me-app/be-consts';
 import { faker } from '@faker-js/faker';
+import { SNSClient, PublishCommand } from '@aws-sdk/client-sns';
+
 const Consts = getConstants();
 
 describe('POST /v1/settings/:userId', () => {
@@ -34,6 +36,9 @@ describe('POST /v1/settings/:userId', () => {
         TableName: Consts.GpsTable.TABLE_NAME,
       })
       .resolves({});
+
+    const snsMockClient = mockClient(SNSClient);
+    snsMockClient.on(PublishCommand).resolves({});
 
     const response = await request(app as App)
       .post(`/v1/settings/${faker.internet.username()}`)

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { Settings } from '@track-me-app/be-entities';
+import { GpsSettings } from '@track-me-app/be-entities';
 import {
   expressHandler,
   validateParams,
@@ -18,7 +18,7 @@ router.get(
   validateParams(userIdValidation),
   expressHandler<UserIdParams, GpsTableSettingData | undefined>(
     async ({ userId }) => {
-      const item = await Settings.get({
+      const item = await GpsSettings.get({
         userId,
       });
 

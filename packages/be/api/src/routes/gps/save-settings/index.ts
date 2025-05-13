@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { Settings } from '@track-me-app/be-entities';
+import { GpsSettings } from '@track-me-app/be-entities';
 import { expressHandler, validateAll } from '@track-me-app/express';
 import type { GpsTableSettingData } from '@track-me-app/gps-table';
 
@@ -11,14 +11,14 @@ type StartSessionParams = {
 
 router.post(
   '/settings/:userId',
-  validateAll(Settings.validate),
+  validateAll(GpsSettings.validate),
   expressHandler<
     StartSessionParams,
     GpsTableSettingData,
     Omit<GpsTableSettingData, 'userId'>
   >(async ({ userId }, body) => {
-    const entity = await Settings.save(
-      new Settings.Entity({ userId, ...body }),
+    const entity = await GpsSettings.save(
+      new GpsSettings.Entity({ userId, ...body }),
     );
     return entity.data;
   }),

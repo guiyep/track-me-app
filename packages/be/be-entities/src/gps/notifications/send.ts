@@ -1,7 +1,7 @@
 import { SNSClient, PublishCommand } from '@aws-sdk/client-sns';
 import { getConstants } from '@track-me-app/be-consts';
 import { logger } from '@track-me-app/logger';
-import type { GpsLocation, Settings } from '../..';
+import type { GpsLocation, GpsSettings } from '..';
 
 const Consts = getConstants();
 
@@ -33,7 +33,7 @@ export const sendLocationAddedNotification = logger.asyncFunc(
 );
 
 export const sendSettingsAddedNotification = logger.asyncFunc(
-  async ({ entity }: { entity: Settings.Entity }): Promise<void> => {
+  async ({ entity }: { entity: GpsSettings.Entity }): Promise<void> => {
     const snsClient = new SNSClient({ region: Consts.GpsSns.REGION });
 
     const command = new PublishCommand({
