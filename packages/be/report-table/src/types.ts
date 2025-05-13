@@ -51,6 +51,10 @@ export type ReportTableLocation = {
 
 export type UserInfo = UserIdentity;
 
+export type ReportTableSettingsData = UserInfo & {
+  // TBD
+};
+
 export type ReportTableIdentifiers = {
   userId: string;
   sessionId: string;
@@ -64,4 +68,9 @@ export type ReportTableSchema = {
   partitionKey: string; // [sessionId]
   sortKey: string; // tracking:[email1],[email2],[email3],...
   data: ReportTableData;
+};
+
+export type ReportTableSettingsSchema = {
+  partitionKey: string; // [userId]
+  data: ReportTableSettingsData;
 };
