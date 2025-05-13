@@ -20,8 +20,16 @@ export const sendLocationAddedNotification = logger.asyncFunc(
       },
     });
 
+    logger.log(
+      {
+        message: `Sending location using command`,
+      },
+      command,
+    );
+
     await snsClient.send(command);
   },
+  'send_location_added_sns',
 );
 
 export const sendSettingsAddedNotification = logger.asyncFunc(
@@ -39,6 +47,14 @@ export const sendSettingsAddedNotification = logger.asyncFunc(
       },
     });
 
+    logger.log(
+      {
+        message: `Sending settings using command`,
+      },
+      command,
+    );
+
     await snsClient.send(command);
   },
+  'send_settings_added_sns',
 );

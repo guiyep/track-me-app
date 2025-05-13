@@ -7,6 +7,7 @@ import type {
   GpsTableSettingData,
 } from '@track-me-app/gps-table';
 import { settingsAddedHandler } from './setting-added';
+import { parseToEntity } from '@track-me-app/aws';
 
 const Consts = getConstants();
 
@@ -17,12 +18,12 @@ export const messagesHandler = logger.asyncFunc(
   async ({ type, dataJson }: { type: MessageType; dataJson: string }) => {
     switch (type) {
       case Consts.GpsSns.MESSAGES.LOCATION_ADDED: {
-        const data = JSON.parse(dataJson) as GpsTableData;
+        const data = parseToEntity<GpsTableData>(dataJson);
         await locationAddedHandler(new GpsLocation.Entity(data));
         break;
       }
       case Consts.GpsSns.MESSAGES.SETTINGS_ADDED: {
-        const data = JSON.parse(dataJson) as GpsTableSettingData;
+        const data = parseToEntity<GpsTableSettingData>(dataJson);
         await settingsAddedHandler(new Settings.Entity(data));
         break;
       }
@@ -30,4 +31,5 @@ export const messagesHandler = logger.asyncFunc(
         break;
     }
   },
+  'messages_report_processor_handler',
 );

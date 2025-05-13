@@ -13,6 +13,8 @@ const Consts = getConstants();
 //       }),
 //     },
 
+type Messages = typeof Consts.GpsSns.MESSAGES;
+
 export class GpsSns extends Construct {
   private readonly topic: sns.Topic;
 
@@ -22,7 +24,7 @@ export class GpsSns extends Construct {
     props?: AccessProps & {
       queueSubscriptions?: {
         queue: sqs.IQueue;
-        listenTo?: (keyof typeof Consts.GpsSns.MESSAGES)[];
+        listenTo?: Messages[keyof Messages][];
       }[];
     },
   ) {
@@ -30,22 +32,20 @@ export class GpsSns extends Construct {
 
     this.topic = new sns.Topic(this, Consts.GpsSns.TOPIC_NAME);
 
-    if (props?.queueSubscriptions) {
-      props.queueSubscriptions.forEach(({ queue, listenTo }) => {
-        this.topic.addSubscription(
-          new subscriptions.SqsSubscription(queue, {
-            filterPolicy: listenTo?.reduce<
-              Record<string, sns.SubscriptionFilter>
-            >((acc, message) => {
-              acc[message] = sns.SubscriptionFilter.stringFilter({
-                allowlist: [message],
-              });
-              return acc;
-            }, {}),
-          }),
-        );
+    props?.queueSubscriptions?.forEach(({ queue, listenTo }) => {
+      this.topic.addSubscription(
+        new subscriptions.SqsSubscription(queue, {
+          filterPolicy: {
+            eventType: sns.SubscriptionFilter.stringFilter({
+              allowlist: listenTo,
+            }),
+          },
+        }),
+      );
+      new CfnOutput(this, `GpsSnsTopicSubscribers`, {
+        value: queue.queueArn + ' - ' + JSON.stringify(listenTo),
       });
-    }
+    });
 
     props?.read?.forEach((grantable) => {
       this.topic.grantSubscribe(grantable);

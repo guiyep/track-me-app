@@ -4,3 +4,5 @@
 - use AWS CDK for cloud infrastructure setup
 - test files always go inside a "test" folder, new ones or existing ones
 - always use yarn
+- when reading packages 
+- all packages from @track-me-app are within "packages" folder, look for all the package.json files to find the files.

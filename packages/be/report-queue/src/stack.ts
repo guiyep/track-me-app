@@ -49,17 +49,13 @@ export class ReportQueue extends Construct {
       this.queue.grantSendMessages(grantable);
     });
 
-    const lambdaEventSource = new lambdaEventSources.SqsEventSource(
-      this.queue,
-      {
-        batchSize: 5,
-      },
-    );
-
     props?.listeners?.forEach((listener) => {
-      this.queue.grantConsumeMessages(listener);
-      this.queue.grantSendMessages(listener);
-      listener.addEventSource(lambdaEventSource);
+      listener.addEventSource(
+        new lambdaEventSources.SqsEventSource(this.queue),
+      );
+      new CfnOutput(this, `ReportQueueEventSourcing`, {
+        value: `fn:${listener.functionName} - queue:${this.queue.queueArn}`,
+      });
     });
 
     new CfnOutput(this, `ReportQueueArn`, {
@@ -68,6 +64,10 @@ export class ReportQueue extends Construct {
 
     new CfnOutput(this, `ReportQueueUrl`, {
       value: this.queue.queueUrl,
+    });
+
+    new CfnOutput(this, `ReportQueueDlqUrl`, {
+      value: this.dlq.queueUrl,
     });
   }
 }

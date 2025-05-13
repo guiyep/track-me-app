@@ -1,5 +1,5 @@
 import type { IGrantable } from 'aws-cdk-lib/aws-iam';
-import type { SQSMessageAttributes, SNSEventRecord } from 'aws-lambda';
+import type { SQSMessageAttributes, SQSRecord } from 'aws-lambda';
 import { logger } from '@track-me-app/logger';
 export type AccessProps = {
   read?: IGrantable[];
@@ -46,11 +46,43 @@ export const unmarshallSqsAttributes = (
     {},
   );
 
-export const getSnsTypeFromLambdaRecord = logger.syncFunc(
-   
-  <T>(record: SNSEventRecord): T => {
-    const sns = record.Sns;
-    const type = sns.MessageAttributes.eventType.Value as T;
-    return type;
+interface SnsEnvelope {
+  Type: 'Notification';
+  MessageId: string;
+  TopicArn: string;
+  Subject?: string;
+  Message: string; // actual payload as JSON string
+  MessageAttributes?: Record<
+    string,
+    {
+      Type: string;
+      Value: string;
+    }
+  >;
+}
+
+export const getSnsInfoFromLambdaRecord = logger.syncFunc(
+  <T>(record: SQSRecord): { type: T; dataJson: string } => {
+    const sqs = JSON.parse(record.body) as SnsEnvelope;
+    logger.log(
+      {
+        message: `Getting SNS type from lambda record`,
+      },
+      record,
+    );
+    const type = sqs.MessageAttributes?.eventType.Value as T;
+    return { type, dataJson: sqs.Message };
   },
+  'getSnsTypeFromLambdaRecord',
 );
+
+export const parseToEntity = logger.syncFunc(<T>(dataJson: string): T => {
+  const data = JSON.parse(dataJson) as T;
+  logger.log(
+    {
+      message: `Getting SNS type from lambda record`,
+    },
+    data,
+  );
+  return data;
+}, 'getSnsEntity');

@@ -5,7 +5,10 @@ import { Api } from '@track-me-app/api';
 import { GpsTable } from '@track-me-app/gps-table';
 import { ReportProcessor } from '@track-me-app/report-processor';
 import { ReportTable } from '@track-me-app/report-table';
+import { getConstants } from '@track-me-app/be-consts';
 import { GpsSns } from '@track-me-app/gps-sns';
+
+const Consts = getConstants();
 
 export const STACK_IDS = {
   ReportQueueStack: 'ReportQueueStack',
@@ -44,7 +47,10 @@ export class CloudStack extends cdk.Stack {
       queueSubscriptions: [
         {
           queue: queueStack.queue,
-          listenTo: ['LOCATION_ADDED', 'SETTINGS_ADDED'],
+          listenTo: [
+            Consts.GpsSns.MESSAGES.LOCATION_ADDED,
+            Consts.GpsSns.MESSAGES.SETTINGS_ADDED,
+          ],
         },
       ],
     });
