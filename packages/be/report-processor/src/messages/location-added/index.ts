@@ -16,12 +16,12 @@ export const locationAddedHandler: MessageHandler<GpsLocation.Entity> =
 
     const report = new ReportEntry.Entity({
       ...ReportEntry.Entity.fromGpsLocation(entity).data,
-      ...locationInfo,
-      ...weatherInfo,
+      locationInfo,
+      weatherInfo,
     });
 
     logger.log({ message: 'Report' }, report);
 
     // save report
     await ReportEntry.save(report);
-  });
+  }, 'location_added_handler');

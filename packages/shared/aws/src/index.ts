@@ -73,7 +73,7 @@ export const getSnsInfoFromLambdaRecord = logger.syncFunc(
     const type = sqs.MessageAttributes?.eventType.Value as T;
     return { type, dataJson: sqs.Message };
   },
-  'getSnsTypeFromLambdaRecord',
+  'get_sns_type_from_lambda_record',
 );
 
 export const parseToEntity = logger.syncFunc(<T>(dataJson: string): T => {
@@ -85,4 +85,4 @@ export const parseToEntity = logger.syncFunc(<T>(dataJson: string): T => {
     data,
   );
   return data;
-}, 'getSnsEntity');
+}, 'parse_to_entity');

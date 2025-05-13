@@ -16,6 +16,13 @@ type MessageType =
 
 export const messagesHandler = logger.asyncFunc(
   async ({ type, dataJson }: { type: MessageType; dataJson: string }) => {
+    logger.log(
+      {
+        message: `Processing message`,
+      },
+      { type },
+    );
+
     switch (type) {
       case Consts.GpsSns.MESSAGES.LOCATION_ADDED: {
         const data = parseToEntity<GpsTableData>(dataJson);
@@ -28,7 +35,7 @@ export const messagesHandler = logger.asyncFunc(
         break;
       }
       default:
-        break;
+        throw new Error(`Unknown message type: ${type as string}`);
     }
   },
   'messages_report_processor_handler',

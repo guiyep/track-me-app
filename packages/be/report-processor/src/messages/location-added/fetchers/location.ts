@@ -16,4 +16,5 @@ export const fetcher: FetcherFunction<GpsLocation.Entity, LocationInfo> =
         region: 'NY',
       };
     },
+    'fetcher_location',
   );

@@ -16,4 +16,5 @@ export const fetcher: FetcherFunction<GpsLocation.Entity, WeatherInfo> =
         pressure: 1013,
       };
     },
+    'fetcher_weather',
   );
