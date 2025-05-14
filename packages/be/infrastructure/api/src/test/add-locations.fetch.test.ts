@@ -26,15 +26,15 @@ describe(`With userId:${userId} - sessionId:${sessionId} `, () => {
     test('should return 200 when correctly called with multiple locations', async () => {
       const locations: GpsTableLocation[] = [
         {
-          lat: 1,
-          long: 1,
+          lat: 12,
+          long: 12,
           gpsInfo: generateGpsInfo(1),
           signalInfo: generateWifiSignalInfo(1),
           batteryInfo: generateBatteryInfo(1),
         },
         {
-          lat: 2,
-          long: 2,
+          lat: 22,
+          long: 22,
           gpsInfo: generateGpsInfo(2),
           signalInfo: generateWifiSignalInfo(2),
           batteryInfo: generateBatteryInfo(2),
@@ -61,8 +61,8 @@ describe(`With userId:${userId} - sessionId:${sessionId} `, () => {
       expect(locationsData[0]).toEqual(
         expect.objectContaining({
           userId,
-          lat: 1,
-          long: 1,
+          lat: 12,
+          long: 12,
           sessionId,
           gpsInfo: generateGpsInfo(1),
           signalInfo: generateWifiSignalInfo(1),
@@ -73,8 +73,8 @@ describe(`With userId:${userId} - sessionId:${sessionId} `, () => {
       expect(locationsData[1]).toEqual(
         expect.objectContaining({
           userId,
-          lat: 2,
-          long: 2,
+          lat: 22,
+          long: 22,
           sessionId,
           gpsInfo: generateGpsInfo(2),
           signalInfo: generateWifiSignalInfo(2),

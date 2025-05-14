@@ -17,15 +17,15 @@ export type BatteryInfo = {
 };
 
 export type WeatherInfo = {
-  temperature: number;
-  humidity: number;
-  pressure: number;
+  temperature?: number;
+  humidity?: number;
+  pressure?: number;
 };
 
 export type LocationInfo = {
-  city: string;
-  country: string;
-  region: string;
+  city?: string;
+  country?: string;
+  region?: string;
 };
 
 export type ReportTableTime = {

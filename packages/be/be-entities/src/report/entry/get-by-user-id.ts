@@ -5,10 +5,10 @@ import { Entity } from './entity';
 
 const Consts = getConstants();
 
-export const getByEmail = logger.asyncFunc(
-  async (email: string): Promise<Entity[]> => {
+export const getByUserId = logger.asyncFunc(
+  async (userId: string): Promise<Entity[]> => {
     const client = new DynamoDBClient();
-    const sortKeyPrefix = `tracking:${email}`;
+    const sortKeyPrefix = `tracking:${userId}`;
 
     const params = {
       TableName: Consts.ReportTable.TABLE_NAME,
@@ -31,4 +31,5 @@ export const getByEmail = logger.asyncFunc(
 
     return listOfEntities;
   },
+  'get_by_user_id',
 );

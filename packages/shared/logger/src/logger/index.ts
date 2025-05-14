@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
- 
 
 let loggerActive = true;
 
@@ -87,10 +86,7 @@ export const asyncFunc = <T, K>(
       );
       return result;
     } catch (e) {
-      error(
-        { message: `Async Function: "${name ?? f.name}" Failed` },
-        { e, args },
-      );
+      console.error(`Async Function: "${name ?? f.name}"`, e);
       throw e;
     }
   };
