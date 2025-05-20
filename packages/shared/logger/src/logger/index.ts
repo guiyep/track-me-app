@@ -12,6 +12,7 @@ const logMessage = <T>(
   type: 'warn' | 'log' | 'error',
   { message }: { message: string },
   object?: T,
+  error?: Error,
 ) => {
   if (!loggerActive) {
     return;
@@ -19,6 +20,10 @@ const logMessage = <T>(
 
   if (object == null) {
     console[type](message);
+  }
+
+  if (error != null) {
+    console[type](message, error);
   }
 
   console[type](
@@ -34,7 +39,7 @@ export const warn = <T>(
 ) => {
   logMessage(
     `warn`,
-    { message: name ? `Warn: ${name} - ${message}` : message },
+    { message: name ? `${name}/warn ${message}` : message },
     object,
   );
 };
@@ -46,22 +51,23 @@ export const log = <T>(
 ) => {
   logMessage(
     'log',
-    { message: name ? `Log: ${name} - ${message}` : message },
+    { message: name ? `${name}/log ${message}` : message },
     object,
   );
 };
 
-export const error = <T>(
+export const error = (
   { message }: { message: string },
-  object?: T,
+  e?: Error,
   name?: string,
 ) => {
   logMessage(
     'error',
     {
-      message: name ? `ErrorLog: ${name} - ${message}` : message,
+      message: name ? `${name}/error ${message}` : message,
     },
-    object,
+    undefined,
+    e,
   );
 };
 
@@ -72,21 +78,16 @@ export const asyncFunc = <T, K>(
   return async (...args: T[]) => {
     log(
       {
-        message: `Async Function: "${name ?? f.name}" start execution`,
+        message: `"${name ?? f.name}"/async_start`,
       },
       { ...args },
     );
     try {
       const result = await f(...args);
-      log(
-        {
-          message: `Async Function: "${name ?? f.name}" has completed`,
-        },
-        { result, args },
-      );
+      log({ message: `"${name ?? f.name}"/async_end` }, { result, args });
       return result;
     } catch (e) {
-      console.error(`Async Function: "${name ?? f.name}"`, e);
+      error({ message: `"${name ?? f.name}"/async_error` }, e as Error);
       throw e;
     }
   };
@@ -94,40 +95,32 @@ export const asyncFunc = <T, K>(
 
 export const syncFunc = <T, K>(f: (...args: T[]) => K, name?: string) => {
   return (...args: T[]) => {
-    log(
-      { message: `Sync Function: "${name ?? f.name}" start execution` },
-      { ...args },
-    );
+    log({ message: `"${name ?? f.name}"/sync_start` }, args);
     try {
       const result = f(...args);
-      log(
-        { message: `Sync Function: "${name ?? f.name}" has completed` },
-        { result, args },
-      );
+      log({ message: `"${name ?? f.name}"/sync_end` }, { result, args });
       return result;
     } catch (e) {
-      error(
-        { message: `Sync Function: "${name ?? f.name}" Failed` },
-        { e, args },
-      );
+      error({ message: `"${name ?? f.name}"/sync_error` }, e as Error);
       throw e;
     }
   };
 };
 
-export const withLogger = (name: string) => {
+export const loggerDecorator = (name: string, folderName?: string) => {
+  const fullName = folderName ? `${folderName}/${name}` : name;
   return {
     asyncFunc: <T, K>(f: (...args: T[]) => Promise<K> | K) =>
-      asyncFunc(f, name),
-    syncFunc: <T, K>(f: (...args: T[]) => K) => syncFunc(f, name),
-    warn: <T>(message: string, object?: T) => {
-      warn({ message }, object, name);
+      asyncFunc(f, fullName),
+    syncFunc: <T, K>(f: (...args: T[]) => K) => syncFunc(f, fullName),
+    warn: <T>({ message }: { message: string }, object?: T) => {
+      warn({ message }, object, fullName);
     },
-    log: <T>(message: string, object?: T) => {
-      log({ message }, object, name);
+    log: <T>({ message }: { message: string }, object?: T) => {
+      log({ message }, object, fullName);
     },
-    error: <T>(message: string, object?: T) => {
-      error({ message }, object, name);
+    error: ({ message }: { message: string }, e?: Error) => {
+      error({ message }, e, fullName);
     },
   };
 };

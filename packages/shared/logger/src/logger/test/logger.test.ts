@@ -5,8 +5,13 @@ import {
   error,
   asyncFunc,
   syncFunc,
-  withLogger,
+  loggerDecorator,
 } from '../index';
+
+const getSnapshotName = (testName: string): string => {
+  const folderName = 'logger';
+  return `${folderName}/${testName}`;
+};
 
 describe('Logger', () => {
   let consoleLogSpy: jest.SpyInstance;
@@ -34,62 +39,70 @@ describe('Logger', () => {
     it('should log when logger is active', () => {
       global.setLoggerStatus(true);
       log({ message: 'test message' });
-      expect(consoleLogSpy).toHaveBeenCalledWith('test message');
+      expect(consoleLogSpy.mock.calls).toMatchSnapshot(
+        getSnapshotName('logger-status-active'),
+      );
     });
   });
 
   describe('log function', () => {
     it('should log message without object', () => {
       log({ message: 'test message' });
-      expect(consoleLogSpy).toHaveBeenCalledWith('test message');
+      expect(consoleLogSpy.mock.calls).toMatchSnapshot(
+        getSnapshotName('log-without-object'),
+      );
     });
 
     it('should log message with object', () => {
       const testObj = { key: 'value' };
       log({ message: 'test message' }, testObj);
-      expect(consoleLogSpy).toHaveBeenCalledWith(
-        'test message',
-        JSON.stringify(testObj),
+      expect(consoleLogSpy.mock.calls).toMatchSnapshot(
+        getSnapshotName('log-with-object'),
       );
     });
 
     it('should log message with primitive value', () => {
       log({ message: 'test message' }, 123);
-      expect(consoleLogSpy).toHaveBeenCalledWith('test message', 123);
+      expect(consoleLogSpy.mock.calls).toMatchSnapshot(
+        getSnapshotName('log-with-primitive'),
+      );
     });
 
     it('should log message with name prefix', () => {
       log({ message: 'test message' }, undefined, 'TestModule');
-      expect(consoleLogSpy).toHaveBeenCalledWith(
-        'Log: TestModule - test message',
+      expect(consoleLogSpy.mock.calls).toMatchSnapshot(
+        getSnapshotName('log-with-prefix'),
       );
     });
 
     it('should handle null object', () => {
       log({ message: 'test message' }, null);
-      expect(consoleLogSpy).toHaveBeenCalledWith('test message');
+      expect(consoleLogSpy.mock.calls).toMatchSnapshot(
+        getSnapshotName('log-with-null'),
+      );
     });
   });
 
   describe('warn function', () => {
     it('should warn message without object', () => {
       warn({ message: 'test warning' });
-      expect(consoleWarnSpy).toHaveBeenCalledWith('test warning');
+      expect(consoleWarnSpy.mock.calls).toMatchSnapshot(
+        getSnapshotName('warn-without-object'),
+      );
     });
 
     it('should warn message with object', () => {
       const testObj = { key: 'value' };
       warn({ message: 'test warning' }, testObj);
-      expect(consoleWarnSpy).toHaveBeenCalledWith(
-        'test warning',
-        JSON.stringify(testObj),
+      expect(consoleWarnSpy.mock.calls).toMatchSnapshot(
+        getSnapshotName('warn-with-object'),
       );
     });
 
     it('should warn message with name prefix', () => {
       warn({ message: 'test warning' }, undefined, 'TestModule');
-      expect(consoleWarnSpy).toHaveBeenCalledWith(
-        'Warn: TestModule - test warning',
+      expect(consoleWarnSpy.mock.calls).toMatchSnapshot(
+        getSnapshotName('warn-with-prefix'),
       );
     });
   });
@@ -97,22 +110,23 @@ describe('Logger', () => {
   describe('error function', () => {
     it('should error message without object', () => {
       error({ message: 'test error' });
-      expect(consoleErrorSpy).toHaveBeenCalledWith('test error');
+      expect(consoleErrorSpy.mock.calls).toMatchSnapshot(
+        getSnapshotName('error-without-object'),
+      );
     });
 
-    it('should error message with object', () => {
-      const testObj = { key: 'value' };
-      error({ message: 'test error' }, testObj);
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        'test error',
-        JSON.stringify(testObj),
+    it('should error message with error object', () => {
+      const testError = new Error('test error');
+      error({ message: 'test error' }, testError);
+      expect(consoleErrorSpy.mock.calls).toMatchSnapshot(
+        getSnapshotName('error-with-error-object'),
       );
     });
 
     it('should error message with name prefix', () => {
       error({ message: 'test error' }, undefined, 'TestModule');
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        'ErrorLog: TestModule - test error',
+      expect(consoleErrorSpy.mock.calls).toMatchSnapshot(
+        getSnapshotName('error-with-prefix'),
       );
     });
   });
@@ -125,13 +139,8 @@ describe('Logger', () => {
       const result = await wrappedFunction('test');
 
       expect(result).toBe('TEST');
-      expect(consoleLogSpy).toHaveBeenCalledWith(
-        'Async Function: "testFunction" start execution',
-        JSON.stringify({ '0': 'test' }),
-      );
-      expect(consoleLogSpy).toHaveBeenCalledWith(
-        'Async Function: "testFunction" has completed',
-        JSON.stringify({ result: 'TEST', args: ['test'] }),
+      expect(consoleLogSpy.mock.calls).toMatchSnapshot(
+        getSnapshotName('async-func-success'),
       );
     });
 
@@ -143,14 +152,11 @@ describe('Logger', () => {
       const wrappedFunction = asyncFunc(failingFunction);
 
       await expect(wrappedFunction()).rejects.toThrow(testError);
-
-      expect(consoleLogSpy).toHaveBeenCalledWith(
-        'Async Function: "failingFunction" start execution',
-        JSON.stringify({}),
+      expect(consoleLogSpy.mock.calls).toMatchSnapshot(
+        getSnapshotName('async-func-error-log'),
       );
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        'Async Function: "failingFunction" Failed',
-        JSON.stringify({ e: testError, args: [] }),
+      expect(consoleErrorSpy.mock.calls).toMatchSnapshot(
+        getSnapshotName('async-func-error-error'),
       );
     });
 
@@ -159,10 +165,8 @@ describe('Logger', () => {
       const wrappedFunction = asyncFunc(testFunction, 'CustomName');
 
       await wrappedFunction('test');
-
-      expect(consoleLogSpy).toHaveBeenCalledWith(
-        'Async Function: "CustomName" start execution',
-        JSON.stringify({ '0': 'test' }),
+      expect(consoleLogSpy.mock.calls).toMatchSnapshot(
+        getSnapshotName('async-func-custom-name'),
       );
     });
   });
@@ -175,13 +179,8 @@ describe('Logger', () => {
       const result = wrappedFunction('test');
 
       expect(result).toBe('TEST');
-      expect(consoleLogSpy).toHaveBeenCalledWith(
-        'Sync Function: "testFunction" start execution',
-        JSON.stringify({ '0': 'test' }),
-      );
-      expect(consoleLogSpy).toHaveBeenCalledWith(
-        'Sync Function: "testFunction" has completed',
-        JSON.stringify({ result: 'TEST', args: ['test'] }),
+      expect(consoleLogSpy.mock.calls).toMatchSnapshot(
+        getSnapshotName('sync-func-success'),
       );
     });
 
@@ -193,14 +192,11 @@ describe('Logger', () => {
       const wrappedFunction = syncFunc(failingFunction);
 
       expect(() => wrappedFunction()).toThrow(testError);
-
-      expect(consoleLogSpy).toHaveBeenCalledWith(
-        'Sync Function: "failingFunction" start execution',
-        JSON.stringify({}),
+      expect(consoleLogSpy.mock.calls).toMatchSnapshot(
+        getSnapshotName('sync-func-error-log'),
       );
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        'Sync Function: "failingFunction" Failed',
-        JSON.stringify({ e: testError, args: [] }),
+      expect(consoleErrorSpy.mock.calls).toMatchSnapshot(
+        getSnapshotName('sync-func-error-error'),
       );
     });
 
@@ -209,57 +205,50 @@ describe('Logger', () => {
       const wrappedFunction = syncFunc(testFunction, 'CustomName');
 
       wrappedFunction('test');
-
-      expect(consoleLogSpy).toHaveBeenCalledWith(
-        'Sync Function: "CustomName" start execution',
-        JSON.stringify({ '0': 'test' }),
+      expect(consoleLogSpy.mock.calls).toMatchSnapshot(
+        getSnapshotName('sync-func-custom-name'),
       );
     });
   });
 
-  describe('withLogger', () => {
+  describe('loggerDecorator', () => {
     it('should create logger with custom name', () => {
-      const customLogger = withLogger('TestModule');
+      const customLogger = loggerDecorator('TestModule');
 
-      customLogger.log('test message');
-      expect(consoleLogSpy).toHaveBeenCalledWith(
-        'Log: TestModule - test message',
+      customLogger.log({ message: 'test message' });
+      customLogger.warn({ message: 'test warning' });
+      customLogger.error({ message: 'test error' });
+
+      expect(consoleLogSpy.mock.calls).toMatchSnapshot(
+        getSnapshotName('logger-decorator-log'),
       );
-
-      customLogger.warn('test warning');
-      expect(consoleWarnSpy).toHaveBeenCalledWith(
-        'Warn: TestModule - test warning',
+      expect(consoleWarnSpy.mock.calls).toMatchSnapshot(
+        getSnapshotName('logger-decorator-warn'),
       );
-
-      customLogger.error('test error');
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        'ErrorLog: TestModule - test error',
+      expect(consoleErrorSpy.mock.calls).toMatchSnapshot(
+        getSnapshotName('logger-decorator-error'),
       );
     });
 
     it('should wrap async function with custom name', async () => {
-      const customLogger = withLogger('TestModule');
+      const customLogger = loggerDecorator('TestModule');
       const testFunction = (param: string) => param.toUpperCase();
       const wrappedFunction = customLogger.asyncFunc(testFunction);
 
       await wrappedFunction('test');
-
-      expect(consoleLogSpy).toHaveBeenCalledWith(
-        'Async Function: "TestModule" start execution',
-        JSON.stringify({ '0': 'test' }),
+      expect(consoleLogSpy.mock.calls).toMatchSnapshot(
+        getSnapshotName('logger-decorator-async'),
       );
     });
 
     it('should wrap sync function with custom name', () => {
-      const customLogger = withLogger('TestModule');
+      const customLogger = loggerDecorator('TestModule');
       const testFunction = (param: string) => param.toUpperCase();
       const wrappedFunction = customLogger.syncFunc(testFunction);
 
       wrappedFunction('test');
-
-      expect(consoleLogSpy).toHaveBeenCalledWith(
-        'Sync Function: "TestModule" start execution',
-        JSON.stringify({ '0': 'test' }),
+      expect(consoleLogSpy.mock.calls).toMatchSnapshot(
+        getSnapshotName('logger-decorator-sync'),
       );
     });
   });

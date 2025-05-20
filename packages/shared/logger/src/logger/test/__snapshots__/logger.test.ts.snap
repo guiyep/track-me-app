@@ -1,0 +1,304 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Logger asyncFunc wrapper should log error when function fails: logger/async-func-error-error 1`] = `
+[
+  [
+    ""failingFunction"/async_error",
+  ],
+  [
+    ""failingFunction"/async_error",
+    [Error: Test error],
+  ],
+  [
+    ""failingFunction"/async_error",
+    undefined,
+  ],
+]
+`;
+
+exports[`Logger asyncFunc wrapper should log error when function fails: logger/async-func-error-log 1`] = `
+[
+  [
+    ""failingFunction"/async_start",
+    "{}",
+  ],
+]
+`;
+
+exports[`Logger asyncFunc wrapper should log function execution start and completion: logger/async-func-success 1`] = `
+[
+  [
+    ""testFunction"/async_start",
+    "{"0":"test"}",
+  ],
+  [
+    ""testFunction"/async_end",
+    "{"result":"TEST","args":["test"]}",
+  ],
+]
+`;
+
+exports[`Logger asyncFunc wrapper should use custom name when provided: logger/async-func-custom-name 1`] = `
+[
+  [
+    ""CustomName"/async_start",
+    "{"0":"test"}",
+  ],
+  [
+    ""CustomName"/async_end",
+    "{"result":"TEST","args":["test"]}",
+  ],
+]
+`;
+
+exports[`Logger error function should error message with error object: logger/error-with-error-object 1`] = `
+[
+  [
+    "test error",
+  ],
+  [
+    "test error",
+    [Error: test error],
+  ],
+  [
+    "test error",
+    undefined,
+  ],
+]
+`;
+
+exports[`Logger error function should error message with name prefix: logger/error-with-prefix 1`] = `
+[
+  [
+    "TestModule/error test error",
+  ],
+  [
+    "TestModule/error test error",
+    undefined,
+  ],
+]
+`;
+
+exports[`Logger error function should error message without object: logger/error-without-object 1`] = `
+[
+  [
+    "test error",
+  ],
+  [
+    "test error",
+    undefined,
+  ],
+]
+`;
+
+exports[`Logger log function should handle null object: logger/log-with-null 1`] = `
+[
+  [
+    "test message",
+  ],
+  [
+    "test message",
+    "null",
+  ],
+]
+`;
+
+exports[`Logger log function should log message with name prefix: logger/log-with-prefix 1`] = `
+[
+  [
+    "TestModule/log test message",
+  ],
+  [
+    "TestModule/log test message",
+    undefined,
+  ],
+]
+`;
+
+exports[`Logger log function should log message with object: logger/log-with-object 1`] = `
+[
+  [
+    "test message",
+    "{"key":"value"}",
+  ],
+]
+`;
+
+exports[`Logger log function should log message with primitive value: logger/log-with-primitive 1`] = `
+[
+  [
+    "test message",
+    123,
+  ],
+]
+`;
+
+exports[`Logger log function should log message without object: logger/log-without-object 1`] = `
+[
+  [
+    "test message",
+  ],
+  [
+    "test message",
+    undefined,
+  ],
+]
+`;
+
+exports[`Logger logger status should log when logger is active: logger/logger-status-active 1`] = `
+[
+  [
+    "test message",
+  ],
+  [
+    "test message",
+    undefined,
+  ],
+]
+`;
+
+exports[`Logger loggerDecorator should create logger with custom name: logger/logger-decorator-error 1`] = `
+[
+  [
+    "TestModule/error test error",
+  ],
+  [
+    "TestModule/error test error",
+    undefined,
+  ],
+]
+`;
+
+exports[`Logger loggerDecorator should create logger with custom name: logger/logger-decorator-log 1`] = `
+[
+  [
+    "TestModule/log test message",
+  ],
+  [
+    "TestModule/log test message",
+    undefined,
+  ],
+]
+`;
+
+exports[`Logger loggerDecorator should create logger with custom name: logger/logger-decorator-warn 1`] = `
+[
+  [
+    "TestModule/warn test warning",
+  ],
+  [
+    "TestModule/warn test warning",
+    undefined,
+  ],
+]
+`;
+
+exports[`Logger loggerDecorator should wrap async function with custom name: logger/logger-decorator-async 1`] = `
+[
+  [
+    ""TestModule"/async_start",
+    "{"0":"test"}",
+  ],
+  [
+    ""TestModule"/async_end",
+    "{"result":"TEST","args":["test"]}",
+  ],
+]
+`;
+
+exports[`Logger loggerDecorator should wrap sync function with custom name: logger/logger-decorator-sync 1`] = `
+[
+  [
+    ""TestModule"/sync_start",
+    "["test"]",
+  ],
+  [
+    ""TestModule"/sync_end",
+    "{"result":"TEST","args":["test"]}",
+  ],
+]
+`;
+
+exports[`Logger syncFunc wrapper should log error when function fails: logger/sync-func-error-error 1`] = `
+[
+  [
+    ""failingFunction"/sync_error",
+  ],
+  [
+    ""failingFunction"/sync_error",
+    [Error: Test error],
+  ],
+  [
+    ""failingFunction"/sync_error",
+    undefined,
+  ],
+]
+`;
+
+exports[`Logger syncFunc wrapper should log error when function fails: logger/sync-func-error-log 1`] = `
+[
+  [
+    ""failingFunction"/sync_start",
+    "[]",
+  ],
+]
+`;
+
+exports[`Logger syncFunc wrapper should log function execution start and completion: logger/sync-func-success 1`] = `
+[
+  [
+    ""testFunction"/sync_start",
+    "["test"]",
+  ],
+  [
+    ""testFunction"/sync_end",
+    "{"result":"TEST","args":["test"]}",
+  ],
+]
+`;
+
+exports[`Logger syncFunc wrapper should use custom name when provided: logger/sync-func-custom-name 1`] = `
+[
+  [
+    ""CustomName"/sync_start",
+    "["test"]",
+  ],
+  [
+    ""CustomName"/sync_end",
+    "{"result":"TEST","args":["test"]}",
+  ],
+]
+`;
+
+exports[`Logger warn function should warn message with name prefix: logger/warn-with-prefix 1`] = `
+[
+  [
+    "TestModule/warn test warning",
+  ],
+  [
+    "TestModule/warn test warning",
+    undefined,
+  ],
+]
+`;
+
+exports[`Logger warn function should warn message with object: logger/warn-with-object 1`] = `
+[
+  [
+    "test warning",
+    "{"key":"value"}",
+  ],
+]
+`;
+
+exports[`Logger warn function should warn message without object: logger/warn-without-object 1`] = `
+[
+  [
+    "test warning",
+  ],
+  [
+    "test warning",
+    undefined,
+  ],
+]
+`;
