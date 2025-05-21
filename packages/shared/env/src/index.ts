@@ -1,6 +1,11 @@
 import { config } from 'dotenv';
 import { logger } from '@track-me-app/logger';
 
+const loggerA = logger.decorate({
+  name: 'getEnvEntry',
+  folder: 'env',
+});
+
 const getEnvEntry = (key: string): string => {
   const path = `.env${process.env.NODE_ENV ? `.${process.env.NODE_ENV}` : ''}`;
   // Re-read the environment file on each call
@@ -9,7 +14,7 @@ const getEnvEntry = (key: string): string => {
     override: true, // This ensures the values are overridden each time
   });
 
-  logger.log({
+  loggerA.log({
     message: `Reading environment file ${path}`,
   });
 
@@ -17,7 +22,7 @@ const getEnvEntry = (key: string): string => {
   if (!value) {
     throw new Error(`Environment variable ${key} is not set.`);
   }
-  logger.log({
+  loggerA.log({
     message: `Returning environment variable ${key} is set to ${value} for env: ${process.env.NODE_ENV ? process.env.NODE_ENV : 'INVALID'}`,
   });
   return value;
