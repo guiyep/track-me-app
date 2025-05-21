@@ -14,9 +14,14 @@ const Consts = getConstants();
 type MessageType =
   (typeof Consts.GpsSns.MESSAGES)[keyof typeof Consts.GpsSns.MESSAGES];
 
-export const messagesHandler = logger.asyncFunc(
+const loggerA = logger.decorate({
+  name: 'messagesHandler',
+  folder: 'messages',
+});
+
+export const messagesHandler = loggerA.asyncFunc(
   async ({ type, dataJson }: { type: MessageType; dataJson: string }) => {
-    logger.log(
+    loggerA.log(
       {
         message: `Processing message`,
       },
@@ -38,5 +43,4 @@ export const messagesHandler = logger.asyncFunc(
         throw new Error(`Unknown message type: ${type as string}`);
     }
   },
-  'messages_report_processor_handler',
 );

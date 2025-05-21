@@ -6,7 +6,12 @@ import { Entity } from './entity';
 
 const Consts = getConstants();
 
-export const get = logger.asyncFunc(
+const loggerA = logger.decorate({
+  name: 'get',
+  folder: 'gps/settings',
+});
+
+export const get = loggerA.asyncFunc(
   async ({ userId }: { userId: string }): Promise<Entity | undefined> => {
     const client = new DynamoDBClient();
 

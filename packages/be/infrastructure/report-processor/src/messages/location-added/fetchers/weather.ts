@@ -7,11 +7,16 @@ import { fetch } from 'undici';
 
 type WeatherInfo = ReportTableLocation['weatherInfo'];
 
-const getCurrentWeather = logger.asyncFunc(
+const loggerA = logger.decorate({
+  name: 'getCurrentWeather',
+  folder: 'location-added/fetchers/weather',
+});
+
+const getCurrentWeather = loggerA.asyncFunc(
   async (lat: number, lon: number): Promise<WeatherFetchData> => {
     const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat.toString()}&longitude=${lon.toString()}&current_weather=true`;
 
-    logger.log({ message: `Fetching weather info ${url}` });
+    loggerA.log({ message: `Fetching weather info ${url}` });
 
     const response = await fetch(url);
     if (!response.ok) {
@@ -20,14 +25,18 @@ const getCurrentWeather = logger.asyncFunc(
 
     const data = (await response.json()) as WeatherFetchData;
 
-    logger.log({ message: `Weather data ${JSON.stringify(data)}` });
+    loggerA.log({ message: `Weather data ${JSON.stringify(data)}` });
     return data;
   },
-  'get_current_weather',
 );
 
+const loggerB = logger.decorate({
+  name: 'fetcher',
+  folder: 'location-added/fetchers/weather',
+});
+
 export const fetcher: FetcherFunction<GpsLocation.Entity, WeatherInfo> =
-  logger.asyncFunc(
+  loggerB.asyncFunc(
     async (location: GpsLocation.Entity): Promise<WeatherInfo> => {
       const weather = await getCurrentWeather(
         location.data.lat,
@@ -37,5 +46,4 @@ export const fetcher: FetcherFunction<GpsLocation.Entity, WeatherInfo> =
         temperature: weather.current_weather.temperature,
       };
     },
-    'fetcher_weather',
   );

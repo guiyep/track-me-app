@@ -7,7 +7,12 @@ import { logger } from '@track-me-app/logger';
 const Consts = getConstants();
 const sqsClient = new SQSClient();
 
-export const sendQueueMessage = logger.asyncFunc(
+const loggerA = logger.decorate({
+  name: 'sendQueueMessage',
+  folder: 'report/queue',
+});
+
+export const sendQueueMessage = loggerA.asyncFunc(
   async (item: GpsLocation.Entity) => {
     const attributes = marshallSqsAttributes({
       userId: item.data.userId,

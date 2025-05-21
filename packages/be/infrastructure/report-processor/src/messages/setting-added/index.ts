@@ -6,8 +6,13 @@ import { processBatch } from '@track-me-app/express';
 
 const BATCH_SIZE = 50;
 
+const loggerA = logger.decorate({
+  name: 'settingsAddedHandler',
+  folder: 'messages/setting-added',
+});
+
 export const settingsAddedHandler: MessageHandler<GpsSettings.Entity> =
-  logger.asyncFunc(async (settings: GpsSettings.Entity): Promise<void> => {
+  loggerA.asyncFunc(async (settings: GpsSettings.Entity): Promise<void> => {
     const userInfo = settings.data;
     const entries = await ReportEntry.getByUserId(settings.data.userId);
     await processBatch(

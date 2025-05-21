@@ -6,7 +6,12 @@ import { GpsLocation } from '@track-me-app/be-entities';
 
 const Consts = getConstants();
 
-export const get = logger.asyncFunc(
+const loggerA = logger.decorate({
+  name: 'get',
+  folder: 'gps/location',
+});
+
+export const get = loggerA.asyncFunc(
   async ({
     userId,
     sessionId,

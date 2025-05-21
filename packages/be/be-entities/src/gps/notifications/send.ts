@@ -5,7 +5,12 @@ import type { GpsLocation, GpsSettings } from '..';
 
 const Consts = getConstants();
 
-export const sendLocationAddedNotification = logger.asyncFunc(
+const loggerA = logger.decorate({
+  name: 'sendLocationAddedNotification',
+  folder: 'gps/notifications',
+});
+
+export const sendLocationAddedNotification = loggerA.asyncFunc(
   async ({ entity }: { entity: GpsLocation.Entity }): Promise<void> => {
     const snsClient = new SNSClient({ region: Consts.GpsSns.REGION });
 
@@ -20,7 +25,7 @@ export const sendLocationAddedNotification = logger.asyncFunc(
       },
     });
 
-    logger.log(
+    loggerA.log(
       {
         message: `Sending location using command`,
       },
@@ -29,10 +34,14 @@ export const sendLocationAddedNotification = logger.asyncFunc(
 
     await snsClient.send(command);
   },
-  'send_location_added_sns',
 );
 
-export const sendSettingsAddedNotification = logger.asyncFunc(
+const loggerB = logger.decorate({
+  name: 'sendSettingsAddedNotification',
+  folder: 'gps/notifications',
+});
+
+export const sendSettingsAddedNotification = loggerB.asyncFunc(
   async ({ entity }: { entity: GpsSettings.Entity }): Promise<void> => {
     const snsClient = new SNSClient({ region: Consts.GpsSns.REGION });
 
@@ -47,7 +56,7 @@ export const sendSettingsAddedNotification = logger.asyncFunc(
       },
     });
 
-    logger.log(
+    loggerB.log(
       {
         message: `Sending settings using command`,
       },
@@ -56,5 +65,4 @@ export const sendSettingsAddedNotification = logger.asyncFunc(
 
     await snsClient.send(command);
   },
-  'send_settings_added_sns',
 );

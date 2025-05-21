@@ -5,7 +5,12 @@ import { Entity } from './entity';
 
 const Consts = getConstants();
 
-export const getBySessionId = logger.asyncFunc(
+const loggerA = logger.decorate({
+  name: 'getBySessionId',
+  folder: 'report/entry',
+});
+
+export const getBySessionId = loggerA.asyncFunc(
   async (sessionId: string): Promise<Entity[]> => {
     const client = new DynamoDBClient();
 

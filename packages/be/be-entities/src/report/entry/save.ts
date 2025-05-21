@@ -6,7 +6,12 @@ import type { Entity } from './entity';
 
 const Consts = getConstants();
 
-export const save = logger.asyncFunc(
+const loggerA = logger.decorate({
+  name: 'save',
+  folder: 'report/entry',
+});
+
+export const save = loggerA.asyncFunc(
   async (entity: Entity): Promise<Entity> => {
     const client = new DynamoDBClient();
 

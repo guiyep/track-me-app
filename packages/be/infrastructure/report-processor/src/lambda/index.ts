@@ -13,7 +13,12 @@ const BATCH_SIZE = 50;
 export type MessageType =
   (typeof Consts.GpsSns.MESSAGES)[keyof typeof Consts.GpsSns.MESSAGES];
 
-export const handler = logger.asyncFunc(async (event: SQSEvent) => {
+const loggerA = logger.decorate({
+  name: 'handler',
+  folder: 'lambda',
+});
+
+export const handler = loggerA.asyncFunc(async (event: SQSEvent) => {
   await processBatch(
     event.Records.map((record) => ({
       ...getSnsInfoFromLambdaRecord<MessageType>(record),
@@ -21,4 +26,4 @@ export const handler = logger.asyncFunc(async (event: SQSEvent) => {
     ({ type, dataJson }) => messagesHandler({ type, dataJson }),
     BATCH_SIZE,
   );
-}, 'lambda_handler');
+});

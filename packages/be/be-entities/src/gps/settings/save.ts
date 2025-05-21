@@ -7,7 +7,12 @@ import { sendSettingsAddedNotification } from '../notifications';
 
 const Consts = getConstants();
 
-export const save = logger.asyncFunc(
+const loggerA = logger.decorate({
+  name: 'save',
+  folder: 'gps/settings',
+});
+
+export const save = loggerA.asyncFunc(
   async (entity: Entity): Promise<Entity> => {
     const client = new DynamoDBClient();
     await client.send(
