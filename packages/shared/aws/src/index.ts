@@ -61,10 +61,15 @@ interface SnsEnvelope {
   >;
 }
 
-export const getSnsInfoFromLambdaRecord = logger.syncFunc(
+const loggerA = logger.decorate({
+  name: 'getSnsInfoFromLambdaRecord',
+  folder: 'aws',
+});
+
+export const getSnsInfoFromLambdaRecord = loggerA.syncFunc(
   <T>(record: SQSRecord): { type: T; dataJson: string } => {
     const sqs = JSON.parse(record.body) as SnsEnvelope;
-    logger.log(
+    loggerA.log(
       {
         message: `Getting SNS type from lambda record`,
       },
@@ -73,16 +78,20 @@ export const getSnsInfoFromLambdaRecord = logger.syncFunc(
     const type = sqs.MessageAttributes?.eventType.Value as T;
     return { type, dataJson: sqs.Message };
   },
-  'get_sns_type_from_lambda_record',
 );
 
-export const parseToEntity = logger.syncFunc(<T>(dataJson: string): T => {
+const loggerB = logger.decorate({
+  name: 'parseToEntity',
+  folder: 'aws',
+});
+
+export const parseToEntity = loggerB.syncFunc(<T>(dataJson: string): T => {
   const data = JSON.parse(dataJson) as T;
-  logger.log(
+  loggerB.log(
     {
       message: `Getting SNS type from lambda record`,
     },
     data,
   );
   return data;
-}, 'parse_to_entity');
+});

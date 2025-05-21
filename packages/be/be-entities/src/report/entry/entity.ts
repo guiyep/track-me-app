@@ -4,12 +4,25 @@ import type { GpsLocation } from '../..';
 import { unmarshall } from '@aws-sdk/util-dynamodb';
 import type { AttributeValue } from '@aws-sdk/client-dynamodb';
 
+const loggerEntity = logger.decorate({
+  name: 'Entity',
+  folder: 'report/entry/entity',
+});
+
+const loggerA = loggerEntity.decorate({
+  name: 'fromGpsLocation',
+});
+
+const loggerB = loggerEntity.decorate({
+  name: 'fromRecord',
+});
+
 export class Entity {
   readonly partitionKey: string;
   readonly sortKey: string;
   readonly data: ReportTableData;
 
-  static fromGpsLocation = logger.syncFunc(
+  static fromGpsLocation = loggerA.syncFunc(
     (location: GpsLocation.Entity): Entity => {
       return new Entity({
         userId: location.data.userId,
@@ -24,7 +37,7 @@ export class Entity {
     },
   );
 
-  static fromRecord = logger.syncFunc(
+  static fromRecord = loggerB.syncFunc(
     (dynamoData: Record<string, AttributeValue>): Entity => {
       const entity = unmarshall(dynamoData) as Entity;
       return new Entity(entity.data);

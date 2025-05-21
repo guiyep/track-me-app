@@ -6,6 +6,19 @@ import type { SqsAttributesMessage } from '@track-me-app/be-entities';
 import type { SQSMessageAttributes } from 'aws-lambda';
 import { unmarshallSqsAttributes } from '@track-me-app/aws';
 
+const loggerEntity = logger.decorate({
+  name: 'Entity',
+  folder: 'gps/location/entity',
+});
+
+const loggerA = loggerEntity.decorate({
+  name: 'fromRecord',
+});
+
+const loggerB = loggerEntity.decorate({
+  name: 'fromSqs',
+});
+
 export class Entity {
   readonly partitionKey: string;
   readonly sortKey: string;
@@ -17,14 +30,14 @@ export class Entity {
     this.sortKey = `sessionId:${data.sessionId}/created:${this.data.created.toString()}`;
   }
 
-  static fromRecord = logger.syncFunc(
+  static fromRecord = loggerA.syncFunc(
     (dynamoData: Record<string, AttributeValue>): Entity => {
       const entity = unmarshall(dynamoData) as Entity;
       return new Entity(entity.data);
     },
   );
 
-  static fromSqs = logger.syncFunc((sqsData: SQSMessageAttributes): Entity => {
+  static fromSqs = loggerB.syncFunc((sqsData: SQSMessageAttributes): Entity => {
     const entity = unmarshallSqsAttributes(sqsData) as SqsAttributesMessage;
     const data = JSON.parse(entity.data) as GpsTableData;
     return new Entity(data);
