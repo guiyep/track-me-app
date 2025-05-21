@@ -1,19 +1,21 @@
-import { loggerDecorator } from '@track-me-app/logger';
+import { logger } from '@track-me-app/logger';
 import type { GpsLocation } from '@track-me-app/be-entities';
 import type { FetcherFunction } from '../../type';
 import type { ReportTableLocation } from '@track-me-app/report-table';
 import type { LocationFetchData } from './types';
-import path from 'path';
 
 type LocationInfo = ReportTableLocation['locationInfo'];
 
-const logger1 = loggerDecorator('getLocationInfo', path.basename(__dirname));
+const loggerA = logger.decorate({
+  name: 'getLocationInfo',
+  folder: 'location-added/fetchers/location',
+});
 
-const getLocationInfo = logger1.asyncFunc(
+const getLocationInfo = loggerA.asyncFunc(
   async (lat: number, lon: number): Promise<LocationFetchData> => {
     const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat.toString()}&lon=${lon.toString()}&format=json`;
 
-    logger1.log({ message: `URL ${url}` });
+    loggerA.log({ message: `URL ${url}` });
 
     const response = await fetch(url, {
       headers: {
@@ -33,7 +35,7 @@ const getLocationInfo = logger1.asyncFunc(
       );
     }
 
-    logger1.log({
+    loggerA.log({
       message: `Data for lat:${lat.toString()}, lon:${lon.toString()} ${JSON.stringify(
         data,
       )}`,
@@ -43,10 +45,13 @@ const getLocationInfo = logger1.asyncFunc(
   },
 );
 
-const logger2 = loggerDecorator('fetcher', path.basename(__dirname));
+const loggerB = logger.decorate({
+  name: 'fetcher',
+  folder: 'location-added/fetchers/location',
+});
 
 export const fetcher: FetcherFunction<GpsLocation.Entity, LocationInfo> =
-  logger2.asyncFunc(
+  loggerB.asyncFunc(
     async (location: GpsLocation.Entity): Promise<LocationInfo> => {
       const locationInfo = await getLocationInfo(
         location.data.lat,

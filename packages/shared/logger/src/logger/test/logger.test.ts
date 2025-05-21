@@ -5,7 +5,7 @@ import {
   error,
   asyncFunc,
   syncFunc,
-  loggerDecorator,
+  decorate,
 } from '../index';
 
 const getSnapshotName = (testName: string): string => {
@@ -213,7 +213,7 @@ describe('Logger', () => {
 
   describe('loggerDecorator', () => {
     it('should create logger with custom name', () => {
-      const customLogger = loggerDecorator('TestModule');
+      const customLogger = decorate({ name: 'TestModule' });
 
       customLogger.log({ message: 'test message' });
       customLogger.warn({ message: 'test warning' });
@@ -231,7 +231,7 @@ describe('Logger', () => {
     });
 
     it('should wrap async function with custom name', async () => {
-      const customLogger = loggerDecorator('TestModule');
+      const customLogger = decorate({ name: 'TestModule' });
       const testFunction = (param: string) => param.toUpperCase();
       const wrappedFunction = customLogger.asyncFunc(testFunction);
 
@@ -242,7 +242,7 @@ describe('Logger', () => {
     });
 
     it('should wrap sync function with custom name', () => {
-      const customLogger = loggerDecorator('TestModule');
+      const customLogger = decorate({ name: 'TestModule' });
       const testFunction = (param: string) => param.toUpperCase();
       const wrappedFunction = customLogger.syncFunc(testFunction);
 

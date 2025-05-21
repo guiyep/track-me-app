@@ -2,22 +2,25 @@ import { ReportEntry, type GpsLocation } from '@track-me-app/be-entities';
 import { fetcher as fetcherLocation } from './fetchers/location';
 import { fetcher as fetcherWeather } from './fetchers/weather';
 import { fetcher as fetcherSettings } from './fetchers/settings';
-import { loggerDecorator } from '@track-me-app/logger';
+import { logger } from '@track-me-app/logger';
 import type { MessageHandler } from '../type';
 
-const logger = loggerDecorator('location_added_handler');
+const loggerA = logger.decorate({
+  name: 'locationAddedHandler',
+  folder: 'location-added',
+});
 
 export const locationAddedHandler: MessageHandler<GpsLocation.Entity> =
-  logger.asyncFunc(async (entity: GpsLocation.Entity): Promise<void> => {
+  loggerA.asyncFunc(async (entity: GpsLocation.Entity): Promise<void> => {
     const [locationInfo, weatherInfo, userInfo] = await Promise.all([
       fetcherLocation(entity),
       fetcherWeather(entity),
       fetcherSettings(entity),
     ]);
 
-    logger.log({ message: 'Location info' }, locationInfo);
-    logger.log({ message: 'Weather info' }, weatherInfo);
-    logger.log({ message: 'User info' }, userInfo);
+    loggerA.log({ message: 'Location info' }, locationInfo);
+    loggerA.log({ message: 'Weather info' }, weatherInfo);
+    loggerA.log({ message: 'User info' }, userInfo);
 
     const report = new ReportEntry.Entity({
       ...ReportEntry.Entity.fromGpsLocation(entity).data,
@@ -26,8 +29,8 @@ export const locationAddedHandler: MessageHandler<GpsLocation.Entity> =
       userInfo,
     });
 
-    logger.log({ message: 'Report' }, report);
+    loggerA.log({ message: 'Report' }, report);
 
     // save report
-    await ReportEntry.save(report);
+    // await ReportEntry.save(report);
   });
